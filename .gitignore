@@ -20,7 +20,8 @@ buildNumber.properties
 
 # Logs
 *.log
-logs/
+/logs/
+!**/cbsecurity/logs/
 
 # OS
 .DS_Store
