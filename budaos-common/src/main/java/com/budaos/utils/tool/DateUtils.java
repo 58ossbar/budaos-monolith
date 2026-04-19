@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Title:日期处理 Copyright: Copyright (c) 2017
@@ -16,6 +18,7 @@ import java.util.regex.Pattern;
  * @version 1.0
  */
 public class DateUtils {
+	private static final Logger log = LoggerFactory.getLogger(DateUtils.class);
 	/** 时间格式(yyyy-MM-dd) */
 	public final static String DATE_PATTERN = "yyyy-MM-dd";
 	/** 时间格式(yyyy-MM-dd HH:mm:ss) */
@@ -199,7 +202,7 @@ public class DateUtils {
 	 * 解析字符串成时间 ,遇到错误返回null不抛异常
 	 * 
 	 * @param source
-	 * @param 格式表达式
+	 * @param regex
 	 * 
 	 * 2014年5月5日 下午12:00:00
 	 * flyfox 330627517@qq.com
@@ -281,18 +284,21 @@ public class DateUtils {
 		ca.set(Calendar.SECOND, 59);
 		return format(ca.getTime(), "yyyy-MM-dd HH:mm:ss");
 	}
-	/***
+	/**
 	 * 日期格式转换
 	 * 
 	 * @param date
 	 * @return
 	 */
 	public static String convertDatePattern(String date,String srcPattern,String tagPattern) {
+		if (date == null) {
+			return null;
+		}
 		String result = date;
 		try {
 			result = new SimpleDateFormat(tagPattern).format(new SimpleDateFormat(srcPattern).parse(date));
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.error("日期格式转换失败: date={}, srcPattern={}, tagPattern={}", date, srcPattern, tagPattern, e);
 		}
 		return result;
 	}

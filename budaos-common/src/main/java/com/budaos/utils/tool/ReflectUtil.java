@@ -305,11 +305,10 @@ public final class ReflectUtil {
 			try {
 				return superClass.getDeclaredMethod(methodName, parameterTypes);
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("获取方法时发生安全异常: {}.{}", object.getClass().getName(), methodName, e);
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// NoSuchMethodException是正常流程,不需要打印堆栈,继续循环查找父类
+				logger.debug("类 {} 中未找到方法: {}", superClass.getName(), methodName);
 			}
 		}
 		return null;
@@ -455,7 +454,9 @@ public final class ReflectUtil {
 					}
 				}
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			logger.debug("获取泛型类型失败: obj={}, fieldName={}", obj.getName(), fieldName, e);
+		}
 		return null;
 	}
 	

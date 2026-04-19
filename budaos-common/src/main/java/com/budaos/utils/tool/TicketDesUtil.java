@@ -1,5 +1,8 @@
 package com.budaos.utils.tool;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,6 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
  * @version 1.0
  */
 public class TicketDesUtil {
+	
+	private static final Logger log = LoggerFactory.getLogger(TicketDesUtil.class);
 
 	private static final String Algorithm = "DESede"; // 定义加密算法,可用 DES,DESede,Blowfish
 	private static final String salt = "budaos123@!admin#&*12345"; // DESede 要判1剂24位密鑰
@@ -96,12 +101,11 @@ public class TicketDesUtil {
 			c1.init(Cipher.ENCRYPT_MODE, deskey);
 			return c1.doFinal(src);// 在单一方面的加密或解密
 		} catch (java.security.NoSuchAlgorithmException e1) {
-			// TODO: handle exception
-			e1.printStackTrace();
+			log.error("DES加密失败: 不支持的算法 {}", Algorithm, e1);
 		} catch (javax.crypto.NoSuchPaddingException e2) {
-			e2.printStackTrace();
+			log.error("DES加密失败: 不支持的Padding", e2);
 		} catch (java.lang.Exception e3) {
-			e3.printStackTrace();
+			log.error("DES加密失败", e3);
 		}
 		return null;
 	}
@@ -115,12 +119,11 @@ public class TicketDesUtil {
 			c1.init(Cipher.DECRYPT_MODE, deskey);
 			return c1.doFinal(src);
 		} catch (java.security.NoSuchAlgorithmException e1) {
-			// TODO: handle exception
-			e1.printStackTrace();
+			log.error("DES解密失败: 不支持的算法 {}", Algorithm, e1);
 		} catch (javax.crypto.NoSuchPaddingException e2) {
-			e2.printStackTrace();
+			log.error("DES解密失败: 不支持的Padding", e2);
 		} catch (java.lang.Exception e3) {
-			e3.printStackTrace();
+			log.error("DES解密失败", e3);
 		}
 		return null;
 	}

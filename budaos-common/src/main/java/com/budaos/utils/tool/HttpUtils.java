@@ -81,8 +81,7 @@ public class HttpUtils {
 				strResponse.append(line);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage(), e);
+			log.error("HTTP POST请求失败: url={}", strUrl, e);
 		} finally {
 			if (connection != null) {
 				connection.disconnect();
@@ -91,13 +90,15 @@ public class HttpUtils {
 				try {
 					out.close();
 				} catch (IOException e) {
-				};
+					log.debug("关闭DataOutputStream失败", e);
+				}
 			}
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-				};
+					log.debug("关闭BufferedReader失败", e);
+				}
 			}
 		}
 		return strResponse.toString();
@@ -186,8 +187,7 @@ public class HttpUtils {
 				strResponse.append(line);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage(), e);
+			log.error("HTTP GET请求失败: url={}", strUrl, e);
 		} finally {
 			if (connection != null) {
 				connection.disconnect();
@@ -196,6 +196,7 @@ public class HttpUtils {
 				try {
 					reader.close();
 				} catch (IOException e) {
+					log.debug("关闭BufferedReader失败", e);
 				}
 			}
 		}
@@ -287,7 +288,7 @@ public class HttpUtils {
 			File file = new File(fileName);
 			return uploadFile(strUrl, file.getName(), new FileInputStream(file), null);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.error("文件不存在: {}", fileName, e);
 			return "";
 		}
     }
@@ -305,7 +306,7 @@ public class HttpUtils {
 			File file = new File(fileName);
 			return uploadFile(strUrl, file.getName(), new FileInputStream(file), param);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.error("文件不存在: {}", fileName, e);
 			return "";
 		}
     }
@@ -321,7 +322,7 @@ public class HttpUtils {
 		try {
 			return uploadFile(strUrl, file.getName(), new FileInputStream(file), null);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.error("文件不存在: {}", file.getName(), e);
 			return "";
 		}
     }
@@ -338,7 +339,7 @@ public class HttpUtils {
 		try {
 			return uploadFile(strUrl, file.getName(), new FileInputStream(file), param);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.error("文件不存在: {}", file.getName(), e);
 			return "";
 		}
     }
@@ -434,28 +435,28 @@ public class HttpUtils {
 				strResponse.append(line);
 			}
         } catch (Exception e) {
-            System.out.println("发送POST文件请求出现异常！" + e);
-            e.printStackTrace();
+            log.error("发送POST文件请求失败: url={}, fileName={}", strUrl, fileName, e);
         } finally {
         	if(out != null){
         		try {
 					out.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					log.debug("关闭OutputStream失败", e);
 				}  
         	}
         	if(in != null){
         		try {
         			in.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					log.debug("关闭DataInputStream失败", e);
 				}  
         	}
 			if (br != null) {
 				try {
 					br.close();
 				} catch (IOException e) {
-				};
+					log.debug("关闭BufferedReader失败", e);
+				}
 			}
         	if(conn != null){
         		conn.disconnect();

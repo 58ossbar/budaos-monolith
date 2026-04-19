@@ -1,6 +1,8 @@
 package com.budaos.utils.tool;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
@@ -19,6 +21,9 @@ import java.util.regex.Pattern;
  */
 
 public class StrUtils {
+	
+	private static final Logger log = LoggerFactory.getLogger(StrUtils.class);
+	
 	/** The Constant chr. */
 	public final static char[] chr = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 	/**
@@ -948,6 +953,9 @@ public class StrUtils {
 		 */
 		public static String convertIso8859ToGb2312(final String in)
 		{
+			if (in == null) {
+				return null;
+			}
 			String out = null;
 			byte[] ins = null;
 			try
@@ -956,8 +964,8 @@ public class StrUtils {
 			}
 			catch (final UnsupportedEncodingException e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("ISO-8859-1编码不支持", e);
+				return null;
 			}
 			try
 			{
@@ -965,8 +973,7 @@ public class StrUtils {
 			}
 			catch (final UnsupportedEncodingException e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("GB2312编码不支持", e);
 			}
 			return out;
 		}
@@ -979,6 +986,9 @@ public class StrUtils {
 		 */
 		public static String convertGb2312ToIso8859(final String in)
 		{
+			if (in == null) {
+				return null;
+			}
 			String out = null;
 			try
 			{
@@ -987,6 +997,7 @@ public class StrUtils {
 			}
 			catch (final Exception e)
 			{
+				log.error("GB2312转ISO-8859-1失败: {}", in, e);
 			}
 			return out;
 		}
@@ -999,6 +1010,9 @@ public class StrUtils {
 		 */
 		public static String convertUtfToGBK(final String in)
 		{
+			if (in == null) {
+				return null;
+			}
 			String out = null;
 			try
 			{
@@ -1007,6 +1021,7 @@ public class StrUtils {
 			}
 			catch (final Exception e)
 			{
+				log.error("UTF-8转GBK失败: {}", in, e);
 			}
 			return out;
 		}
@@ -1143,7 +1158,7 @@ public class StrUtils {
 				}
 				catch (final NumberFormatException nfe)
 				{
-					nfe.printStackTrace();
+					log.warn("字符串转整数失败: {}", str, nfe);
 				}
 			}
 			return i;
@@ -1166,7 +1181,7 @@ public class StrUtils {
 				}
 				catch (final NumberFormatException nfe)
 				{
-					nfe.printStackTrace();
+					log.warn("字符串转Double失败: {}", str, nfe);
 				}
 			}
 			return i;
@@ -1288,7 +1303,7 @@ public class StrUtils {
 					}
 					catch (final Exception e)
 					{
-						e.printStackTrace();
+						log.error("字符转GB2312字节失败: char={}", chars[i], e);
 					}
 				}
 				else
@@ -1323,9 +1338,8 @@ public class StrUtils {
 			}
 			catch (final Exception uee)
 			{
-				final String s1 = null;
-
-				return s1;
+				log.error("字符串转ISO-8859-1失败: {}", source, uee);
+				return null;
 			}
 		}
 
@@ -1492,13 +1506,22 @@ public class StrUtils {
 				if (getter == null) {
 					try {
 						getter = t.getClass().getDeclaredMethod("get"+ upperFirst(field));
-					} catch (Exception e) {}
+					} catch (NoSuchMethodException e) {
+						log.debug("字段 {} 的getter方法不存在", field);
+						continue;
+					} catch (Exception e) {
+						log.error("反射获取getter方法失败: field={}", field, e);
+						continue;
+					}
 				}
 				if (getter != null) {
 					Object o = null;
 					try {
 						o = getter.invoke(t);
-					} catch (Exception e) {}
+					} catch (Exception e) {
+						log.error("调用getter方法失败", e);
+						continue;
+					}
 					if (o == null) continue;
 					strs[index++] = o.toString();
 				}
@@ -1535,11 +1558,16 @@ public class StrUtils {
 
 		
 		public static String encodeToUrl(String value) {
+			if (value == null) {
+				return null;
+			}
 			try {
 				String v = java.net.URLEncoder.encode(value, "UTF-8");
 				return v.replaceAll("\\+", "%20");
-			} catch (Exception e) {}
-			return value;
+			} catch (Exception e) {
+				log.error("URL编码失败: {}", value, e);
+				return value;
+			}
 		}
 
 }

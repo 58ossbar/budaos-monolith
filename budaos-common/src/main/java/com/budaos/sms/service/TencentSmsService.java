@@ -131,7 +131,7 @@ public class TencentSmsService {
             	return true;
             }
         } catch (TencentCloudSDKException e) {
-            e.printStackTrace();
+            log.error("腾讯云短信发送失败: phone={}", mobile, e);
         }
 		return false;
 	}

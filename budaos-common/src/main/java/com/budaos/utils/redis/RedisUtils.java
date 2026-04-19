@@ -121,13 +121,13 @@ public class RedisUtils {
 		try {
 			return gson.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.error("对象转JSON失败: {}", object.getClass().getName(), e);
+			return null;
 		}
-		return null;
 	}
-
+	
 	/**
-	 * JSON数据，转成Object
+	 * JSON数据,转成Object
 	 */
 	private <T> T fromJson(String json, Class<T> clazz) {
 		try {
@@ -136,9 +136,9 @@ public class RedisUtils {
 			}
 			return gson.readValue(json, clazz);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("JSON转对象失败: {}", clazz.getName(), e);
+			return null;
 		}
-		return null;
 	}
 
 	/**

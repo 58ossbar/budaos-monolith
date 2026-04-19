@@ -376,7 +376,7 @@ public class ExampleController {
 > 官网：www.budaos.com | 邮箱：contact@budaos.com
 >
 > <div align="left">
->   <img src="img_1.png" width="160" alt="商务合作微信"/>
+>   <img src="doc/img_1.png" width="160" alt="商务合作微信"/>
 > </div>
 
 ---
@@ -391,7 +391,7 @@ public class ExampleController {
 |------|------|
 | ☕ 喝杯咖啡 | 一杯咖啡，一份鼓励 |
 | 💝 任意打赏 | 量力而行，感恩有你 |
-<img src="img_2.png" width="160" alt="微信收款码"/></br>
+<img src="doc/img_2.png" width="160" alt="微信收款码"/></br>
 > 捐赠时请备注「BudaOS 开源支持」，您的名字将出现在[致谢名单](SUPPORTERS.md)中（可选）。
 
 ### 感谢每一份支持
