@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TuserRoleMapper">
+
+	<select id="selectRoleIntersectionByUserId" resultType="com.budaos.modules.sys.domain.TuserRole">
+		select role_id, count(1) id from t_user_role where user_id in
+		<foreach item="userId" collection="array" open="(" separator=","
+			close=")">
+			#{userId}
+		</foreach>
+		group by role_id
+	</select>
+
+	<select id="selectListByMap" resultType="com.budaos.modules.sys.domain.TuserRole">
+		select * from t_user_role
+		<where>
+			<if test="userId != null">
+				user_id = #{userId}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert">
+		insert into t_user_role
+		(
+		id,
+		user_id,
+		role_id
+		)
+		values
+		(
+		#{id},
+		#{userId},
+		#{roleId}
+		)
+	</insert>
+
+	<delete id="delete">
+		delete from t_user_role where user_id = #{value}
+	</delete>
+
+	<delete id="deleteByRole">
+		delete from t_user_role where role_id = #{value}
+	</delete>
+
+	<select id="selectRoleListByUserId" resultType="string">
+		select role_id
+		from t_user_role where user_id = #{value}
+	</select>
+
+	<select id="selectUserListByRoleId" resultType="string">
+		select user_id
+		from t_user_role where role_id = #{value}
+	</select>
+	
+	<delete id="deleteBatch">
+			delete from t_user_role where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_user_role
+		( id, user_id, role_id )
+		values
+		<foreach collection="list" item="obj" separator="," >
+			(
+			#{obj.id}, #{obj.userId}, #{obj.roleId}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

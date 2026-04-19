@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.forum.persistence.TevglForumFriendMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.forum.domain.TevglForumFriend">
+		<result column="friend_id" jdbcType="VARCHAR"
+			property="friendId" />
+		<result column="friend_name" jdbcType="VARCHAR"
+			property="friendName" />
+		<result column="friend_type" jdbcType="VARCHAR"
+			property="friendType" />
+		<result column="friend_summary" jdbcType="VARCHAR"
+			property="friendSummary" />
+		<result column="friend_url" jdbcType="VARCHAR"
+			property="friendUrl" />
+		<result column="friend_logo" jdbcType="VARCHAR"
+			property="friendLogo" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="block_id" jdbcType="VARCHAR"
+			property="blockId" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="show_index" jdbcType="VARCHAR"
+			property="showIndex" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		friend_id,friend_name,friend_type,friend_summary,friend_url,friend_logo,create_user_id,create_time,update_user_id,update_time,state,block_id
+		,sort_num,show_index
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumFriend">
+		INSERT INTO T_EVGL_FORUM_FRIEND (
+		friend_id ,
+		friend_name ,
+		friend_type ,
+		friend_summary ,
+		friend_url ,
+		friend_logo ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state ,
+		block_id  ,
+		sort_num ,
+		show_index 
+		) VALUES (
+
+#{friendId,jdbcType=VARCHAR} ,
+
+#{friendName,jdbcType=VARCHAR} ,
+
+#{friendType,jdbcType=VARCHAR} ,
+
+#{friendSummary,jdbcType=VARCHAR} ,
+
+#{friendUrl,jdbcType=VARCHAR} ,
+
+#{friendLogo,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{blockId,jdbcType=VARCHAR}  ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{showIndex,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumFriend">
+		UPDATE T_EVGL_FORUM_FRIEND 
+		<set>
+		<if test="friendName != null">
+		friend_name = #{friendName,jdbcType=VARCHAR},
+		</if>
+		<if test="friendType != null">
+		friend_type = #{friendType,jdbcType=VARCHAR},
+		</if>
+		<if test="friendSummary != null">
+		friend_summary = #{friendSummary,jdbcType=VARCHAR},
+		</if>
+		<if test="friendUrl != null">
+		friend_url = #{friendUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="friendLogo != null">
+		friend_logo = #{friendLogo,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="blockId != null">
+		block_id = #{blockId,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="showIndex != null">
+		show_index = #{showIndex,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		friend_id = #{friendId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_FRIEND WHERE
+		friend_id =
+		#{friendId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_FRIEND WHERE
+		friend_id in
+		<foreach item="friendId" collection="array" open="("
+			separator="," close=")">
+#{friendId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_FORUM_FRIEND WHERE
+		friend_id = #{friendId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select t2.name as friendTypeName, t1.* from T_EVGL_FORUM_FRIEND t1
+        inner join T_EVGL_FORUM_FRIEND_type t2 on t1.friend_type = t2.type_id
+        <where>
+        		<if test="friendTypes != null and friendTypes.size() > 0">
+					and t1.friend_type in
+					<foreach collection="friendTypes" item="friendType" open="(" separator="," close=")">
+						#{friendType,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+                <if test="friendName != null and friendName.trim() != ''">
+                and t1.friend_name like concat ('%', #{friendName,jdbcType=VARCHAR}, '%')            </if>
+                <if test="friendType != null and friendType.trim() != ''">
+                and t1.friend_type =#{friendType,jdbcType=VARCHAR}            </if>
+                <if test="friendSummary != null and friendSummary.trim() != ''">
+                and t1.friend_summary =#{friendSummary,jdbcType=VARCHAR}            </if>
+                <if test="friendUrl != null and friendUrl.trim() != ''">
+                and t1.friend_url =#{friendUrl,jdbcType=VARCHAR}            </if>
+                <if test="friendLogo != null and friendLogo.trim() != ''">
+                and t1.friend_logo =#{friendLogo,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="blockId != null and blockId.trim() != ''">
+                and t1.block_id =#{blockId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by friend_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_FORUM_FRIEND t1
+        <where>
+                <if test="friendName != null and friendName.trim() != ''">
+                and t1.friend_name =#{friendName,jdbcType=VARCHAR}            </if>
+                <if test="friendType != null and friendType.trim() != ''">
+                and t1.friend_type =#{friendType,jdbcType=VARCHAR}            </if>
+                <if test="friendSummary != null and friendSummary.trim() != ''">
+                and t1.friend_summary =#{friendSummary,jdbcType=VARCHAR}            </if>
+                <if test="friendUrl != null and friendUrl.trim() != ''">
+                and t1.friend_url =#{friendUrl,jdbcType=VARCHAR}            </if>
+                <if test="friendLogo != null and friendLogo.trim() != ''">
+                and t1.friend_logo =#{friendLogo,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="blockId != null and blockId.trim() != ''">
+                and t1.block_id =#{blockId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.friend_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 查找友情社区 -->
+    <select id="friendshipCommunity" resultType="map" parameterType="map">
+    	SELECT
+			friend_id AS friendId,
+			friend_name as friendName,
+			friend_url AS friendUrl,
+			IFNULL(friend_logo, '/uploads/defaulthead.png') AS friendLogo,
+			state 
+		FROM
+			t_evgl_forum_friend
+		where show_index = 'Y' and state = 'Y'
+		ORDER BY sort_num asc
+		LIMIT 10
+    </select>
+    
+     <select id="getMaxSortNum" resultType="INTEGER"
+        parameterType="map">
+        select ifnull(max(t1.sort_num), 0) + 1  from T_EVGL_FORUM_FRIEND t1
+        <where>
+                <if test="friendName != null and friendName.trim() != ''">
+                and t1.friend_name =#{friendName,jdbcType=VARCHAR}            </if>
+                <if test="friendType != null and friendType.trim() != ''">
+                and t1.friend_type =#{friendType,jdbcType=VARCHAR}            </if>
+                <if test="friendSummary != null and friendSummary.trim() != ''">
+                and t1.friend_summary =#{friendSummary,jdbcType=VARCHAR}            </if>
+                <if test="friendUrl != null and friendUrl.trim() != ''">
+                and t1.friend_url =#{friendUrl,jdbcType=VARCHAR}            </if>
+                <if test="friendLogo != null and friendLogo.trim() != ''">
+                and t1.friend_logo =#{friendLogo,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="blockId != null and blockId.trim() != ''">
+                and t1.block_id =#{blockId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.friend_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

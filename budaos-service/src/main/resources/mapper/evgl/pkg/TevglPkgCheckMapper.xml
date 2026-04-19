@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.pkg.persistence.TevglPkgCheckMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.pkg.domain.TevglPkgCheck">
+		<result column="pc_id" jdbcType="VARCHAR"
+			property="pcId" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+		<result column="check_state" jdbcType="VARCHAR"
+			property="checkState" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="reason" jdbcType="LONGVARCHAR"
+			property="reason" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		pc_id,pkg_id,check_state,create_time,create_user_id,reason
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgCheck">
+		INSERT INTO T_EVGL_PKG_CHECK (
+		pc_id ,
+		pkg_id ,
+		check_state ,
+		create_time ,
+		create_user_id ,
+		reason 
+		) VALUES (
+
+#{pcId,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} ,
+
+#{checkState,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{reason,jdbcType=LONGVARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgCheck">
+		UPDATE T_EVGL_PKG_CHECK 
+		<set>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="checkState != null">
+		check_state = #{checkState,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="reason != null">
+		reason = #{reason,jdbcType=LONGVARCHAR},
+		</if>
+		</set>
+		WHERE
+		pc_id = #{pcId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_CHECK WHERE
+		pc_id =
+		#{pcId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_CHECK WHERE
+		pc_id in
+		<foreach item="pcId" collection="array" open="("
+			separator="," close=")">
+#{pcId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_PKG_CHECK WHERE
+		pc_id = #{pcId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_PKG_CHECK
+        <where>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="checkState != null and checkState.trim() != ''">
+                and check_state =#{checkState,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="reason != null and reason.trim() != ''">
+                and reason =#{reason,jdbcType=LONGVARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by pc_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_PKG_CHECK t1
+        <where>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="checkState != null and checkState.trim() != ''">
+                and t1.check_state =#{checkState,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="reason != null and reason.trim() != ''">
+                and t1.reason =#{reason,jdbcType=LONGVARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pc_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="querMyWaitCheckPkgList" resultType="map" parameterType="map">
+       select
+       	ifnull(trainee_name, nick_name) as traineeName, 
+       	t1.pkg_id as pkgId, t1.pkg_name as pkgName, t1.major_id as majorId, t1.subject_id as subjectId,
+       	t1.ref_pkg_id as refPkgId, t1.pkg_version as pkgVersion, t1.pkg_logo as pkgLogo, t1.create_user_id as createUserId, t1.create_time as createTime,
+       	t2.check_state as checkState, t2.create_time as checkTime, t2.create_user_id as checkUserId, t2.reason,
+       	t3.user_realname as reviewerName 
+		from t_evgl_pkg_info t1
+		inner join t_evgl_trainee_info trainee on t1.create_user_id = trainee.trainee_id
+		left join t_evgl_pkg_check t2 on t1.pkg_id = t2.pkg_id
+		left join t_sys_userinfo t3 on t2.create_user_id = t3.user_id
+        where t1.release_status = "N"
+        and t1.ref_pkg_id = #{refPkgId}
+        <if test="createUserId != null and createUserId.trim() != ''">
+           and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            
+        </if>
+        <if test="receiverUserId != null and receiverUserId.trim() != ''">
+           and t1.receiver_user_id =#{receiverUserId,jdbcType=VARCHAR}            
+        </if>
+    </select>
+    
+    <select id="queryWaitCheckPkgList" resultType="map"
+        parameterType="map">
+        select
+        ifnull(trainee_name, nick_name) as traineeName, 
+        t1.pkg_id as pkgId, t1.pkg_name as pkgName, t1.major_id as majorId, t1.subject_id as subjectId,
+       	t1.ref_pkg_id as refPkgId, t1.pkg_version as pkgVersion, t1.pkg_logo as pkgLogo, t1.create_user_id as createUserId, t1.create_time as createTime,
+       	t2.check_state as checkState, t2.create_time as checkTime, t2.create_user_id as checkUserId, t2.reason,
+       	t3.user_realname as reviewerName 
+		from t_evgl_pkg_info t1
+		inner join t_evgl_trainee_info trainee on t1.create_user_id = trainee.trainee_id
+		left join t_evgl_pkg_check t2 on t1.pkg_id = t2.pkg_id
+		left join t_sys_userinfo t3 on t2.create_user_id = t3.user_id
+        <where>
+        		t1.release_status = "N" 
+				and t1.ref_pkg_id is not null and t1.ref_pkg_id != ''
+				and t1.pkg_id not in (select pkg_id from t_evgl_tch_classroom where pkg_id is not null)
+				
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            
+                </if>
+                <if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            
+                </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name like concat ('%', #{pkgName,jdbcType=VARCHAR}, '%')            
+                </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version like concat ('%', #{pkgVersion,jdbcType=VARCHAR}, '%')            
+                </if>
+                <if test="checkState != null and checkState.trim() != ''">
+                and t2.check_state =#{checkState,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.create_time asc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

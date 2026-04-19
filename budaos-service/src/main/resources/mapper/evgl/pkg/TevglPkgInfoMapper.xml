@@ -1,0 +1,1531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.pkg.persistence.TevglPkgInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.pkg.domain.TevglPkgInfo">
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+		<result column="pkg_name" jdbcType="VARCHAR"
+			property="pkgName" />
+		<result column="major_id" jdbcType="VARCHAR"
+			property="majorId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="base_subject" jdbcType="VARCHAR"
+			property="baseSubject" />
+		<result column="ref_pkg_id" jdbcType="VARCHAR"
+			property="refPkgId" />
+		<result column="pkg_no" jdbcType="VARCHAR"
+			property="pkgNo" />
+		<result column="pkg_key" jdbcType="VARCHAR"
+			property="pkgKey" />
+		<result column="pkg_desc" jdbcType="VARCHAR"
+			property="pkgDesc" />
+		<result column="pkg_remark" jdbcType="LONGVARCHAR"
+			property="pkgRemark" />
+		<result column="pkg_level" jdbcType="VARCHAR"
+			property="pkgLevel" />
+		<result column="pkg_limit" jdbcType="VARCHAR"
+			property="pkgLimit" />
+		<result column="deploy_main_type" jdbcType="VARCHAR"
+			property="deployMainType" />
+		<result column="deploy_sub_type" jdbcType="VARCHAR"
+			property="deploySubType" />
+		<result column="deploy_time" jdbcType="VARCHAR"
+			property="deployTime" />
+		<result column="display" jdbcType="VARCHAR"
+			property="display" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="show_index" jdbcType="VARCHAR"
+			property="showIndex" />
+		<result column="pkg_ref_count" jdbcType="INTEGER"
+			property="pkgRefCount" />
+		<result column="pkg_res_count" jdbcType="INTEGER"
+			property="pkgResCount" />
+		<result column="pkg_act_count" jdbcType="INTEGER"
+			property="pkgActCount" />
+		<result column="pkg_version" jdbcType="VARCHAR"
+			property="pkgVersion" />
+		<result column="last_version_pkg" jdbcType="VARCHAR"
+			property="lastVersionPkg" />
+		<result column="version_remark" jdbcType="LONGVARCHAR"
+			property="versionRemark" />
+		<result column="org_id" jdbcType="VARCHAR"
+			property="orgId" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="pkg_logo" jdbcType="VARCHAR"
+			property="pkgLogo" />
+		<result column="pkg_trainee_name" jdbcType="VARCHAR"
+			property="pkgTraineeName" />
+		<result column="pkg_trainee_qq" jdbcType="VARCHAR"
+			property="pkgTraineeQq" />
+		<result column="pkg_trainee_mobile" jdbcType="VARCHAR"
+			property="pkgTraineeMobile" />
+		<result column="pkg_trainee_wx" jdbcType="VARCHAR"
+			property="pkgTraineeWx" />
+		<result column="pkg_trainee_email" jdbcType="VARCHAR"
+			property="pkgTraineeEmail" />
+		<result column="view_num" jdbcType="INTEGER"
+			property="viewNum" />
+		<result column="release_status" jdbcType="VARCHAR"
+			property="releaseStatus" />
+		<result column="private_use" jdbcType="VARCHAR"
+			property="privateUse" />
+		<result column="has_generated_default_folder" jdbcType="VARCHAR"
+			property="hasGeneratedDefaultFolder" />
+		<result column="receiver_user_id" jdbcType="VARCHAR"
+				property="receiverUserId" />	
+		<result column="pkg_book_type" jdbcType="VARCHAR"
+			property="pkgBookType" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		pkg_id,pkg_name,major_id,subject_id,base_subject,ref_pkg_id,pkg_no,pkg_key,pkg_desc,pkg_remark,pkg_level,pkg_limit,deploy_main_type,deploy_sub_type
+		,deploy_time,display,sort_num,show_index,pkg_ref_count,pkg_res_count,pkg_act_count,pkg_version,last_version_pkg,version_remark,org_id,create_user_id
+		,create_time,update_user_id,update_time,state,pkg_logo,pkg_trainee_name,pkg_trainee_qq,pkg_trainee_mobile,pkg_trainee_wx
+		,pkg_trainee_email,view_num,release_status,private_use,has_generated_default_folder,receiver_user_id,pkg_book_type
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgInfo">
+		INSERT INTO T_EVGL_PKG_INFO (
+		pkg_id ,
+		pkg_name ,
+		major_id ,
+		subject_id ,
+		base_subject ,
+		ref_pkg_id ,
+		pkg_no ,
+		pkg_key ,
+		pkg_desc ,
+		pkg_remark ,
+		pkg_level ,
+		pkg_limit ,
+		deploy_main_type ,
+		deploy_sub_type ,
+		deploy_time ,
+		display ,
+		sort_num ,
+		show_index ,
+		pkg_ref_count ,
+		pkg_res_count ,
+		pkg_act_count ,
+		pkg_version ,
+		last_version_pkg ,
+		version_remark ,
+		org_id ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state ,
+		pkg_logo ,
+		pkg_trainee_name ,
+		pkg_trainee_qq ,
+		pkg_trainee_mobile ,
+		pkg_trainee_wx ,
+		pkg_trainee_email ,
+		view_num ,
+		release_status ,
+		private_use ,
+		has_generated_default_folder ,
+		receiver_user_id,
+		pkg_book_type
+		) VALUES (
+
+#{pkgId,jdbcType=VARCHAR} ,
+
+#{pkgName,jdbcType=VARCHAR} ,
+
+#{majorId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{baseSubject,jdbcType=VARCHAR} ,
+
+#{refPkgId,jdbcType=VARCHAR} ,
+
+#{pkgNo,jdbcType=VARCHAR} ,
+
+#{pkgKey,jdbcType=VARCHAR} ,
+
+#{pkgDesc,jdbcType=VARCHAR} ,
+
+#{pkgRemark,jdbcType=LONGVARCHAR} ,
+
+#{pkgLevel,jdbcType=VARCHAR} ,
+
+#{pkgLimit,jdbcType=VARCHAR} ,
+
+#{deployMainType,jdbcType=VARCHAR} ,
+
+#{deploySubType,jdbcType=VARCHAR} ,
+
+#{deployTime,jdbcType=VARCHAR} ,
+
+#{display,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{showIndex,jdbcType=VARCHAR} ,
+
+#{pkgRefCount,jdbcType=INTEGER} ,
+
+#{pkgResCount,jdbcType=INTEGER} ,
+
+#{pkgActCount,jdbcType=INTEGER} ,
+
+#{pkgVersion,jdbcType=VARCHAR} ,
+
+#{lastVersionPkg,jdbcType=VARCHAR} ,
+
+#{versionRemark,jdbcType=LONGVARCHAR} ,
+
+#{orgId,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{pkgLogo,jdbcType=VARCHAR} ,
+
+#{pkgTraineeName,jdbcType=VARCHAR} ,
+
+#{pkgTraineeQq,jdbcType=VARCHAR} ,
+
+#{pkgTraineeMobile,jdbcType=VARCHAR} ,
+
+#{pkgTraineeWx,jdbcType=VARCHAR} ,
+
+#{pkgTraineeEmail,jdbcType=VARCHAR} ,
+
+#{viewNum,jdbcType=INTEGER} ,
+
+#{releaseStatus,jdbcType=VARCHAR} ,
+
+#{privateUse,jdbcType=VARCHAR}  ,
+
+#{hasGeneratedDefaultFolder,jdbcType=VARCHAR} ,
+
+#{receiverUserId,jdbcType=VARCHAR} ,
+
+#{pkgBookType,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgInfo">
+		UPDATE T_EVGL_PKG_INFO 
+		<set>
+		<if test="pkgName != null">
+		pkg_name = #{pkgName,jdbcType=VARCHAR},
+		</if>
+		<if test="majorId != null">
+		major_id = #{majorId,jdbcType=VARCHAR},
+		</if>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="baseSubject != null">
+		base_subject = #{baseSubject,jdbcType=VARCHAR},
+		</if>
+		<if test="refPkgId != null">
+		ref_pkg_id = #{refPkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgNo != null">
+		pkg_no = #{pkgNo,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgKey != null">
+		pkg_key = #{pkgKey,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgDesc != null">
+		pkg_desc = #{pkgDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgRemark != null">
+		pkg_remark = #{pkgRemark,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="pkgLevel != null">
+		pkg_level = #{pkgLevel,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgLimit != null">
+		pkg_limit = #{pkgLimit,jdbcType=VARCHAR},
+		</if>
+		<if test="deployMainType != null">
+		deploy_main_type = #{deployMainType,jdbcType=VARCHAR},
+		</if>
+		<if test="deploySubType != null">
+		deploy_sub_type = #{deploySubType,jdbcType=VARCHAR},
+		</if>
+		<if test="deployTime != null">
+		deploy_time = #{deployTime,jdbcType=VARCHAR},
+		</if>
+		<if test="display != null">
+		display = #{display,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="showIndex != null">
+		show_index = #{showIndex,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgRefCount != null">
+		pkg_ref_count = #{pkgRefCount,jdbcType=INTEGER},
+		</if>
+		<if test="pkgResCount != null">
+		pkg_res_count = #{pkgResCount,jdbcType=INTEGER},
+		</if>
+		<if test="pkgActCount != null">
+		pkg_act_count = #{pkgActCount,jdbcType=INTEGER},
+		</if>
+		<if test="pkgVersion != null">
+		pkg_version = #{pkgVersion,jdbcType=VARCHAR},
+		</if>
+		<if test="lastVersionPkg != null">
+		last_version_pkg = #{lastVersionPkg,jdbcType=VARCHAR},
+		</if>
+		<if test="versionRemark != null">
+		version_remark = #{versionRemark,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="orgId != null">
+		org_id = #{orgId,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgLogo != null">
+		pkg_logo = #{pkgLogo,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgTraineeName != null">
+		pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgTraineeQq != null">
+		pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgTraineeMobile != null">
+		pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgTraineeWx != null">
+		pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgTraineeEmail != null">
+		pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR},
+		</if>
+		<if test="viewNum != null">
+		view_num = #{viewNum,jdbcType=INTEGER},
+		</if>
+		<if test="releaseStatus != null">
+		release_status = #{releaseStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="privateUse != null">
+		private_use = #{privateUse,jdbcType=VARCHAR},
+		</if>
+		<if test="hasGeneratedDefaultFolder != null">
+		has_generated_default_folder = #{hasGeneratedDefaultFolder,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgBookType != null">
+		pkg_book_type = #{pkgBookType,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		pkg_id = #{pkgId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_INFO WHERE
+		pkg_id =
+		#{pkgId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_INFO WHERE
+		pkg_id in
+		<foreach item="pkgId" collection="array" open="("
+			separator="," close=")">
+#{pkgId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_PKG_INFO WHERE
+		pkg_id = #{pkgId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select t1.* from T_EVGL_PKG_INFO t1
+        <where>
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                and (t1.display is null or t1.display = '')
+                </if>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        		and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+        		<if test="refPkgIds != null and refPkgIds.size() > 0">
+        		and t1.ref_pkg_id in 
+        			<foreach collection="refPkgIds" item="refPkgId" open="(" separator="," close=")">
+       					#{refPkgId}
+        			</foreach>
+        		</if>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+        		<if test="pkgId != null and pkgId != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name =#{pkgName,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version =#{pkgVersion,jdbcType=VARCHAR}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if>
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+                <if test="pkgBookType != null and pkgBookType.trim() != ''">
+				and t1.pkg_book_type =#{pkgBookType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListByMapInnerJoin" resultMap="BaseResultMap"
+        parameterType="map">
+        select t1.* from T_EVGL_PKG_INFO t1
+        inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+        inner join t_evgl_book_subject t3 on t2.subject_ref = t3.subject_id
+        inner join t_evgl_book_subperiod t4 on t3.subject_id = t4.subject_id
+        <where>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t4.major_id =#{majorId,jdbcType=VARCHAR}            
+                </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t3.subject_id =#{subjectId,jdbcType=VARCHAR}            
+                </if>
+                
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                and (t1.display is null or t1.display = '')
+                </if>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        		and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+        		<if test="refPkgIds != null and refPkgIds.size() > 0">
+        		and t1.ref_pkg_id in 
+        			<foreach collection="refPkgIds" item="refPkgId" open="(" separator="," close=")">
+       					#{refPkgId}
+        			</foreach>
+        		</if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name =#{pkgName,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version =#{pkgVersion,jdbcType=VARCHAR}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if>
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+                <if test="pkgBookType != null and pkgBookType.trim() != ''">
+				and t1.pkg_book_type =#{pkgBookType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- ifnull(t1.pkg_logo, t3.subject_logo) as pkgLogo,  -->
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select
+        t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+        t1.pkg_level as pkgLevel, t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, 
+        t1.deploy_sub_type as deploySubType, t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount, 
+        t1.pkg_act_count as pkgActCount, t1.pkg_version as pkgVersion, t1.pkg_trainee_name as pkgTraineeName,
+        ifnull(t1.pkg_logo, '') as pkgLogo,
+        t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx, 
+        t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.create_user_id as createUserId,
+        t1.release_status as releaseStatus, t1.display
+        from T_EVGL_PKG_INFO t1
+        left join t_evgl_bookpkg_team t2 on t1.pkg_id = t2.pgk_id
+        left join t_evgl_book_subject t3 on t1.subject_id = t3.subject_id
+        left join t_evgl_book_subject t4 on t3.subject_ref = t4.subject_id
+        left join t_evgl_book_subperiod t5 on t4.subject_id = t5.subject_id
+        <where>
+        		<if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name like concat ('%', #{pkgName,jdbcType=VARCHAR}, '%')
+                </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version like concat ('%', #{pkgVersion,jdbcType=VARCHAR}, '%')
+                </if>
+        		<if test="subjectId != null and subjectId.trim() != ''">
+                and t4.subject_id = #{subjectId}
+                </if>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t5.major_id = #{majorId}
+                </if>
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                and (t1.display is null or t1.display = '')
+                </if>
+                <choose>
+					<when test='releaseStatus != null and releaseStatus == "F"'>
+						and t2.user_id = #{loginUserId}
+					</when>
+					<otherwise>
+						<if test="releaseStatus != null and releaseStatus.trim() != ''">
+							and t1.release_status =#{releaseStatus,jdbcType=VARCHAR} <!-- and t1.create_user_id =#{loginUserId,jdbcType=VARCHAR} -->
+						</if>
+					</otherwise>
+				</choose>
+                <choose>
+		            <when test="together != null and together.trim() != ''">
+		                and (
+		                		(t1.create_user_id =#{createUserId,jdbcType=VARCHAR} or t2.user_id =#{loginUserId,jdbcType=VARCHAR}) 
+		                		and if(t1.create_user_id != #{loginUserId}, t1.release_status = 'N', 1=1)
+	                		)
+		            </when>
+		            <otherwise>
+		                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}  
+		            </otherwise>
+		        </choose>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        		and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+        		
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <!-- <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if> -->
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<!-- <if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if> -->
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+                <if test="pkgBookType != null and pkgBookType.trim() != ''">
+				and t1.pkg_book_type =#{pkgBookType,jdbcType=VARCHAR}            </if>
+        </where>
+        group by t1.pkg_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMapUnionAll" resultType="map" parameterType="map">
+       	select t.* 
+		from 
+			(
+				select
+				t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+				t1.pkg_level as pkgLevel, t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, '自建' as tagName, 'ower' as type, 1 as ranking,
+				t1.deploy_sub_type as deploySubType, t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount, 
+				t1.pkg_act_count as pkgActCount, t1.pkg_version as pkgVersion, t1.pkg_trainee_name as pkgTraineeName,
+				ifnull(t1.pkg_logo, '') as pkgLogo,
+				t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx, 
+				t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.create_user_id as createUserId,
+				t1.release_status as releaseStatus, t1.display, t1.create_time as createTime, t1.receiver_user_id as receiverUserId
+				from T_EVGL_PKG_INFO t1 
+				where 
+					t1.state = "Y" 
+					and (t1.display is null or t1.display = '') 
+					and t1.release_status = "N" 
+					and (ref_pkg_id is null or ref_pkg_id = '')
+					and t1.create_user_id = #{loginUserId} and t1.receiver_user_id is null
+
+				union all
+
+				select
+				t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+				t1.pkg_level as pkgLevel, t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, '接管' as tagName, 'receiver' as type, 4 as ranking,
+				t1.deploy_sub_type as deploySubType, t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount,
+				t1.pkg_act_count as pkgActCount, t1.pkg_version as pkgVersion, t1.pkg_trainee_name as pkgTraineeName,
+				ifnull(t1.pkg_logo, '') as pkgLogo,
+				t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx,
+				t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.create_user_id as createUserId,
+				t1.release_status as releaseStatus, t1.display, t1.create_time as createTime, t1.receiver_user_id as receiverUserId
+				from T_EVGL_PKG_INFO t1
+				where
+				t1.state = "Y"
+				and (t1.display is null or t1.display = '')
+				and t1.release_status = "N"
+				and (ref_pkg_id is null or ref_pkg_id = '')
+				and t1.receiver_user_id = #{loginUserId}
+				
+				union all
+				
+				select
+				t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+				t1.pkg_level as pkgLevel, t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, '共建' as tagName, 'together' as type, 2 as ranking,
+				t1.deploy_sub_type as deploySubType, t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount, 
+				t1.pkg_act_count as pkgActCount, t1.pkg_version as pkgVersion, t1.pkg_trainee_name as pkgTraineeName,
+				ifnull(t1.pkg_logo, '') as pkgLogo,
+				t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx, 
+				t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.create_user_id as createUserId,
+				t1.release_status as releaseStatus, t1.display, t1.create_time as createTime, t1.receiver_user_id as receiverUserId
+				from T_EVGL_PKG_INFO t1 
+				inner join t_evgl_bookpkg_team t2 on t1.pkg_id = t2.pgk_id
+				where 
+					t1.state = "Y" 
+					and t1.release_status = "N" 
+					and t2.user_id = #{loginUserId}
+				
+				union all
+				
+				select
+				t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+				t1.pkg_level as pkgLevel, t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, '授权' as tagName, 'auth' as type, 3 as ranking,
+				t1.deploy_sub_type as deploySubType, t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount, 
+				t1.pkg_act_count as pkgActCount, t1.pkg_version as pkgVersion, t1.pkg_trainee_name as pkgTraineeName,
+				ifnull(t1.pkg_logo, '') as pkgLogo,
+				t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx, 
+				t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.create_user_id as createUserId,
+				t1.release_status as releaseStatus, t1.display, t1.create_time as createTime, t1.receiver_user_id as receiverUserId
+				from T_EVGL_PKG_INFO t1 
+				inner join t_evgl_bookpkg_team t2 on t1.pkg_id = t2.pgk_id
+				where 
+					t1.state = "Y"  
+					and t1.release_status = "Y" 
+					and t2.user_id = #{loginUserId}
+				
+			) t
+		inner join t_evgl_book_subject t3 on t.subjectId = t3.subject_id
+        <where>
+        		<if test="type != null and type.trim() != ''">
+                and t.type = #{type,jdbcType=VARCHAR}
+                </if>
+        		<if test="pkgName != null and pkgName.trim() != ''">
+                and t.pkgName like concat ('%', #{pkgName,jdbcType=VARCHAR}, '%')
+                </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t.pkgVersion like concat ('%', #{pkgVersion,jdbcType=VARCHAR}, '%')
+                </if>
+        		<if test="subjectId != null and subjectId.trim() != ''">
+                and t3.subject_ref = #{subjectId,jdbcType=VARCHAR}
+                </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t.ranking asc, t.createTime desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMapFromCtRoom" resultType="map"
+        parameterType="map">
+        select
+        t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+        t1.pkg_level as pkgLevel, t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, 
+        t1.deploy_sub_type as deploySubType, t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount, 
+        t1.pkg_act_count as pkgActCount, t1.pkg_version as pkgVersion, t1.pkg_trainee_name as pkgTraineeName,
+        ifnull(t1.pkg_logo, '') as pkgLogo,
+        t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx, 
+        t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.create_user_id as createUserId,
+        t1.release_status as releaseStatus, t1.display,
+        t3.pic
+        from T_EVGL_PKG_INFO t1
+        inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+        left join t_evgl_tch_classroom t3 on t1.pkg_id = t3.pkg_id
+        <where>
+        		<if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+        		<if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name like concat ('%', #{pkgName,jdbcType=VARCHAR}, '%')
+                </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version like concat ('%', #{pkgVersion,jdbcType=VARCHAR}, '%')
+                </if>
+        		<if test="subjectId != null and subjectId.trim() != ''">
+                and t2.subject_ref = #{subjectId}
+                </if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <!-- <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if> -->
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<!-- <if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if> -->
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleList" resultType="map"
+        parameterType="map">
+        select t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, ifnull(t1.pkg_no, '-1') as pkgNo, t1.display,
+		t1.pkg_desc as pkgDesc, ifnull(t1.pkg_level, '-1') as pkgLevel, ifnull(t1.pkg_limit, '-1') as pkgLimit,
+		ifnull(t1.pkg_ref_count, 0) as pkgRefCount, ifnull(t1.pkg_act_count, 0) as pkgActCount, t1.subject_id as subjectId,
+		t1.create_user_id as createUserId, t1.pkg_version as pkgVersion, ifnull(t1.pkg_logo, '') as pkgLogo, 
+		t1.create_user_id as createUserId, t1.create_time as createTime, t1.update_time as updateTime,
+		t3.teacher_name as createUserName
+		from t_evgl_pkg_info t1
+		inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+		left join t_evgl_tch_teacher t3 on t1.create_user_id = t3.trainee_id
+        <where>
+        		<if test="refPkgIds != null and refPkgIds.size() > 0">
+        		and t1.ref_pkg_id in 
+        			<foreach collection="refPkgIds" item="refPkgId" open="(" separator="," close=")">
+       					#{refPkgId}
+        			</foreach>
+        		</if>
+        		<if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}
+					<if test="selfPkgId != null and selfPkgId.trim() != ''">
+						or t1.pkg_id = #{selfPkgId}
+					</if>
+                </if>
+        		<if test="createUserIdAndFree != null and createUserIdAndFree.trim() != ''">
+                	and (t1.create_user_id =#{createUserIdAndFree,jdbcType=VARCHAR} or pkg_limit = "2")         
+                </if>
+        		<if test="subjectRef != null and subjectRef.trim() != ''">
+                	and t2.subject_ref =#{subjectRef,jdbcType=VARCHAR}            
+                </if>
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                	and (t1.display is null or t1.display = '')
+                </if>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        			and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+        
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name =#{pkgName,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version =#{pkgVersion,jdbcType=VARCHAR}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if>
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+        </where>
+        GROUP BY t1.pkg_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListByMapForSimple" resultType="map"
+        parameterType="map">
+        select t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, t1.subject_id as subjectId,
+		t1.pkg_version as pkgVersion, ifnull(t1.pkg_logo, '') as pkgLogo,
+		t1.create_user_id as createUserId, t1.create_time as createTime, t1.update_time as updateTime
+		from t_evgl_pkg_info t1
+		inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+        <where>
+        		<if test="refPkgIds != null and refPkgIds.size() > 0">
+        		and t1.ref_pkg_id in 
+        			<foreach collection="refPkgIds" item="refPkgId" open="(" separator="," close=")">
+       					#{refPkgId}
+        			</foreach>
+        		</if>
+        		<if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}
+					<if test="selfPkgId != null and selfPkgId.trim() != ''">
+						or t1.pkg_id = #{selfPkgId}
+					</if>
+                </if>
+        		<if test="createUserIdAndFree != null and createUserIdAndFree.trim() != ''">
+                	and (t1.create_user_id =#{createUserIdAndFree,jdbcType=VARCHAR} or pkg_limit = "2")         
+                </if>
+        		<if test="subjectRef != null and subjectRef.trim() != ''">
+                	and t2.subject_ref =#{subjectRef,jdbcType=VARCHAR}            
+                </if>
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                	and (t1.display is null or t1.display = '')
+                </if>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        			and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+        
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name =#{pkgName,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version =#{pkgVersion,jdbcType=VARCHAR}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if>
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+        </where>
+        GROUP BY t1.pkg_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getMaxSortNum" resultType="INTEGER" parameterType="map">
+    	select IFNULL(max(sort_num), 0) + 1 from t_evgl_pkg_info
+    	<where>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+    </select>
+    
+	<select id="selectObjectMapById" parameterType="java.lang.String"
+		resultType="map">
+		select 
+		t1.major_id as majorId, t1.pkg_book_type as pkgBookType,
+		t2.subject_ref as subjectRef,
+		t1.pkg_id as pkgId, t1.org_id as orgId, t1.pkg_name as pkgName, t1.pkg_no as pkgNo, t1.display,
+		t1.subject_id as subjectId, t1.pkg_key as pkgKey, t1.pkg_desc as pkgDesc, t1.pkg_level as pkgLevel,
+		t1.pkg_limit as pkgLimit, t1.deploy_main_type as deployMainType, t1.deploy_sub_type as deploySubType,
+		t1.pkg_ref_count as pkgRefCount, t1.pkg_res_count as pkgResCount, t1.pkg_act_count as pkgActCount, 
+		t1.pkg_version as pkgVersion, ifnull(t1.pkg_logo, t2.subject_logo) as pkgLogo, t1.pkg_trainee_name as pkgTraineeName,
+        t1.pkg_trainee_qq as pkgTraineeQq, t1.pkg_trainee_mobile as pkgTraineeMobile, t1.pkg_trainee_wx as pkgTraineeWx, 
+        t1.pkg_trainee_email as pkgTraineeEmail, ifnull(t1.view_num,0) as viewNum, t1.state, t1.create_user_id as createUserId,
+        t1.release_status as releaseStatus, t1.private_use as privateUse, t1.receiver_user_id as receiverUserId,
+        ifnull(t3.class_score, 0) as classScore
+		from T_EVGL_PKG_INFO t1
+		inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+        inner join t_evgl_book_subperiod t3 on t2.subject_ref = t3.subject_id and t1.major_id = t3.major_id
+		WHERE t1.pkg_id = #{pkgId,jdbcType=VARCHAR} 
+	</select>
+	
+	
+	<select id="plusNum" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgInfo">
+    	update T_EVGL_PKG_INFO
+    	<set>
+    		<if test="pkgRefCount != null">
+    			pkg_ref_count = ifnull(pkg_ref_count, 0) + #{pkgRefCount,jdbcType=INTEGER}
+    		</if>
+    		<if test="pkgResCount != null">
+    			pkg_res_count = ifnull(pkg_res_count, 0) + #{pkgResCount,jdbcType=INTEGER}
+    		</if>
+    		<if test="pkgActCount != null">
+    			pkg_act_count = ifnull(pkg_act_count, 0) + #{pkgActCount,jdbcType=INTEGER}
+    		</if>
+    		<if test="viewNum != null">
+    			view_num = ifnull(view_num, 0) + #{viewNum,jdbcType=INTEGER}
+    		</if>
+    	</set>
+    	WHERE
+		pkg_id = #{pkgId,jdbcType=VARCHAR} 
+    </select>
+	
+	<select id="countPkgResCount" parameterType="String" resultType="int">
+		select sum(pkg_res_count) from t_evgl_pkg_info 
+		where state = 'Y' and create_user_id = #{createUserId}
+	</select>
+	
+	<select id="countPkgActCount" parameterType="String" resultType="int">
+		select sum(pkg_act_count) from t_evgl_pkg_info 
+		where state = 'Y' and create_user_id = #{createUserId}
+	</select>
+	
+	<select id="selectHowManyPeopleUseIt" resultType="map" parameterType="map">
+		select t1.name, t2.pkg_id as pkgId, t2.pkg_name as pkgName, t2.create_user_id as createUserId
+		from t_evgl_tch_classroom t1
+		inner join t_evgl_pkg_info t2 on t1.pkg_id = t2.pkg_id
+		where t2.ref_pkg_id = #{refPkgId}
+		GROUP BY t1.create_user_id
+	</select>
+	
+	<select id="selectSubjectRefList" resultType="map"
+        parameterType="map">
+        select t4.subject_name as subjectName, t4.subject_id as subjectId
+        from T_EVGL_PKG_INFO t1
+        left join t_evgl_bookpkg_team t2 on t1.pkg_id = t2.pgk_id
+        left join t_evgl_book_subject t3 on t1.subject_id = t3.subject_id
+        left join t_evgl_book_subject t4 on t3.subject_ref = t4.subject_id
+        left join t_evgl_book_subperiod t5 on t4.subject_id = t5.subject_id
+        <where>
+        		<if test="subjectId != null and subjectId.trim() != ''">
+                and t4.subject_id = #{subjectId}
+                </if>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t5.major_id = #{majorId}
+                </if>
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                and (t1.display is null or t1.display = '')
+                </if>
+                <choose>
+		            <when test='releaseStatus != null and releaseStatus == "F"'>
+		                and t2.user_id = #{loginUserId}
+		            </when>
+		            <otherwise>
+		                <if test="releaseStatus != null and releaseStatus.trim() != ''">
+                			and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if>
+		            </otherwise>
+		        </choose>
+                <choose>
+		            <when test="together != null and together.trim() != ''">
+		                and (
+		                		(t1.create_user_id =#{createUserId,jdbcType=VARCHAR} or t2.user_id =#{loginUserId,jdbcType=VARCHAR}) 
+		                		and if(t1.create_user_id != #{loginUserId}, t1.release_status = 'N', 1=1)
+	                		)
+		            </when>
+		            <otherwise>
+		                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}  
+		            </otherwise>
+		        </choose>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        		and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+        		
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name =#{pkgName,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version =#{pkgVersion,jdbcType=VARCHAR}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+        </where>
+        GROUP BY t4.subject_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t4.subject_name desc
+            </otherwise>
+        </choose>
+    </select>
+	
+	<select id="queryCtRoomUsedRefPkgId" resultType="string" parameterType="map">
+        select t3.pkg_id from t_evgl_tch_classroom t1
+        inner join t_evgl_pkg_info t2 on t1.pkg_id = t2.pkg_id
+        inner join t_evgl_pkg_info t3 on t2.ref_pkg_id = t3.pkg_id
+        <where>
+        		<if test="ctIds != null and ctIds.size() > 0">
+        		and t1.ct_id in 
+        			<foreach collection="ctIds" item="ctId" open="(" separator="," close=")">
+       					#{ctId}
+        			</foreach>
+        		</if>
+        </where>
+    </select>
+    
+    <select id="queryCtRoomUsedRefPkgIdV2" parameterType="map" resultType="map" >
+		select t1.ct_id, t1.name, t1.pkg_id, t2.pkg_name, t2.pkg_version, t2.ref_pkg_id, t1.classroom_state from t_evgl_tch_classroom t1
+		inner join t_evgl_pkg_info t2 on t1.pkg_id = t2.pkg_id
+		inner join t_evgl_pkg_info t3 on t2.ref_pkg_id = t3.pkg_id
+		<where>
+			<if test="ctIds != null and ctIds.size() > 0">
+				and t1.ct_id in
+				<foreach collection="ctIds" item="ctId" open="(" separator="," close=")">
+					#{ctId}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 注意：，会查询自己的，衍生版本，以及别人创建的免费的，以及被授权的 -->
+	<select id="queryPkgListByUnionAllForSelect" resultType="map" parameterType="map">
+       	select t.* from (
+
+			select 'self' as type, 1 as ranking,
+			t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, t1.pkg_version as pkgVersion, t1.pkg_logo as pkgLogo, t1.major_id as majorId,
+			t1.display, t1.pkg_limit as pkgLimit, t1.subject_id as subjectId, t1.create_user_id as createUserId, t1.create_time as createTime,  t1.update_time as updateTime, 
+			t2.subject_ref as subjectRef, t1.receiver_user_id as receiverUserId,
+			ifnull(t3.trainee_name, t3.nick_name) as createUserName 
+			from t_evgl_pkg_info t1 
+			inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id 
+			inner join t_evgl_trainee_info t3 on t1.create_user_id = t3.trainee_id
+			WHERE 
+			t1.release_status = "Y" 
+			and t1.create_user_id = #{loginUserId} and t1.receiver_user_id is null
+			
+			union all
+			
+			select 'auth' as type, 2 as ranking,
+			t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, t1.pkg_version as pkgVersion, t1.pkg_logo as pkgLogo, t1.major_id as majorId,
+			t1.display, t1.pkg_limit as pkgLimit, t1.subject_id as subjectId, t1.create_user_id as createUserId, t1.create_time as createTime,  t1.update_time as updateTime, 
+			t2.subject_ref as subjectRef, t1.receiver_user_id as receiverUserId,
+			ifnull(t3.trainee_name, t3.nick_name) as createUserName  
+			from t_evgl_pkg_info t1 
+			inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id 
+			inner join t_evgl_trainee_info t3 on t1.create_user_id = t3.trainee_id 
+			inner join t_evgl_bookpkg_team t4 on t1.pkg_id = t4.pgk_id
+			WHERE 
+			t1.release_status = "Y"
+			and t4.user_id = #{loginUserId}
+			
+			union all
+			
+			select 'free' as type, 3 as ranking,
+			t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, t1.pkg_version as pkgVersion, t1.pkg_logo as pkgLogo, t1.major_id as majorId,
+			t1.display, t1.pkg_limit as pkgLimit, t1.subject_id as subjectId, t1.create_user_id as createUserId, t1.create_time as createTime,  t1.update_time as updateTime, 
+			t2.subject_ref as subjectRef, t1.receiver_user_id as receiverUserId,
+			ifnull(t3.trainee_name, t3.nick_name) as createUserName 
+			from t_evgl_pkg_info t1 
+			inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id 
+			inner join t_evgl_trainee_info t3 on t1.create_user_id = t3.trainee_id
+			WHERE 
+			t1.release_status = "Y" and t1.pkg_limit = "2" 
+			and t1.create_user_id != #{loginUserId}
+			
+			union all
+			
+			select 'receiver' as type, 4 as ranking,
+			t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, t1.pkg_version as pkgVersion, t1.pkg_logo as pkgLogo, t1.major_id as majorId,
+			t1.display, t1.pkg_limit as pkgLimit, t1.subject_id as subjectId, t1.create_user_id as createUserId, t1.create_time as createTime,  t1.update_time as updateTime, 
+			t2.subject_ref as subjectRef, t1.receiver_user_id as receiverUserId,
+			ifnull(t3.trainee_name, t3.nick_name) as createUserName 
+			from t_evgl_pkg_info t1 
+			inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id 
+			inner join t_evgl_trainee_info t3 on t1.create_user_id = t3.trainee_id
+			WHERE 
+			t1.release_status = "Y" 
+			and t1.receiver_user_id = #{loginUserId}
+			
+		) t
+        <where>
+        	<if test="majorIdList != null and majorIdList.size() > 0">
+				and t.majorId in
+				<foreach collection="majorIdList" item="majorId" open="(" separator="," close=")">
+					#{majorId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+       		<!-- <if test="majorId != null and majorId.trim() != ''">
+               and t.majorId = #{majorId,jdbcType=VARCHAR}
+               </if> -->
+       		<if test="subjectRef != null and subjectRef.trim() != ''">
+               and t.subjectRef = #{subjectRef,jdbcType=VARCHAR}
+               </if>
+       		<if test="type != null and type.trim() != ''">
+               and t.type = #{type,jdbcType=VARCHAR}
+               </if>
+       		<if test="pkgName != null and pkgName.trim() != ''">
+               and t.pkgName like concat ('%', #{pkgName,jdbcType=VARCHAR}, '%')
+               </if>
+               <if test="pkgVersion != null and pkgVersion.trim() != ''">
+               and t.pkgVersion like concat ('%', #{pkgVersion,jdbcType=VARCHAR}, '%')
+               </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                ORDER BY t.ranking asc, t.createTime desc, t.pkgVersion desc
+            </otherwise>
+        </choose>
+    </select>
+	
+	<select id="countSubjectViewNum" resultType="integer" parameterType="string">
+		select SUM(view_num) from t_evgl_book_subject 
+		where subject_id in (select DISTINCT subject_id from t_evgl_pkg_info where ref_pkg_id = #{refPkgId})
+	</select>
+	
+	<select id="countSubjectViewNumMap" resultType="map" parameterType="map">
+		select DISTINCT t1.subject_id, t1.ref_pkg_id as refPkgId, ifnull(t2.view_num, 0) as viewNum 
+		from t_evgl_pkg_info t1
+		inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+		<where>
+			<if test="refPkgIds != null and refPkgIds.size() > 0">
+			and ref_pkg_id in 
+			    <foreach collection="refPkgIds" item="refPkgId" open="(" separator="," close=")">
+			        #{refPkgId,jdbcType=VARCHAR}
+			    </foreach> 
+			</if>
+		</where> 
+	</select>
+	
+	<select id="queryPackageForChange" parameterType="map" resultType="com.budaos.modules.evgl.pkg.vo.TevglPkgInfoMgrVo">
+		select
+		t2.trainee_id, ifnull(t2.trainee_name, t2.nick_name) as trainee_name, t2.trainee_head, t2.mobile,
+		t1.receiver_user_id, ifnull(t3.trainee_name, t3.nick_name) as receiver_user_name, t3.trainee_head as receiver_user_head, t3.mobile as receiver_user_mobile,
+		t1.pkg_id, t1.pkg_name, t1.major_id, t1.subject_id, t1.pkg_version,
+		t1.create_user_id, t1.create_time, t1.pkg_logo, t1.receiver_user_id
+		from t_evgl_pkg_info t1
+		left join t_evgl_trainee_info t2 on t1.create_user_id = t2.trainee_id
+		left join t_evgl_trainee_info t3 on t1.receiver_user_id = t3.trainee_id
+		left join t_evgl_book_subject t4 on t1.subject_id = t4.subject_id
+		<where>
+			t1.state = 'Y' and t1.release_status = 'N' and t1.ref_pkg_id is null and  (t1.display is null or t1.display = '') 
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and t4.subject_ref = #{subjectId}
+			</if>
+			<if test="pkgIdArray != null">
+				and t1.pkg_id in
+				<foreach collection="pkgIdArray" item="pkgId" open="(" separator="," close=")">
+					#{pkgId}
+				</foreach>
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				ORDER BY t1.create_time desc, t1.pkg_name desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="updateReceiverUserId" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgInfo">
+		update t_evgl_pkg_info set receiver_user_id = #{receiverUserId} WHERE pkg_id = #{pkgId,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="batchUpdateReceiverUserIdByCaseWhen" parameterType="java.util.List">
+		UPDATE t_evgl_pkg_info
+		SET receiver_user_id = CASE pkg_id
+		<foreach collection="list" item="item" open="" separator="" close="">
+			WHEN #{item.pkgId} THEN #{item.receiverUserId}
+		</foreach>
+		END
+		WHERE pkg_id IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.pkgId}
+		</foreach>
+	</update>
+	
+	<select id="findTheLatestPackageLogo" parameterType="java.lang.String" resultType="java.lang.String">
+		select pkg_logo from t_evgl_pkg_info where ref_pkg_id = #{pkgId} order by create_time desc limit 1
+	</select>
+	
+	<select id="findPkgIdListByRefPkgId" parameterType="java.lang.String" resultType="java.lang.String">
+		select t1.pkg_id from t_evgl_pkg_info t1 where t1.ref_pkg_id = #{refPkgId}
+	</select>
+</mapper>
+

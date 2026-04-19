@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.eao.persistence.TeaoTraineeExammemberMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.eao.domain.TeaoTraineeExammember">
+		<result column="et_id" jdbcType="VARCHAR"
+			property="etId" />
+		<result column="er_id" jdbcType="VARCHAR"
+			property="erId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="trainee_name" jdbcType="VARCHAR"
+			property="traineeName" />
+		<result column="trainee_headimg" jdbcType="VARCHAR"
+			property="traineeHeadimg" />
+		<result column="class_id" jdbcType="VARCHAR"
+			property="classId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="trainee_type" jdbcType="VARCHAR"
+			property="traineeType" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="remark" jdbcType="VARCHAR"
+			property="remark" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		et_id,er_id,trainee_id,trainee_name,trainee_headimg,class_id,subject_id,trainee_type,sort_num,remark,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.eao.domain.TeaoTraineeExammember">
+		INSERT INTO T_EAO_TRAINEE_EXAMMEMBER (
+		et_id ,
+		er_id ,
+		trainee_id ,
+		trainee_name ,
+		trainee_headimg ,
+		class_id ,
+		subject_id ,
+		trainee_type ,
+		sort_num ,
+		remark ,
+		state 
+		) VALUES (
+
+#{etId,jdbcType=VARCHAR} ,
+
+#{erId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{traineeName,jdbcType=VARCHAR} ,
+
+#{traineeHeadimg,jdbcType=VARCHAR} ,
+
+#{classId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{traineeType,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{remark,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.eao.domain.TeaoTraineeExammember">
+		UPDATE T_EAO_TRAINEE_EXAMMEMBER 
+		<set>
+		<if test="erId != null">
+		er_id = #{erId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeName != null">
+		trainee_name = #{traineeName,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeHeadimg != null">
+		trainee_headimg = #{traineeHeadimg,jdbcType=VARCHAR},
+		</if>
+		<if test="classId != null">
+		class_id = #{classId,jdbcType=VARCHAR},
+		</if>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeType != null">
+		trainee_type = #{traineeType,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		et_id = #{etId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EAO_TRAINEE_EXAMMEMBER WHERE
+		et_id =
+		#{etId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EAO_TRAINEE_EXAMMEMBER WHERE
+		et_id in
+		<foreach item="etId" collection="array" open="("
+			separator="," close=")">
+#{etId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EAO_TRAINEE_EXAMMEMBER WHERE
+		et_id = #{etId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select t1.* from T_EAO_TRAINEE_EXAMMEMBER t1
+        left join t_evgl_trainee_info t2 on t1.trainee_id = t2.trainee_id
+        <where>
+        		<if test="activityIds != null and activityIds.size() > 0">
+				and t1.er_id in 
+				    <foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+				        #{activityId,jdbcType=VARCHAR}
+				    </foreach> 
+				</if>
+        		<if test="mobile != null and mobile.trim() != ''">
+                and t2.mobile like concat ('%', #{mobile,jdbcType=VARCHAR}, '%')            
+                </if>
+                <if test="jobNumber != null and jobNumber.trim() != ''">
+                and t2.job_number like concat ('%', #{jobNumber,jdbcType=VARCHAR}, '%')            
+                </if>
+                
+                <if test="erId != null and erId.trim() != ''">
+                and t1.er_id =#{erId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="traineeName != null and traineeName.trim() != ''">
+                and t1.trainee_name like concat ('%', #{traineeName,jdbcType=VARCHAR}, '%')            </if>
+                <if test="traineeHeadimg != null and traineeHeadimg.trim() != ''">
+                and t1.trainee_headimg =#{traineeHeadimg,jdbcType=VARCHAR}            </if>
+                <if test="classId != null and classId.trim() != ''">
+                and t1.class_id =#{classId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="traineeType != null and traineeType.trim() != ''">
+                and t1.trainee_type =#{traineeType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by et_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EAO_TRAINEE_EXAMMEMBER t1
+        <where>
+                <if test="erId != null and erId.trim() != ''">
+                and t1.er_id =#{erId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="traineeName != null and traineeName.trim() != ''">
+                and t1.trainee_name =#{traineeName,jdbcType=VARCHAR}            </if>
+                <if test="traineeHeadimg != null and traineeHeadimg.trim() != ''">
+                and t1.trainee_headimg =#{traineeHeadimg,jdbcType=VARCHAR}            </if>
+                <if test="classId != null and classId.trim() != ''">
+                and t1.class_id =#{classId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="traineeType != null and traineeType.trim() != ''">
+                and t1.trainee_type =#{traineeType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.et_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <delete id="deleteOther" parameterType="map">
+        DELETE FROM T_EAO_TRAINEE_EXAMMEMBER
+        <where>
+        <if test="etId != null and etId.trim() != ''">
+                and et_id =#{etId,jdbcType=VARCHAR}         </if>
+        <if test="erId != null and erId.trim() != ''">
+                and er_id =#{erId,jdbcType=VARCHAR}         </if>
+        <if test="traineeId != null and traineeId.trim() != ''">
+            and trainee_id =#{traineeId,jdbcType=VARCHAR}           </if>
+        <if test="subjectId != null and subjectId.trim() != ''">
+            and subject_id =#{subjectId,jdbcType=VARCHAR}           </if>
+        <if test="traineeType != null and traineeType.trim() != ''">
+                and trainee_type =#{traineeType,jdbcType=VARCHAR}         </if>
+        <if test="state != null and state.trim() != ''">
+            and state =#{state,jdbcType=VARCHAR}         </if>
+        </where>
+    </delete>
+    
+    <update id="updateForState" parameterType="map">
+        UPDATE T_EAO_TRAINEE_EXAMMEMBER 
+        <set>
+        <if test="vstate != null">
+        state = #{vstate,jdbcType=VARCHAR},
+        </if>
+        </set>
+        <where>
+	        <if test="etId != null and etId.trim() != ''">
+	           and et_id =#{etId,jdbcType=VARCHAR}         </if>
+            <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}         </if>
+            <if test="erId != null and erId.trim() != ''">
+                and er_id =#{erId,jdbcType=VARCHAR}         </if>
+            <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}           </if>
+            <if test="classId != null and classId.trim() != ''">
+                and class_id =#{classId,jdbcType=VARCHAR}           </if>
+            <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}           </if>
+            <if test="traineeType != null and traineeType.trim() != ''">
+                and trainee_type =#{traineeType,jdbcType=VARCHAR}           </if>
+        </where>
+    </update>
+    
+    <select id="selectListByMapForSp" resultType="map"
+        parameterType="map">
+        select t1.*,t3.subject_name,t4.name as class_room_name,t5.class_name
+            from T_EAO_TRAINEE_EXAMMEMBER t1
+            inner join T_EAO_TRAINEE_EXAMROOM t2 on t1.er_id=t2.er_id
+            inner join t_evgl_book_subject t3 on t1.subject_id=t3.subject_id
+            inner join t_evgl_tch_classroom t4 on t2.er_addr=t4.ct_id
+            left join t_evgl_tch_class t5 on t1.class_id=t5.class_id
+        <where>
+                <if test="erId != null and erId.trim() != ''">
+                and t1.er_id =#{erId,jdbcType=VARCHAR}         </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}           </if>
+                <if test="subjectName != null and subjectName.trim() != ''">
+                and t3.subject_name like concat('%',#{subjectName,jdbcType=VARCHAR},'%')           </if>
+                <if test="className != null and className.trim() != ''">
+                and t5.class_name like concat('%',#{className,jdbcType=VARCHAR},'%')         </if>
+                <if test="classRoomName != null and classRoomName.trim() != ''">
+                and t4.name like concat('%',#{classRoomName,jdbcType=VARCHAR},'%')         </if>
+                <if test="traineeName != null and traineeName.trim() != ''">
+                and t1.trainee_name like concat('%',#{traineeName,jdbcType=VARCHAR},'%')           </if>
+                <if test="traineeHeadimg != null and traineeHeadimg.trim() != ''">
+                and t1.trainee_headimg =#{traineeHeadimg,jdbcType=VARCHAR}         </if>
+                <if test="classId != null and classId.trim() != ''">
+                and t1.class_id =#{classId,jdbcType=VARCHAR}           </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}           </if>
+                <if test="traineeType != null and traineeType.trim() != ''">
+                and t1.trainee_type =#{traineeType,jdbcType=VARCHAR}           </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}           </if>
+	            <if test="state != null and state.trim() != ''">
+	                and t1.state =#{state,jdbcType=VARCHAR}         </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.sort_num asc
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectListByMapForExam" resultType="map"
+        parameterType="map">
+        select t1.*,t2.class_ids
+            from T_EAO_TRAINEE_EXAMMEMBER t1
+            inner join T_EAO_TRAINEE_EXAMROOM t2 on t1.er_id=t2.er_id
+        <where>
+                <if test="erId != null and erId.trim() != ''">
+                and t1.er_id =#{erId,jdbcType=VARCHAR}         </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}           </if>
+                <if test="classId != null and classId.trim() != ''">
+                and t1.class_id =#{classId,jdbcType=VARCHAR}           </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}           </if>
+                <if test="traineeType != null and traineeType.trim() != ''">
+                and t1.trainee_type =#{traineeType,jdbcType=VARCHAR}           </if>
+                <if test="state != null and state.trim() != ''">
+                    and t1.state =#{state,jdbcType=VARCHAR}         </if>
+        </where>
+    </select>
+    <select id="selectListByMapForScore" resultMap="BaseResultMap" parameterType="map">
+	    select t2.subject_name as subjectName, t3.er_stime as examineTime, t1.* from t_eao_trainee_exammember t1
+		inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+		inner join t_eao_trainee_examroom t3 on t3.er_id = t1.er_id
+		<where>
+	        <if test="erId != null and erId.trim() != ''">
+	        and t1.er_id =#{erId,jdbcType=VARCHAR}         </if>
+	        <if test="traineeId != null and traineeId.trim() != ''">
+	        and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}           </if>
+	        <if test="classId != null and classId.trim() != ''">
+	        and t1.class_id =#{classId,jdbcType=VARCHAR}           </if>
+	        <if test="subjectId != null and subjectId.trim() != ''">
+	        and t1.subject_id =#{subjectId,jdbcType=VARCHAR}           </if>
+	        <if test="traineeType != null and traineeType.trim() != ''">
+	        and t1.trainee_type =#{traineeType,jdbcType=VARCHAR}           </if>
+	        <if test="state != null and state.trim() != ''">
+	        and t1.state =#{state,jdbcType=VARCHAR}         </if>
+        </where>
+        <choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.er_id desc
+			</otherwise>
+		</choose>
+    </select>
+</mapper>
+

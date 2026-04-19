@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.ScheduleJobLogMapper">
+	<select id="selectObjectById" resultType="com.budaos.modules.sys.domain.ScheduleJobLogEntity">
+		select * from t_schedule_job_log where log_id = #{value}
+	</select>
+
+	<select id="selectListByMap" resultType="com.budaos.modules.sys.domain.ScheduleJobLogEntity">
+		select * from t_schedule_job_log
+		<where>
+			<if test="logId != null and logId.trim() != ''">
+				and log_id = #{logId}
+			</if>
+			<if test="jobId != null and jobId.trim() != ''">
+				and job_id = #{jobId}
+			</if>
+			<if test="beanName != null and beanName.trim() != ''">
+				and bean_name like concat('%', #{beanName}, '%')
+			</if>
+			<if test="methodName != null and methodName.trim() != ''">
+				and method_name like concat('%', #{methodName}, '%')
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectListById" resultType="com.budaos.modules.sys.domain.ScheduleJobLogEntity">
+		select * from t_schedule_job_log where log_id in
+		<foreach item="logId" collection="list" open="(" separator="," close=")">
+			#{logId}
+		</foreach>
+	</select>
+
+	<select id="selectTotalByMap" resultType="int">
+		select count(*) from t_schedule_job_log
+		<where>
+			<if test="jobId != null and jobId.trim() != ''">
+				and job_id = #{jobId}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectTotal" resultType="int">
+		select count(*) from t_schedule_job_log
+	</select>
+
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.ScheduleJobLogEntity">
+		insert into t_schedule_job_log
+		(
+			log_id,
+			job_id,
+			bean_name,
+			method_name,
+			params,
+			status,
+			error,
+			times,
+			create_time
+		)
+		values
+		(
+			#{logId},
+			#{jobId},
+			#{beanName},
+			#{methodName},
+			#{params},
+			#{status},
+			#{error},
+			#{times},
+			#{createTime}
+		)
+	</insert>
+
+	<delete id="delete">
+		delete from t_schedule_job_log where log_id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from t_schedule_job_log where log_id in
+		<foreach item="logId" collection="array" open="(" separator="," close=")">
+			#{logId}
+		</foreach>
+	</delete>
+</mapper>

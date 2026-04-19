@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.forum.persistence.TevglForumAttentionMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.forum.domain.TevglForumAttention">
+		<result column="attention_id" jdbcType="VARCHAR"
+			property="attentionId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="follow_id" jdbcType="VARCHAR"
+			property="followId" />
+		<result column="attention_type" jdbcType="VARCHAR"
+			property="attentionType" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="attention_time" jdbcType="VARCHAR"
+			property="attentionTime" />
+		<result column="cancel_time" jdbcType="VARCHAR"
+			property="cancelTime" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		attention_id,trainee_id,follow_id,attention_type,state,attention_time,cancel_time
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumAttention">
+		INSERT INTO T_EVGL_FORUM_ATTENTION (
+		attention_id ,
+		trainee_id ,
+		follow_id ,
+		attention_type ,
+		state ,
+		attention_time ,
+		cancel_time 
+		) VALUES (
+
+#{attentionId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{followId,jdbcType=VARCHAR} ,
+
+#{attentionType,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{attentionTime,jdbcType=VARCHAR} ,
+
+#{cancelTime,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumAttention">
+		UPDATE T_EVGL_FORUM_ATTENTION 
+		<set>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="followId != null">
+		follow_id = #{followId,jdbcType=VARCHAR},
+		</if>
+		<if test="attentionType != null">
+		attention_type = #{attentionType,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="attentionTime != null">
+		attention_time = #{attentionTime,jdbcType=VARCHAR},
+		</if>
+		<if test="cancelTime != null">
+		cancel_time = #{cancelTime,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		attention_id = #{attentionId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_ATTENTION WHERE
+		attention_id =
+		#{attentionId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_ATTENTION WHERE
+		attention_id in
+		<foreach item="attentionId" collection="array" open="("
+			separator="," close=")">
+#{attentionId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_FORUM_ATTENTION WHERE
+		attention_id = #{attentionId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_FORUM_ATTENTION
+        <where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="followId != null and followId.trim() != ''">
+                and follow_id =#{followId,jdbcType=VARCHAR}            </if>
+                <if test="attentionType != null and attentionType.trim() != ''">
+                and attention_type =#{attentionType,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="attentionTime != null and attentionTime.trim() != ''">
+                and attention_time =#{attentionTime,jdbcType=VARCHAR}            </if>
+                <if test="cancelTime != null and cancelTime.trim() != ''">
+                and cancel_time =#{cancelTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by attention_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_FORUM_ATTENTION t1
+        <where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="followId != null and followId.trim() != ''">
+                and t1.follow_id =#{followId,jdbcType=VARCHAR}            </if>
+                <if test="attentionType != null and attentionType.trim() != ''">
+                and t1.attention_type =#{attentionType,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="attentionTime != null and attentionTime.trim() != ''">
+                and t1.attention_time =#{attentionTime,jdbcType=VARCHAR}            </if>
+                <if test="cancelTime != null and cancelTime.trim() != ''">
+                and t1.cancel_time =#{cancelTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.attention_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 展示关注列表 -->
+    <select id="queryFollowList" resultType="map" parameterType="map">
+    	SELECT
+			t1.trainee_id AS traineeId,
+			IFNULL( t2.trainee_name, t2.nick_name ) AS blogName,
+			t2.trainee_head as traineeHead,
+			t1.follow_id AS followId,
+			IFNULL(t2.fans_num,0) as fansNum,
+			IFNULL(t2.follow_num,0) as followNum,
+			IFNULL(t2.blogs_num,0) as blogsNum
+		FROM
+			t_evgl_forum_attention t1
+			INNER JOIN t_evgl_trainee_info t2 ON t1.trainee_id = t2.trainee_id
+		<where>
+			<if test="followId != null and followId.trim() != ''">
+                and t1.follow_id =#{followId,jdbcType=VARCHAR}            
+            </if>
+            <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            
+            </if>
+		</where>
+    </select>
+    
+    <select id="queryFollowTraineeIdList" resultType="java.lang.String" parameterType="map">
+		SELECT t1.trainee_id FROM t_evgl_forum_attention t1
+		<where>
+			<if test="followId != null and followId.trim() != ''">
+				and t1.follow_id =#{followId,jdbcType=VARCHAR}
+			</if>
+			<if test="traineeId != null and traineeId.trim() != ''">
+				and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>
+

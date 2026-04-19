@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityBrainstormingAnswerFileMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivityBrainstormingAnswerFile">
+		<result column="fi_id" jdbcType="VARCHAR"
+			property="fiId" />
+		<result column="an_id" jdbcType="VARCHAR"
+			property="anId" />
+		<result column="url" jdbcType="VARCHAR"
+			property="url" />
+		<result column="file_suffix" jdbcType="VARCHAR"
+			property="fileSuffix" />
+		<result column="file_type" jdbcType="VARCHAR"
+			property="fileType" />
+		<result column="file_size" jdbcType="BIGINT"
+			property="fileSize" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="original_filename" jdbcType="VARCHAR"
+			property="originalFilename" />
+		<result column="duration_time" jdbcType="BIGINT"
+			property="durationTime" />
+		<result column="first_capture_access_url" jdbcType="VARCHAR"
+			property="firstCaptureAccessUrl" />
+		<result column="first_capture_save_path" jdbcType="VARCHAR"
+			property="firstCaptureSavePath" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		fi_id,an_id,url,file_suffix,file_type,file_size,sort_num,create_time,create_user_id,original_filename,duration_time,first_capture_access_url,first_capture_save_path,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityBrainstormingAnswerFile">
+		INSERT INTO T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE (
+		fi_id ,
+		an_id ,
+		url ,
+		file_suffix ,
+		file_type ,
+		file_size ,
+		sort_num ,
+		create_time ,
+		create_user_id ,
+		original_filename ,
+		duration_time ,
+		first_capture_access_url ,
+		first_capture_save_path ,
+		state 
+		) VALUES (
+
+#{fiId,jdbcType=VARCHAR} ,
+
+#{anId,jdbcType=VARCHAR} ,
+
+#{url,jdbcType=VARCHAR} ,
+
+#{fileSuffix,jdbcType=VARCHAR} ,
+
+#{fileType,jdbcType=VARCHAR} ,
+
+#{fileSize,jdbcType=BIGINT} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{originalFilename,jdbcType=VARCHAR} ,
+
+#{durationTime,jdbcType=BIGINT} ,
+
+#{firstCaptureAccessUrl,jdbcType=VARCHAR} ,
+
+#{firstCaptureSavePath,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityBrainstormingAnswerFile">
+		UPDATE T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE 
+		<set>
+		<if test="anId != null">
+		an_id = #{anId,jdbcType=VARCHAR},
+		</if>
+		<if test="url != null">
+		url = #{url,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSuffix != null">
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		</if>
+		<if test="fileType != null">
+		file_type = #{fileType,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSize != null">
+		file_size = #{fileSize,jdbcType=BIGINT},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="originalFilename != null">
+		original_filename = #{originalFilename,jdbcType=VARCHAR},
+		</if>
+		<if test="durationTime != null">
+		duration_time = #{durationTime,jdbcType=BIGINT},
+		</if>
+		<if test="firstCaptureAccessUrl != null">
+		first_capture_access_url = #{firstCaptureAccessUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="firstCaptureSavePath != null">
+		first_capture_save_path = #{firstCaptureSavePath,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		fi_id = #{fiId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE WHERE
+		fi_id =
+		#{fiId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE WHERE
+		fi_id in
+		<foreach item="fiId" collection="array" open="("
+			separator="," close=")">
+#{fiId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE WHERE
+		fi_id = #{fiId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE
+        <where>
+        		<if test="anIds != null and anIds.size() > 0">
+					and an_id in 
+				    <foreach collection="anIds" item="anId" open="(" separator="," close=")">
+				        #{anId,jdbcType=VARCHAR}
+				    </foreach> 
+				</if>
+                <if test="anId != null and anId.trim() != ''">
+                and an_id =#{anId,jdbcType=VARCHAR}            </if>
+                <if test="url != null and url.trim() != ''">
+                and url =#{url,jdbcType=VARCHAR}            </if>
+                <if test="fileSuffix != null and fileSuffix.trim() != ''">
+                and file_suffix =#{fileSuffix,jdbcType=VARCHAR}            </if>
+                <if test="fileType != null and fileType.trim() != ''">
+                and file_type =#{fileType,jdbcType=VARCHAR}            </if>
+                <if test="fileSize != null and fileSize.trim() != ''">
+                and file_size =#{fileSize,jdbcType=BIGINT}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="originalFilename != null and originalFilename.trim() != ''">
+                and original_filename =#{originalFilename,jdbcType=VARCHAR}            </if>
+                <if test="durationTime != null and durationTime.trim() != ''">
+                and duration_time =#{durationTime,jdbcType=BIGINT}            </if>
+                <if test="firstCaptureAccessUrl != null and firstCaptureAccessUrl.trim() != ''">
+                and first_capture_access_url =#{firstCaptureAccessUrl,jdbcType=VARCHAR}            </if>
+                <if test="firstCaptureSavePath != null and firstCaptureSavePath.trim() != ''">
+                and first_capture_save_path =#{firstCaptureSavePath,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by fi_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_BRAINSTORMING_ANSWER_FILE t1
+        <where>
+        		<if test="anIds != null and anIds.size() > 0">
+					and t1.an_id in 
+				    <foreach collection="anIds" item="anId" open="(" separator="," close=")">
+				        #{anId,jdbcType=VARCHAR}
+				    </foreach> 
+				</if>
+                <if test="anId != null and anId.trim() != ''">
+                and t1.an_id =#{anId,jdbcType=VARCHAR}            </if>
+                <if test="url != null and url.trim() != ''">
+                and t1.url =#{url,jdbcType=VARCHAR}            </if>
+                <if test="fileSuffix != null and fileSuffix.trim() != ''">
+                and t1.file_suffix =#{fileSuffix,jdbcType=VARCHAR}            </if>
+                <if test="fileType != null and fileType.trim() != ''">
+                and t1.file_type =#{fileType,jdbcType=VARCHAR}            </if>
+                <if test="fileSize != null and fileSize.trim() != ''">
+                and t1.file_size =#{fileSize,jdbcType=BIGINT}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="originalFilename != null and originalFilename.trim() != ''">
+                and t1.original_filename =#{originalFilename,jdbcType=VARCHAR}            </if>
+                <if test="durationTime != null and durationTime.trim() != ''">
+                and t1.duration_time =#{durationTime,jdbcType=BIGINT}            </if>
+                <if test="firstCaptureAccessUrl != null and firstCaptureAccessUrl.trim() != ''">
+                and t1.first_capture_access_url =#{firstCaptureAccessUrl,jdbcType=VARCHAR}            </if>
+                <if test="firstCaptureSavePath != null and firstCaptureSavePath.trim() != ''">
+                and t1.first_capture_save_path =#{firstCaptureSavePath,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.fi_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="queryFileInfoByIdIsNull" resultType="map">
+    	select fi_id, url from t_evgl_activity_brainstorming_answer_file
+    	where an_id is null or an_id = ''
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.budaos.modules.evgl.question.persistence.TepExaminePaperInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TepExaminePaperInfo">
+		<result column="paper_id" jdbcType="VARCHAR" property="paperId" />
+		<result column="paper_name" jdbcType="VARCHAR" property="paperName" />
+		<result column="paper_type" jdbcType="VARCHAR" property="paperType" />
+		<result column="paper_total_score" jdbcType="VARCHAR" property="paperTotalScore" />
+		<result column="paper_practice_time" jdbcType="VARCHAR"
+			property="paperPracticeTime" />
+		<result column="paper_state" jdbcType="VARCHAR" property="paperState" />
+		<result column="paper_source" jdbcType="VARCHAR" property="paperSource" />
+		<result column="paper_is_random" jdbcType="VARCHAR" property="paperIsRandom" />
+		<result column="paper_begin_time" jdbcType="VARCHAR" property="paperBeginTime" />
+		<result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+		<result column="paper_examiners_id" jdbcType="VARCHAR"
+			property="paperExaminersId" />
+		<result column="paper_confinement_time" jdbcType="INTEGER"
+			property="paperConfinementTime" />
+		<result column="create_time" jdbcType="VARCHAR" property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+		<result column="paper_surface_image" jdbcType="VARCHAR" property="paperSurfaceImage" />
+		<result column="paper_remarks" jdbcType="VARCHAR" property="paperRemarks" />
+		<result column="redo_num" jdbcType="INTEGER"
+			property="redoNum" />
+		<result column="view_result_time" jdbcType="VARCHAR"
+			property="viewResultTime" />
+		<result column="chapter_id" jdbcType="VARCHAR"
+			property="chapterId" />
+		<result column="resgroup_id" jdbcType="VARCHAR"
+			property="resgroupId" />
+		<result column="empirical_value" jdbcType="INTEGER"
+			property="empiricalValue" />
+		<result column="question_number" jdbcType="INTEGER"
+			property="questionNumber" />
+		<result column="single_choice_score" jdbcType="VARCHAR"
+			property="singleChoiceScore" />
+		<result column="multiple_choice_score" jdbcType="VARCHAR"
+			property="multipleChoiceScore" />
+		<result column="judge_score" jdbcType="VARCHAR"
+			property="judgeScore" />
+		<result column="short_answer_score" jdbcType="VARCHAR"
+			property="shortAnswerScore" />
+		<result column="purpose" jdbcType="VARCHAR"
+			property="purpose" />
+		<result column="activity_begin_time" jdbcType="VARCHAR"
+			property="activityBeginTime" />
+		<result column="activity_end_time" jdbcType="VARCHAR"
+			property="activityEndTime" />
+		<result column="gap_filling" jdbcType="VARCHAR"
+			property="gapFilling" />
+		<result column="gap_filling_score_standard" jdbcType="VARCHAR"
+			property="gapFillingScoreStandard" />
+		<result column="from_type" jdbcType="VARCHAR"
+			property="fromType" />
+		<result column="composite_score" jdbcType="VARCHAR"
+			property="compositeScore" />
+		<result column="single_choice_num" jdbcType="INTEGER"
+			property="singleChoiceNum" />
+		<result column="multiple_choice_num" jdbcType="INTEGER"
+			property="multipleChoiceNum" />
+		<result column="judge_num" jdbcType="INTEGER"
+			property="judgeNum" />
+		<result column="short_answer_num" jdbcType="INTEGER"
+			property="shortAnswerNum" />
+		<result column="gap_filling_num" jdbcType="INTEGER"
+			property="gapFillingNum" />
+		<result column="composite_num" jdbcType="INTEGER"
+			property="compositeNum" />
+		<result column="major_id" jdbcType="VARCHAR"
+			property="majorId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />											
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		paper_id,paper_name,paper_surface_image,paper_remarks,paper_type,paper_total_score,paper_practice_time,paper_state,paper_source,paper_is_random,paper_begin_time,create_user_id,paper_examiners_id,paper_confinement_time,create_time,update_user_id,update_time
+		,redo_num,view_result_time,chapter_id,resgroup_id,empirical_value,question_number,single_choice_score,multiple_choice_score,judge_score,short_answer_score,purpose
+		,gap_filling,gap_filling_score_standard,from_type,composite_score,single_choice_num,multiple_choice_num,judge_num,short_answer_num,gap_filling_num,composite_num
+		,major_id,subject_id
+	</sql>
+	<insert id="insert"
+		parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperInfo">
+		INSERT INTO T_EP_EXAMINE_PAPER_INFO (
+		paper_id ,
+		paper_name ,
+		paper_type ,
+		paper_total_score ,
+		paper_practice_time ,
+		paper_state ,
+		paper_source ,
+		paper_is_random ,
+		paper_begin_time ,
+		create_user_id ,
+		paper_examiners_id ,
+		paper_confinement_time ,
+		create_time ,
+		update_user_id ,
+		update_time,
+		paper_surface_image,
+		paper_remarks ,
+		redo_num ,
+		view_result_time ,
+		chapter_id ,
+		resgroup_id,
+		empirical_value ,
+		question_number ,
+		single_choice_score ,
+		multiple_choice_score ,
+		judge_score ,
+		short_answer_score ,
+		purpose ,
+		gap_filling ,
+		gap_filling_score_standard ,
+		from_type ,
+		composite_score ,
+		single_choice_num ,
+		multiple_choice_num ,
+		judge_num ,
+		short_answer_num ,
+		gap_filling_num ,
+		composite_num ,
+		major_id ,
+		subject_id 
+		) VALUES (
+
+		#{paperId,jdbcType=VARCHAR} ,
+
+		#{paperName,jdbcType=VARCHAR} ,
+
+		#{paperType,jdbcType=VARCHAR} ,
+
+		#{paperTotalScore,jdbcType=VARCHAR} ,
+
+		#{paperPracticeTime,jdbcType=INTEGER} ,
+
+		#{paperState,jdbcType=VARCHAR} ,
+
+		#{paperSource,jdbcType=VARCHAR} ,
+
+		#{paperIsRandom,jdbcType=VARCHAR} ,
+
+		#{paperBeginTime,jdbcType=VARCHAR} ,
+
+		#{createUserId,jdbcType=VARCHAR} ,
+
+		#{paperExaminersId,jdbcType=VARCHAR} ,
+
+		#{paperConfinementTime,jdbcType=VARCHAR} ,
+
+		#{createTime,jdbcType=VARCHAR} ,
+
+		#{updateUserId,jdbcType=VARCHAR} ,
+
+		#{updateTime,jdbcType=VARCHAR},
+		#{paperSurfaceImage,jdbcType=VARCHAR} ,
+		#{paperRemarks,jdbcType=VARCHAR} ,
+
+		#{redoNum,jdbcType=INTEGER} ,
+		
+		#{viewResultTime,jdbcType=VARCHAR} ,
+		
+		#{chapterId,jdbcType=VARCHAR} ,
+		
+		#{resgroupId,jdbcType=VARCHAR} ,
+		
+		#{empiricalValue,jdbcType=INTEGER} ,
+
+		#{questionNumber,jdbcType=INTEGER}  ,
+
+		#{singleChoiceScore,jdbcType=VARCHAR} ,
+		
+		#{multipleChoiceScore,jdbcType=VARCHAR} ,
+		
+		#{judgeScore,jdbcType=VARCHAR} ,
+		
+		#{shortAnswerScore,jdbcType=VARCHAR} ,
+		
+		#{purpose,jdbcType=VARCHAR}  ,
+
+		#{gapFilling,jdbcType=VARCHAR} ,
+
+		#{gapFillingScoreStandard,jdbcType=VARCHAR} ,
+
+		#{fromType,jdbcType=VARCHAR} ,
+		
+		#{compositeScore,jdbcType=VARCHAR} ,
+
+		#{singleChoiceNum,jdbcType=INTEGER} ,
+		
+		#{multipleChoiceNum,jdbcType=INTEGER} ,
+		
+		#{judgeNum,jdbcType=INTEGER} ,
+		
+		#{shortAnswerNum,jdbcType=INTEGER} ,
+		
+		#{gapFillingNum,jdbcType=INTEGER} ,
+		
+		#{compositeNum,jdbcType=INTEGER} ,
+
+		#{majorId,jdbcType=VARCHAR} ,
+		
+		#{subjectId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperInfo">
+		UPDATE T_EP_EXAMINE_PAPER_INFO
+		<set>
+			<if test="paperName != null">
+				paper_name = #{paperName,jdbcType=VARCHAR},
+			</if>
+			<if test="paperType != null">
+				paper_type = #{paperType,jdbcType=VARCHAR},
+			</if>
+			<if test="paperTotalScore != null">
+				paper_total_score = #{paperTotalScore,jdbcType=VARCHAR},
+			</if>
+			<if test="paperPracticeTime != null">
+				paper_practice_time = #{paperPracticeTime,jdbcType=INTEGER},
+			</if>
+			<if test="paperState != null">
+				paper_state = #{paperState,jdbcType=VARCHAR},
+			</if>
+			<if test="paperSource != null">
+				paper_source = #{paperSource,jdbcType=VARCHAR},
+			</if>
+			<if test="paperIsRandom != null">
+				paper_is_random = #{paperIsRandom,jdbcType=VARCHAR},
+			</if>
+			<if test="paperBeginTime != null">
+				paper_begin_time = #{paperBeginTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="paperExaminersId != null">
+				paper_examiners_id = #{paperExaminersId,jdbcType=VARCHAR},
+			</if>
+			<if test="paperConfinementTime != null">
+				paper_confinement_time = #{paperConfinementTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null">
+				update_user_id = #{updateUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="paperSurfaceImage != null">
+				paper_surface_image = #{paperSurfaceImage,jdbcType=VARCHAR},
+			</if>
+			<if test="paperRemarks != null">
+				paper_remarks = #{paperRemarks,jdbcType=VARCHAR},
+			</if>
+			<if test="redoNum != null">
+				redo_num = #{redoNum,jdbcType=INTEGER},
+			</if>
+			<if test="viewResultTime != null">
+				view_result_time = #{viewResultTime,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterId != null">
+				chapter_id = #{chapterId,jdbcType=VARCHAR},
+			</if>
+			<if test="resgroupId != null">
+				resgroup_id = #{resgroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="empiricalValue != null">
+				empirical_value = #{empiricalValue,jdbcType=INTEGER},
+			</if>
+			<if test="questionNumber != null">
+				question_number = #{questionNumber,jdbcType=INTEGER},
+			</if>
+			<if test="singleChoiceScore != null">
+				single_choice_score = #{singleChoiceScore,jdbcType=VARCHAR},
+			</if>
+			<if test="multipleChoiceScore != null">
+				multiple_choice_score = #{multipleChoiceScore,jdbcType=VARCHAR},
+			</if>
+			<if test="judgeScore != null">
+				judge_score = #{judgeScore,jdbcType=VARCHAR},
+			</if>
+			<if test="shortAnswerScore != null">
+				short_answer_score = #{shortAnswerScore,jdbcType=VARCHAR},
+			</if>
+			<if test="purpose != null">
+				purpose = #{purpose,jdbcType=VARCHAR},
+			</if>
+			<if test="gapFilling != null">
+				gap_filling = #{gapFilling,jdbcType=VARCHAR},
+			</if>
+			<if test="gapFillingScoreStandard != null">
+				gap_filling_score_standard = #{gapFillingScoreStandard,jdbcType=VARCHAR},
+			</if>
+			<if test="fromType != null">
+				from_type = #{fromType,jdbcType=VARCHAR},
+			</if>
+			<if test="compositeScore != null">
+				composite_score = #{compositeScore,jdbcType=VARCHAR},
+			</if>
+			<if test="singleChoiceNum != null">
+				single_choice_num = #{singleChoiceNum,jdbcType=INTEGER},
+			</if>
+			<if test="multipleChoiceNum != null">
+				multiple_choice_num = #{multipleChoiceNum,jdbcType=INTEGER},
+			</if>
+			<if test="judgeNum != null">
+				judge_num = #{judgeNum,jdbcType=INTEGER},
+			</if>
+			<if test="shortAnswerNum != null">
+				short_answer_num = #{shortAnswerNum,jdbcType=INTEGER},
+			</if>
+			<if test="gapFillingNum != null">
+				gap_filling_num = #{gapFillingNum,jdbcType=INTEGER},
+			</if>
+			<if test="compositeNum != null">
+				composite_num = #{compositeNum,jdbcType=INTEGER},
+			</if>
+			<if test="majorId != null">
+			major_id = #{majorId,jdbcType=VARCHAR},
+			</if>
+			<if test="subjectId != null">
+			subject_id = #{subjectId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE
+		paper_id = #{paperId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM
+		T_EP_EXAMINE_PAPER_INFO WHERE
+		paper_id =
+		#{paperId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_PAPER_INFO WHERE
+		paper_id in
+		<foreach item="paperId" collection="array" open="(" separator=","
+			close=")">
+			#{paperId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EP_EXAMINE_PAPER_INFO WHERE
+		paper_id =
+		#{paperId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectObjectByIdAndPkgId" parameterType="map"
+		resultMap="BaseResultMap">
+		select relation.activity_state as activityStateActual, 
+		relation.activity_begin_time, relation.activity_end_time, 
+		t1.*
+		from T_EP_EXAMINE_PAPER_INFO t1
+		inner join t_evgl_pkg_activity_relation relation on t1.paper_id = relation.activity_id
+		WHERE relation.activity_id = #{activityId,jdbcType=VARCHAR} and relation.pkg_id = #{pkgId}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from T_EP_EXAMINE_PAPER_INFO
+		<where>
+			<if test="majorId != null and majorId.trim() != ''">
+            	and FIND_IN_SET(#{majorId}, major_id)            
+            </if>
+            <if test="subjectId != null and subjectId.trim() != ''">
+            	and FIND_IN_SET(#{subjectId}, major_id)            
+            </if>
+			<if test="activityIds != null and activityIds.size() > 0">
+			and paper_id in 
+			    <foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+			        #{activityId,jdbcType=VARCHAR}
+			    </foreach> 
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and paper_name =#{paperName,jdbcType=VARCHAR}
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime.trim() != ''">
+				and paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime != ''">
+				and paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and create_time =#{createTime,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="redoNum != null and redoNum != ''">
+            	and redo_num =#{redoNum,jdbcType=INTEGER}            </if>
+            <if test="viewResultTime != null and viewResultTime.trim() != ''">
+            	and view_result_time =#{viewResultTime,jdbcType=VARCHAR}            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+            <if test="fromType != null and fromType.trim() != ''">
+                and from_type =#{fromType,jdbcType=VARCHAR}            </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectListMapByMap" resultType="map" parameterType="map">
+		select * from T_EP_EXAMINE_PAPER_INFO t1
+		<where>
+			<if test="majorId != null and majorId.trim() != ''">
+            	and FIND_IN_SET(#{majorId}, major_id)            
+            </if>
+            <if test="subjectId != null and subjectId.trim() != ''">
+            	and FIND_IN_SET(#{subjectId}, major_id)            
+            </if>
+			<if test="activityIds != null and activityIds.size() > 0">
+			and t1.activity_id in 
+			    <foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+			        #{activityId,jdbcType=VARCHAR}
+			    </foreach> 
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and SUBSTR(t1.create_time FROM 1 FOR 4) =#{createTime,jdbcType=VARCHAR}
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t1.paper_name =#{paperName,jdbcType=VARCHAR}
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and t1.paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and t1.paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				and t1.paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and t1.paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and t1.paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and t1.paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime.trim() != ''">
+				and t1.paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and t1.paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and t1.paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="redoNum != null and redoNum != ''">
+            	and t1.redo_num =#{redoNum,jdbcType=INTEGER}            </if>
+            <if test="viewResultTime != null and viewResultTime.trim() != ''">
+            	and t1.view_result_time =#{viewResultTime,jdbcType=VARCHAR}            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if> 
+            <if test="fromType != null and fromType.trim() != ''">
+                and t1.from_type =#{fromType,jdbcType=VARCHAR}            </if>         
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- <select id="plusNum"
+		parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperInfo">
+		UPDATE t_ep_examine_paper_info
+		<set>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				paper_practice_time =
+				IFNULL(paper_practice_time,0)+
+				#{paperPracticeTime,jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE
+		paper_id = #{paperId,jdbcType=VARCHAR}
+	</select> -->
+	
+	
+	<select id="selectListByMapForWeb" resultMap="BaseResultMap"
+		parameterType="map">
+		select t1.* from T_EP_EXAMINE_PAPER_INFO t1
+		<where>
+			<if test="majorId != null and majorId.trim() != ''">
+            	and FIND_IN_SET(#{majorId}, major_id)            
+            </if>
+            <if test="subjectId != null and subjectId.trim() != ''">
+            	and FIND_IN_SET(#{subjectId}, major_id)            
+            </if>
+			<if test="activityIds != null and activityIds.size() > 0">
+			and t1.activity_id in 
+			    <foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+			        #{activityId,jdbcType=VARCHAR}
+			    </foreach> 
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t1.paper_name =#{paperName,jdbcType=VARCHAR}
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and t1.paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and t1.paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				and t1.paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and t1.paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and t1.paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and t1.paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime.trim() != ''">
+				and t1.paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and t1.paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and t1.paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and t1.create_time =#{createTime,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="redoNum != null and redoNum != ''">
+            	and t1.redo_num =#{redoNum,jdbcType=INTEGER}            </if>
+            <if test="viewResultTime != null and viewResultTime.trim() != ''">
+            	and t1.view_result_time =#{viewResultTime,jdbcType=VARCHAR}            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+            <if test="fromType != null and fromType.trim() != ''">
+                and t1.from_type =#{fromType,jdbcType=VARCHAR}            </if>        
+		</where>
+		group by t1.paper_id
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getDates" resultType="map" parameterType="map">
+		SELECT SUBSTR(t1.create_time,1,4) as createTime from t_ep_examine_paper_info t1
+		<where>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t1.paper_name =#{paperName,jdbcType=VARCHAR}
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and t1.paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and t1.paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				and t1.paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and t1.paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and t1.paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and t1.paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime.trim() != ''">
+				and t1.paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and t1.paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and t1.paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and t1.create_time =#{createTime,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectByPaperId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+			t1.*,t2.activity_state as activityStateActual
+		FROM
+			t_ep_examine_paper_info t1
+			LEFT JOIN t_evgl_pkg_activity_relation t2 ON t1.paper_id = t2.activity_id
+			LEFT JOIN t_evgl_pkg_info t3 ON t2.pkg_id = t3.pkg_id
+		where t1.paper_id = #{paperId,jdbcType=VARCHAR} 
+	</select>
+	
+	<select id="selectByQuestions" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+			t1.*,
+			t2.questions_id
+		FROM
+			T_EP_EXAMINE_PAPER_INFO t1
+			LEFT JOIN t_ep_examine_paper_questions_detail t2 ON t1.paper_id = t2.paper_id 
+		<where>
+			<if test="paperId != null and paperId.trim() != ''">
+				paper_id = #{paperId,jdbcType=VARCHAR} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectTestPaperList" resultType="map" parameterType="map">
+		SELECT
+			t.* 
+		FROM
+			(
+		SELECT DISTINCT
+			t1.*,
+			SUBSTR( t1.create_time, 1, 10 ) AS createTime,
+			SUBSTR( t1.create_time, 1, 4 ) AS createDate,
+			t2.chapter_name AS chapterName,
+			t3.subject_id AS subjectId,
+			t7.major_id AS majorId,
+			ifnull( t8.activity_state, NULL ) AS activityState 
+		FROM
+			T_EP_EXAMINE_PAPER_INFO t1
+			LEFT JOIN t_evgl_book_chapter t2 ON t1.chapter_id = t2.chapter_id
+			LEFT JOIN t_evgl_book_subject t3 ON t2.subject_id = t3.subject_id
+			LEFT JOIN t_ep_examine_paper_questions_detail t6 ON t1.paper_id = t6.paper_id
+			LEFT JOIN t_evgl_questions_info t7 ON t6.questions_id = t7.questions_id
+			LEFT JOIN t_evgl_pkg_activity_relation t8 ON t1.paper_id = t8.activity_id 
+		WHERE
+			t8.activity_state != "0" UNION ALL
+		SELECT DISTINCT
+			t1.*,
+			SUBSTR( t1.create_time, 1, 10 ) AS createTime,
+			SUBSTR( t1.create_time, 1, 4 ) AS createDate,
+			t2.chapter_name AS chapterName,
+			t3.subject_id AS subjectId,
+			t7.major_id AS majorId,
+			NULL AS activityState 
+		FROM
+			T_EP_EXAMINE_PAPER_INFO t1
+			LEFT JOIN t_evgl_book_chapter t2 ON t1.chapter_id = t2.chapter_id
+			LEFT JOIN t_evgl_book_subject t3 ON t2.subject_id = t3.subject_id
+			LEFT JOIN t_ep_examine_paper_questions_detail t6 ON t1.paper_id = t6.paper_id
+			LEFT JOIN t_evgl_questions_info t7 ON t6.questions_id = t7.questions_id 
+			) t
+		<where>
+			<if test="majorId != null and majorId.trim() != ''">
+				and t.majorId = #{majorId,jdbcType=VARCHAR}
+			</if>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and t.subjectId = #{subjectId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t.paper_name like concat ('%', #{paperName,jdbcType=VARCHAR} ,'%')
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and t.paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and t.paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				and t.paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and t.paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and t.paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and t.paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime.trim() != ''">
+				and t.paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and t.paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and t.paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and SUBSTR(t.create_time, 1, 10) = #{sidx,jdbcType=VARCHAR}
+			</if>
+			<if test="createDate != null and createDate.trim() != ''">
+				and SUBSTR(t.create_time, 1, 4) = #{createDate,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="redoNum != null and redoNum != ''">
+            	and t.redo_num =#{redoNum,jdbcType=INTEGER}            </if>
+            <if test="viewResultTime != null and viewResultTime.trim() != ''">
+            	and t.view_result_time =#{viewResultTime,jdbcType=VARCHAR}            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and t.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>    
+		</where>
+		group by t.paper_id
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 截取试卷的创	建时间并去重 -->
+	<select id="queryTime" resultType="map" parameterType="map">
+		SELECT DISTINCT
+			SUBSTR( t1.create_time, 1, 4 ) AS createTime 
+		FROM
+			T_EP_EXAMINE_PAPER_INFO t1
+		<where>
+			<if test="createTime != null and createTime.trim() != ''">
+				and SUBSTR(t1.create_time, 1, 4) = #{createTime,jdbcType=VARCHAR}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 更新练习次数,题目个数-->
+	<update id="plusNum"
+		parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperInfo">
+		UPDATE T_EP_EXAMINE_PAPER_INFO
+		<set>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				paper_practice_time =
+				IFNULL(paper_practice_time,0)+
+				#{paperPracticeTime,jdbcType=INTEGER},
+			</if>
+			<if test="singleChoiceNum != null">
+				single_choice_num =
+				IFNULL(single_choice_num,0)+
+				#{singleChoiceNum,jdbcType=INTEGER},
+			</if>
+			<if test="multipleChoiceNum != null">
+				multiple_choice_num =
+				IFNULL(multiple_choice_num,0)+
+				#{multipleChoiceNum,jdbcType=INTEGER},
+			</if>
+			<if test="judgeNum != null">
+				judge_num = 
+				IFNULL(judge_num,0)+
+				#{judgeNum,jdbcType=INTEGER},
+			</if>
+			<if test="shortAnswerNum != null">
+				short_answer_num = 
+				IFNULL(short_answer_num,0)+
+				#{shortAnswerNum,jdbcType=INTEGER},
+			</if>
+			<if test="gapFillingNum != null">
+				gap_filling_num = 
+				IFNULL(gap_filling_num,0)+
+				#{gapFillingNum,jdbcType=INTEGER},
+			</if>
+			<if test="compositeNum != null">
+				composite_num = 
+				IFNULL(composite_num,0)+
+				#{compositeNum,jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE
+		paper_id = #{paperId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 查询试卷的查看答案时机 -->
+	<select id="selectViewResultTime" resultType="map" parameterType="map">
+		SELECT
+			t1.*,
+			t2.pkg_id as pkgId,
+			t2.activity_state as activityState,
+			t3.ct_id as ctId
+		FROM
+			t_ep_examine_paper_info t1
+			INNER JOIN t_evgl_pkg_activity_relation t2 ON t1.paper_id = t2.activity_id
+			INNER JOIN t_evgl_tch_classroom t3 ON t2.pkg_id = t3.pkg_id
+		<where>
+			<if test="paperId != null and paperId.trim() != ''">
+				and t1.paper_id = #{paperId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryPaperListByUnionAll" resultType="map" parameterType="map">
+		select t.* from (
+			<!-- select t1.paper_id AS paperId,
+			t1.paper_name as paperName,
+			t1.paper_type as paperType,
+			t1.paper_total_score as paperTotalScore,
+			t1.paper_practice_time as paperPracticeTime,
+			t1.question_number as questioNumber,
+			t1.major_id as majorId,
+			t1.subject_id as subjectId
+			from t_ep_examine_paper_info t1
+			where t1.from_type = "1"
+
+			union all -->
+
+			select t1.paper_id AS paperId,
+			t1.paper_name as paperName,
+			t1.paper_type as paperType,
+			t1.paper_total_score as paperTotalScore,
+			t1.paper_practice_time as paperPracticeTime,
+			t1.question_number as questioNumber,
+			t1.major_id as majorId,
+			t1.subject_id as subjectId,
+			t2.pkg_id as pkgId,
+			t2.activity_type as activityType
+			from t_ep_examine_paper_info t1
+			inner join t_evgl_pkg_activity_relation t2 on t1.paper_id = t2.activity_id and t2.activity_state != '0'
+
+		) t
+		<where>
+			t.activityType = "4"
+			<if test="pkgIds != null and pkgIds.size() > 0">
+				and t.pkgId in
+				<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+					#{pkgId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t.paperName like concat('%', #{paperName,jdbcType=VARCHAR} ,'%')
+			</if>
+			<if test="majorId != null and majorId.trim() != ''">
+				and find_in_set(#{majorId}, majorId)
+			</if>
+			<if test="majorIds != null and majorIds.size() > 0">
+				and t.majorId in
+				<foreach collection="majorIds" item="id" open="(" separator="," close=")">
+					#{id,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="subjectIds != null and subjectIds.size() > 0">
+				<foreach collection="subjectIds" item="subjectId" open="(" separator="," close=")">
+					find_in_set(#{subjectId,jdbcType=VARCHAR}, subjectId)
+				</foreach>
+			</if>
+			<if test="majorIdIsNull != null and majorId.trim() != ''">
+            	and (major_id is null or major_id = '')       
+            </if>
+		</where>
+		group by t.paperId
+	</select>
+	
+	<select id="selectTestPaperListNew" resultType="map" parameterType="map">
+		SELECT
+			t.* 
+		FROM
+			(
+		SELECT DISTINCT
+			t1.*,
+			SUBSTR( t1.create_time, 1, 10 ) AS createTime,
+			SUBSTR( t1.create_time, 1, 4 ) AS createDate,
+			ifnull( t2.activity_state, NULL ) AS activityState 
+		FROM
+			T_EP_EXAMINE_PAPER_INFO t1
+			inner join t_evgl_pkg_activity_relation t2 on t1.paper_id = t2.activity_id and t2.activity_state != '0'
+			
+		UNION ALL
+		
+		SELECT DISTINCT
+			t1.*,
+			SUBSTR( t1.create_time, 1, 10 ) AS createTime,
+			SUBSTR( t1.create_time, 1, 4 ) AS createDate,
+			NULL AS activityState 
+		FROM
+			T_EP_EXAMINE_PAPER_INFO t1
+			) t
+		<where>
+			<if test="majorId != null and majorId.trim() != ''">
+				and find_in_set(#{majorId}, major_id)
+			</if>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and find_in_set(#{subjectId}, subject_id)
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t.paper_name like concat ('%', #{paperName,jdbcType=VARCHAR} ,'%')
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and t.paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and t.paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				and t.paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and t.paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and t.paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and t.paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime.trim() != ''">
+				and t.paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and t.paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and t.paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and SUBSTR(t.create_time, 1, 10) = #{sidx,jdbcType=VARCHAR}
+			</if>
+			<if test="createDate != null and createDate.trim() != ''">
+				and SUBSTR(t.create_time, 1, 4) = #{createDate,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="redoNum != null and redoNum != ''">
+            	and t.redo_num =#{redoNum,jdbcType=INTEGER}            </if>
+            <if test="viewResultTime != null and viewResultTime.trim() != ''">
+            	and t.view_result_time =#{viewResultTime,jdbcType=VARCHAR}            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and t.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>    
+		</where>
+		group by t.paper_id
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 引入Spring Boot默认配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 隐藏Tomcat JDK兼容性探测日志 -->
+    <logger name="org.apache.tomcat.util.compat" level="WARN"/>
+
+    <!-- ========== 过滤调试日志 ========== -->
+    <!-- Redisson DNS监控日志 -->
+    <logger name="org.redisson.connection.DNSMonitor" level="WARN"/>
+
+    <!-- RMI相关日志 -->
+    <logger name="sun.rmi" level="WARN"/>
+    <logger name="javax.management.remote.rmi" level="WARN"/>
+    <logger name="sun.rmi.transport.tcp" level="WARN"/>
+    <logger name="sun.rmi.loader" level="WARN"/>
+
+    <!-- Druid连接池SQL日志 -->
+    <logger name="druid.sql" level="WARN"/>
+    <logger name="com.alibaba.druid" level="WARN"/>
+
+    <!-- Quartz调度器日志 -->
+    <logger name="org.quartz" level="INFO"/>
+    <logger name="org.springframework.scheduling.quartz" level="INFO"/>
+
+    <!-- Netty日志 -->
+    <logger name="io.netty" level="WARN"/>
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 添加过滤器，过滤掉DEBUG级别日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/budaos.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/budaos.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 修正：错误日志文件 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/budaos-error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/budaos-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 根日志级别 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+
+    <!-- 应用日志级别 -->
+    <logger name="com.budaos" level="INFO"/>
+    <logger name="com.budaos.modules" level="INFO"/>
+</configuration>

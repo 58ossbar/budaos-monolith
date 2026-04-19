@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.budaos.modules.job.persistence.TsysOrgMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TsysOrg">
+		<result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+		<result column="ORG_SN" jdbcType="INTEGER" property="orgSn" />
+		<result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+		<result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+		<result column="ORG_XZQM" jdbcType="VARCHAR" property="orgXzqm" />
+		<result column="ORG_SHOWNAME" jdbcType="VARCHAR"
+			property="orgShowname" />
+		<result column="PARENT_ID" jdbcType="VARCHAR"
+			property="parentId" />
+		<result column="PARENT_NAME" jdbcType="VARCHAR"
+			property="parentName" />
+		<result column="LAYER" jdbcType="INTEGER" property="layer" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="ORG_TYPE" jdbcType="VARCHAR" property="orgType" />
+		<result column="ADDR" jdbcType="VARCHAR" property="addr" />
+		<result column="ZIP" jdbcType="VARCHAR" property="zip" />
+		<result column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<result column="LEADER" jdbcType="VARCHAR" property="leader" />
+		<result column="PHONE" jdbcType="VARCHAR" property="phone" />
+		<result column="FAX" jdbcType="VARCHAR" property="fax" />
+		<result column="STATE" jdbcType="VARCHAR" property="state" />
+		<result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+		<result column="JP" jdbcType="VARCHAR" property="jp" />
+		<result column="QP" jdbcType="VARCHAR" property="qp" />
+		<result column="ANCESTRY" jdbcType="VARCHAR"
+			property="ancestry" />
+		<result column="cover_pic" jdbcType="VARCHAR"
+			property="coverPic" />
+		<result column="description" jdbcType="LONGVARCHAR"
+			property="description" />
+		<result column="college_code" jdbcType="VARCHAR"
+			property="collegeCode" />
+		<result column="major_code" jdbcType="VARCHAR"
+			property="majorCode" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ORG_ID,ORG_SN,ORG_NAME,ORG_CODE,ORG_XZQM,ORG_SHOWNAME,PARENT_ID,LAYER,REMARK,ORG_TYPE,ADDR,ZIP,EMAIL,LEADER,PHONE,FAX,STATE,MOBILE,JP,QP,ANCESTRY,create_user_id,
+		create_time,
+		update_user_id,
+		update_time,cover_pic,description,college_code,major_code
+	</sql>
+	<insert id="insert"
+		parameterType="com.budaos.modules.sys.domain.TsysOrg">
+		INSERT INTO T_SYS_ORG (
+		ORG_ID,
+		ORG_SN ,
+		ORG_NAME ,
+		ORG_CODE ,
+		ORG_XZQM ,
+		ORG_SHOWNAME ,
+		PARENT_ID ,
+		LAYER,
+		REMARK ,
+		ORG_TYPE ,
+		ADDR ,
+		ZIP ,
+		EMAIL ,
+		LEADER ,
+		PHONE ,
+		FAX ,
+		STATE ,
+		MOBILE ,
+		JP ,
+		QP ,
+		ANCESTRY,
+		create_user_id,
+		create_time,
+		update_user_id,
+		update_time,
+		cover_pic ,
+		description,
+		college_code,
+		major_code
+		) VALUES (
+
+		#{orgId,jdbcType=VARCHAR}
+		,
+
+		#{orgSn,jdbcType=INTEGER} ,
+
+		#{orgName,jdbcType=VARCHAR} ,
+
+		#{orgCode,jdbcType=VARCHAR} ,
+
+		#{orgXzqm,jdbcType=VARCHAR} ,
+
+		#{orgShowname,jdbcType=VARCHAR} ,
+
+		#{parentId,jdbcType=VARCHAR} ,
+
+		#{layer,jdbcType=INTEGER} ,
+		#{remark,jdbcType=VARCHAR} ,
+
+		#{orgType,jdbcType=VARCHAR} ,
+
+		#{addr,jdbcType=VARCHAR} ,
+
+		#{zip,jdbcType=VARCHAR} ,
+
+		#{email,jdbcType=VARCHAR} ,
+
+		#{leader,jdbcType=VARCHAR} ,
+
+		#{phone,jdbcType=VARCHAR} ,
+
+		#{fax,jdbcType=VARCHAR} ,
+
+		#{state,jdbcType=VARCHAR} ,
+
+		#{mobile,jdbcType=VARCHAR} ,
+
+		#{jp,jdbcType=VARCHAR} ,
+
+		#{qp,jdbcType=VARCHAR} ,
+
+		#{ancestry,jdbcType=VARCHAR},
+		#{createUserId,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{updateUserId,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=VARCHAR},
+
+		#{coverPic,jdbcType=VARCHAR} ,
+
+		#{description,jdbcType=LONGVARCHAR},
+		#{collegeCode,jdbcType=VARCHAR},
+		#{majorCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.budaos.modules.sys.domain.TsysOrg">
+		UPDATE T_SYS_ORG
+		<set>
+			ORG_SN = #{orgSn,jdbcType=INTEGER},
+			ORG_NAME
+			=#{orgName,jdbcType=VARCHAR},
+			ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+			ORG_XZQM = #{orgXzqm,jdbcType=VARCHAR},
+			ORG_SHOWNAME
+			=#{orgShowname,jdbcType=VARCHAR},
+			PARENT_ID
+			=#{parentId,jdbcType=VARCHAR},
+			LAYER = #{layer,jdbcType=INTEGER},
+			REMARK= #{remark,jdbcType=VARCHAR},
+			ORG_TYPE =
+			#{orgType,jdbcType=VARCHAR},
+			ADDR = #{addr,jdbcType=VARCHAR},
+			ZIP =
+			#{zip,jdbcType=VARCHAR},
+			EMAIL =#{email,jdbcType=VARCHAR},
+			LEADER =
+			#{leader,jdbcType=VARCHAR},
+			PHONE =#{phone,jdbcType=VARCHAR},
+			FAX =
+			#{fax,jdbcType=VARCHAR},
+			STATE =#{state,jdbcType=VARCHAR},
+			MOBILE =
+			#{mobile,jdbcType=VARCHAR},
+			JP =#{jp,jdbcType=VARCHAR},
+			QP =
+			#{qp,jdbcType=VARCHAR},
+			<if test="createUserId != null and createUserId.trim() != ''">
+				create_user_id = #{createUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				update_user_id = #{updateUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null and updateTime.trim() != ''">
+				update_time = #{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="coverPic != null and coverPic.trim()!=''">
+				cover_pic = #{coverPic,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null and description.trim()!=''">
+				description = #{description,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="ancestry != null and ancestry.trim()!=''">
+				ANCESTRY = #{ancestry,jdbcType=VARCHAR},
+			</if>
+			<if test="collegeCode != null and collegeCode.trim()!=''">
+				college_code = #{collegeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="majorCode != null and majorCode.trim()!=''">
+				major_code = #{majorCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE
+		ORG_ID = #{orgId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_ORG WHERE
+		ORG_ID = #{orgId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch">
+		delete from T_SYS_ORG where ORG_ID in
+		<foreach item="orgId" collection="array" open="("
+			separator="," close=")">
+			#{orgId}
+		</foreach>
+	</delete>
+	<select id="selectListById" parameterType="java.lang.String"
+		resultType="com.budaos.modules.sys.domain.TsysOrg">
+		select * from
+		T_SYS_ORG where ORG_ID =
+		#{orgId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		(select p.org_Name from T_SYS_ORG p where p.ORG_ID =
+		o.PARENT_ID) as
+		PARENT_NAME
+		from T_SYS_ORG o WHERE
+		ORG_ID = #{orgId,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" parameterType="map"
+		resultType="com.budaos.modules.sys.domain.TsysOrg">
+		select o.*,(select p.ORG_NAME from T_SYS_ORG p where p.org_id =
+		o.parent_id) as parentName from T_SYS_ORG o
+		<where>
+			<if test="orgName != null and orgName.trim() != ''">
+				and o.org_name LIKE CONCAT(CONCAT('%', #{orgName}), '%')
+			</if>
+			<if test="parentId != null and parentId.trim() != ''">
+				and o.PARENT_ID = #{parentId}
+			</if>
+			<if test="parentId != null and parentId.trim() != ''">
+				and o.PARENT_ID = #{parentId}
+			</if>
+			<if test="parentCode != null and parentCode.trim() != ''">
+				and o.ORG_CODE like concat(#{parentCode},'%')
+			</if>
+			<if test="orgType != null and orgType.trim() != ''">
+				and o.ORG_TYPE =#{orgType}
+			</if>
+			<if test="nonOrgType != null and nonOrgType.trim() != ''">
+				and o.ORG_TYPE &lt;&gt; #{nonOrgType}
+			</if>
+			<if test="filterSql != null and filterSql.trim() != ''">
+				and ${filterSql}
+			</if>
+			<if test="collegeCode != null and collegeCode.trim()!=''">
+				and college_code = #{collegeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="majorCode != null and majorCode.trim()!=''">
+				and major_code = #{majorCode,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state.trim() != ''">
+				and o.STATE = #{state}
+			</if>
+		</where>
+		order by o.org_code
+	</select>
+	<select id="selectOrgIdList" resultType="String">
+		select org_id from
+		T_SYS_ORG where parent_id = #{value}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="getAllOrgs" parameterType="map"
+		resultType="com.budaos.modules.sys.domain.TsysOrg">
+		select * from T_SYS_ORG
+	</select>
+	<select id="getAllOrgIds" resultType="string">
+		select org_id from
+		T_SYS_ORG
+	</select>
+	<select id="selectMaxCodeByParenId"
+		parameterType="java.lang.String" resultType="java.lang.String">
+		select max(ORG_CODE) from
+		T_SYS_ORG where PARENT_ID =
+		#{value}
+	</select>
+	<select id="selectCountParentId" resultType="int"
+		parameterType="java.lang.String">
+		select count(org_id)
+		from
+		T_SYS_ORG where PARENT_ID =
+		#{parentId}
+	</select>
+	<select id="selectMaxOrderSnByParentId"
+		parameterType="java.lang.String" resultType="int">
+		select
+		IFNULL(max(org_sn),0) from
+		T_SYS_ORG where PARENT_ID =
+		#{parentId}
+	</select>
+	<select id="selectListByParentId"
+		parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from
+		T_SYS_ORG
+		where PARENT_ID =
+		#{parentId} order by org_code
+	</select>
+</mapper>
+

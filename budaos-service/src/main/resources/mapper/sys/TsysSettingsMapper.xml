@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TsysSettingsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TsysSettings">
+		<result column="setting_id" jdbcType="VARCHAR"
+			property="settingId" />
+		<result column="setting_type" jdbcType="VARCHAR"
+			property="settingType" />
+		<result column="setting_code" jdbcType="VARCHAR"
+			property="settingCode" />
+		<result column="setting_name" jdbcType="VARCHAR"
+			property="settingName" />
+		<result column="setting_value" jdbcType="LONGVARCHAR"
+			property="settingValue" />
+		<result column="setting_group" jdbcType="VARCHAR"
+			property="settingGroup" />
+		<result column="setting_user_id" jdbcType="VARCHAR"
+			property="settingUserId" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="remark" jdbcType="VARCHAR"
+			property="remark" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		setting_id,setting_type,setting_code,setting_name,setting_value,setting_group,setting_user_id,state,create_user_id,create_time,update_user_id,update_time,remark
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TsysSettings">
+		INSERT INTO T_SYS_SETTINGS (
+		setting_id ,
+		setting_type ,
+		setting_code ,
+		setting_name ,
+		setting_value ,
+		setting_group ,
+		setting_user_id ,
+		state ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		remark 
+		) VALUES (
+
+#{settingId,jdbcType=VARCHAR} ,
+
+#{settingType,jdbcType=VARCHAR} ,
+
+#{settingCode,jdbcType=VARCHAR} ,
+
+#{settingName,jdbcType=VARCHAR} ,
+
+#{settingValue,jdbcType=LONGVARCHAR} ,
+
+#{settingGroup,jdbcType=VARCHAR} ,
+
+#{settingUserId,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{remark,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TsysSettings">
+		UPDATE T_SYS_SETTINGS 
+		<set>
+		<if test="settingType != null">
+		setting_type = #{settingType,jdbcType=VARCHAR},
+		</if>
+		<if test="settingCode != null">
+		setting_code = #{settingCode,jdbcType=VARCHAR},
+		</if>
+		<if test="settingName != null">
+		setting_name = #{settingName,jdbcType=VARCHAR},
+		</if>
+		<if test="settingValue != null">
+		setting_value = #{settingValue,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="settingGroup != null">
+		setting_group = #{settingGroup,jdbcType=VARCHAR},
+		</if>
+		<if test="settingUserId != null">
+		setting_user_id = #{settingUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		setting_id = #{settingId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_SETTINGS WHERE
+		setting_id =
+		#{settingId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_SYS_SETTINGS WHERE
+		setting_id in
+		<foreach item="settingId" collection="array" open="("
+			separator="," close=")">
+#{settingId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_SYS_SETTINGS WHERE
+		setting_id = #{settingId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_SYS_SETTINGS
+        <where>
+                <if test="settingType != null and settingType.trim() != ''">
+                and setting_type =#{settingType,jdbcType=VARCHAR}            </if>
+                <if test="settingCode != null and settingCode.trim() != ''">
+                and setting_code =#{settingCode,jdbcType=VARCHAR}            </if>
+                <if test="settingName != null and settingName.trim() != ''">
+                and setting_name =#{settingName,jdbcType=VARCHAR}            </if>
+                <if test="settingValue != null and settingValue.trim() != ''">
+                and setting_value =#{settingValue,jdbcType=LONGVARCHAR}            </if>
+                <if test="settingGroup != null and settingGroup.trim() != ''">
+                and setting_group =#{settingGroup,jdbcType=VARCHAR}            </if>
+                <if test="settingUserId != null and settingUserId.trim() != ''">
+                and setting_user_id =#{settingUserId,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by setting_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_SYS_SETTINGS t1
+        <where>
+                <if test="settingType != null and settingType.trim() != ''">
+                and t1.setting_type =#{settingType,jdbcType=VARCHAR}            </if>
+                <if test="settingCode != null and settingCode.trim() != ''">
+                and t1.setting_code =#{settingCode,jdbcType=VARCHAR}            </if>
+                <if test="settingName != null and settingName.trim() != ''">
+                and t1.setting_name =#{settingName,jdbcType=VARCHAR}            </if>
+                <if test="settingValue != null and settingValue.trim() != ''">
+                and t1.setting_value =#{settingValue,jdbcType=LONGVARCHAR}            </if>
+                <if test="settingGroup != null and settingGroup.trim() != ''">
+                and t1.setting_group =#{settingGroup,jdbcType=VARCHAR}            </if>
+                <if test="settingUserId != null and settingUserId.trim() != ''">
+                and t1.setting_user_id =#{settingUserId,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.setting_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

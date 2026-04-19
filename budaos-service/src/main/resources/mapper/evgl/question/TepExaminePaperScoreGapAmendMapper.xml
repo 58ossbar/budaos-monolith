@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.question.persistence.TepExaminePaperScoreGapAmendMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TepExaminePaperScoreGapAmend">
+		<result column="am_id" jdbcType="VARCHAR"
+			property="amId" />
+		<result column="score_id" jdbcType="VARCHAR"
+			property="scoreId" />
+		<result column="score" jdbcType="VARCHAR"
+			property="score" />
+		<result column="reason" jdbcType="VARCHAR"
+			property="reason" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		am_id,score_id,score,reason,create_user_id,create_time
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperScoreGapAmend">
+		INSERT INTO T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND (
+		am_id ,
+		score_id ,
+		score ,
+		reason ,
+		create_user_id ,
+		create_time 
+		) VALUES (
+
+#{amId,jdbcType=VARCHAR} ,
+
+#{scoreId,jdbcType=VARCHAR} ,
+
+#{score,jdbcType=VARCHAR} ,
+
+#{reason,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperScoreGapAmend">
+		UPDATE T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND 
+		<set>
+		<if test="scoreId != null">
+		score_id = #{scoreId,jdbcType=VARCHAR},
+		</if>
+		<if test="score != null">
+		score = #{score,jdbcType=VARCHAR},
+		</if>
+		<if test="reason != null">
+		reason = #{reason,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		am_id = #{amId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND WHERE
+		am_id =
+		#{amId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND WHERE
+		am_id in
+		<foreach item="amId" collection="array" open="("
+			separator="," close=")">
+#{amId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND WHERE
+		am_id = #{amId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND
+        <where>
+                <if test="scoreId != null and scoreId.trim() != ''">
+                and score_id =#{scoreId,jdbcType=VARCHAR}            </if>
+                <if test="score != null and score.trim() != ''">
+                and score =#{score,jdbcType=VARCHAR}            </if>
+                <if test="reason != null and reason.trim() != ''">
+                and reason =#{reason,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by am_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND t1
+        <where>
+                <if test="scoreId != null and scoreId.trim() != ''">
+                and t1.score_id =#{scoreId,jdbcType=VARCHAR}            </if>
+                <if test="score != null and score.trim() != ''">
+                and t1.score =#{score,jdbcType=VARCHAR}            </if>
+                <if test="reason != null and reason.trim() != ''">
+                and t1.reason =#{reason,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.am_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findHistoryIdByScoreId" parameterType="string" resultType="string">
+		select t1.history_id from t_ep_examine_paper_score t1
+		where t1.score_id = #{scoreId}
+	</select>
+	<select id="findLatestScoreByScoreId" parameterType="string" resultType="string">
+		select t1.score from t_ep_examine_paper_score_gap_amend t1
+		where t1.score_id = #{scoreId} order by create_time desc limit 1
+	</select>
+	<select id="findLogListByScoreId" parameterType="string" resultMap="BaseResultMap">
+		select * from T_EP_EXAMINE_PAPER_SCORE_GAP_AMEND where score_id = #{scoreId} order by create_time desc
+	</select>
+	<select id="findPaperByScoreId" parameterType="string" resultType="com.budaos.modules.evgl.question.domain.TepExaminePaperInfo">
+		select t4.* from t_ep_examine_paper_score t1
+		inner join t_ep_examine_history_paper t2 on t1.history_id = t2.history_id
+		inner join t_ep_examine_dynamic_paper t3 on t2.dy_id = t3.dy_id
+		inner join t_ep_examine_paper_info t4 on t3.paper_id = t4.paper_id
+		where t1.score_id = #{scoreId}
+	</select>
+</mapper>
+

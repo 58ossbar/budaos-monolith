@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.trainee.persistence.TevglTraineeScoreMapper">
+	
+    <select id="findTraineeScoreList" parameterType="map" resultType="com.budaos.modules.evgl.trainee.vo.TevglTraineeScoreVo" >
+		select t.* from (
+
+			select null as erId, null as classIds,
+			t1.history_id as id, t1.trainee_id as traineeId, ifnull(trainee.trainee_name, trainee.nick_name) as traineeName, trainee.mobile,
+			SUBSTRING(t1.paper_begin_time FROM 1 FOR 10) as examTime, t1.paper_final_score as finalScore,
+			room.ct_id as ctId, room.pkg_id as pkgId, room.name, room.class_id as classId,
+			room.major_id as majorId, room.teacher_id as teacherId, teacher.teacher_name as teacherName,
+			sub.subject_id as subjectId, sub.subject_ref as subjectRef, sub.subject_name as subjectName,
+			'4' as type, '测试活动' as typeName
+			from t_ep_examine_history_paper t1
+			inner join t_ep_examine_dynamic_paper t2 on t1.dy_id = t2.dy_id and t2.pkg_id is not null
+			inner join t_evgl_trainee_info trainee on t1.trainee_id = trainee.trainee_id
+			inner join t_evgl_tch_classroom room on t2.ct_id = room.ct_id
+			inner join t_evgl_pkg_info pkg on t2.pkg_id = pkg.pkg_id
+			left join t_evgl_book_subject sub on pkg.subject_id = sub.subject_id
+			left join t_evgl_tch_teacher teacher on room.teacher_id = teacher.teacher_id
+			where t1.paper_final_score > 0
+
+			union all
+
+			select t1.er_id as erId, t2.class_ids as classIds,
+			t1.et_id as id, t1.trainee_id as traineeId, ifnull(trainee.trainee_name, trainee.nick_name) as traineeName, trainee.mobile,
+			SUBSTRING(relation.activity_begin_time FROM 1 FOR 10) as examTime, 0 as finalScore,
+			room.ct_id as ctId, room.pkg_id as pkgId, room.name, room.class_id as classId,
+			room.major_id as majorId, room.teacher_id as teacherId, teacher.teacher_name as teacherName,
+			sub.subject_id as subjectId, sub.subject_ref as subjectRef, sub.subject_name as subjectName,
+			'9' as type, '实践考核' as typeName
+			from t_eao_trainee_exammember t1
+			inner join t_eao_trainee_examroom t2 on t1.er_id = t2.er_id
+			inner join t_evgl_trainee_info trainee on t1.trainee_id = trainee.trainee_id
+			inner join t_evgl_tch_classroom room on t2.er_addr = room.ct_id
+			inner join t_evgl_pkg_activity_relation relation on room.pkg_id = relation.pkg_id and relation.activity_type = '9'
+			left join t_evgl_book_subject sub on t1.subject_id = sub.subject_id
+			left join t_evgl_tch_teacher teacher on room.teacher_id = teacher.teacher_id
+			where t1.trainee_type = '1' and t1.state = 'Y'
+			group by t1.er_id, t1.trainee_id
+		) t
+		<where>
+			<if test="traineeId != null and traineeId.trim() != ''">
+				and t.traineeId =#{traineeId,jdbcType=VARCHAR}
+			</if>
+			<if test="traineeName != null and traineeName.trim() != ''">
+				and t.traineeName like concat ('%', #{traineeName,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="mobile != null and mobile.trim() != ''">
+				and t.mobile like concat ('%', #{mobile,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="type != null and type.trim() != ''">
+				and t.type =#{type,jdbcType=VARCHAR}
+			</if>
+			<if test="majorId != null and majorId.trim() != ''">
+				and t.majorId =#{majorId,jdbcType=VARCHAR}
+			</if>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and t.subjectRef =#{subjectId,jdbcType=VARCHAR}
+			</if>
+			<if test="classId != null and classId.trim() != ''">
+				and t.classId =#{classId,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by t.examTime desc, t.subjectName desc
+    </select>
+    
+    <select id="findStudentInfo" parameterType="string" resultType="map" >
+		select ifnull(t1.trainee_name, t1.nick_name) as traineeName, t1.trainee_id as traineeId, t1.mobile,
+		group_concat(tx.class_id) as classIds, group_concat(tx.class_name) as classNames, group_concat(tx.major_name) as majorNames
+		from t_evgl_trainee_info t1
+		left join (
+			select tc.class_id, tc.trainee_id, cls.class_name, major.major_id, major.major_name
+			from t_evgl_tch_classtrainee tc
+			left join t_evgl_tch_class cls on tc.class_id = cls.class_id
+			left join t_evgl_book_major major on cls.major_id = major.major_id
+		) tx on tx.trainee_id = t1.trainee_id
+		where t1.trainee_id = #{traineeId}
+		GROUP BY t1.trainee_id
+	</select>
+</mapper>
+

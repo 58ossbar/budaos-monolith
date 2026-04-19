@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.stu.persistence.TevglStuStarMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.stu.domain.TevglStuStar">
+		<result column="star_id" jdbcType="VARCHAR"
+			property="starId" />
+		<result column="ORG_ID" jdbcType="VARCHAR"
+			property="orgId" />
+		<result column="star_pic" jdbcType="VARCHAR"
+			property="starPic" />
+		<result column="star_name" jdbcType="VARCHAR"
+			property="starName" />
+		<result column="star_salary" jdbcType="VARCHAR"
+			property="starSalary" />
+		<result column="work_age" jdbcType="INTEGER"
+			property="workAge" />
+		<result column="work_provice" jdbcType="VARCHAR"
+			property="workProvice" />
+		<result column="work_corp" jdbcType="VARCHAR"
+			property="workCorp" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="trainee_story" jdbcType="LONGVARCHAR"
+			property="traineeStory" />
+		<result column="trainee_story_info" jdbcType="LONGVARCHAR"
+			property="traineeStoryInfo" />
+		<result column="trainee_story_title" jdbcType="VARCHAR"
+			property="traineeStoryTitle" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		star_id,ORG_ID,star_pic,star_name,star_salary,work_age,work_provice,work_corp,create_user_id,create_time,update_user_id,update_time,trainee_story,trainee_story_info,trainee_story_title,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.stu.domain.TevglStuStar">
+		INSERT INTO T_EVGL_STU_STAR (
+		star_id ,
+		ORG_ID ,
+		star_pic ,
+		star_name ,
+		star_salary ,
+		work_age ,
+		work_provice ,
+		work_corp ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		trainee_story ,
+		trainee_story_info ,
+		trainee_story_title ,
+		state 
+		) VALUES (
+
+#{starId,jdbcType=VARCHAR} ,
+
+#{orgId,jdbcType=VARCHAR} ,
+
+#{starPic,jdbcType=VARCHAR} ,
+
+#{starName,jdbcType=VARCHAR} ,
+
+#{starSalary,jdbcType=VARCHAR} ,
+
+#{workAge,jdbcType=INTEGER} ,
+
+#{workProvice,jdbcType=VARCHAR} ,
+
+#{workCorp,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{traineeStory,jdbcType=LONGVARCHAR} ,
+
+#{traineeStoryInfo,jdbcType=LONGVARCHAR} ,
+
+#{traineeStoryTitle,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.stu.domain.TevglStuStar">
+		UPDATE T_EVGL_STU_STAR 
+		<set>
+		<if test="orgId != null">
+		ORG_ID = #{orgId,jdbcType=VARCHAR},
+		</if>
+		<if test="starPic != null">
+		star_pic = #{starPic,jdbcType=VARCHAR},
+		</if>
+		<if test="starName != null">
+		star_name = #{starName,jdbcType=VARCHAR},
+		</if>
+		<if test="starSalary != null">
+		star_salary = #{starSalary,jdbcType=VARCHAR},
+		</if>
+		<if test="workAge != null">
+		work_age = #{workAge,jdbcType=INTEGER},
+		</if>
+		<if test="workProvice != null">
+		work_provice = #{workProvice,jdbcType=VARCHAR},
+		</if>
+		<if test="workCorp != null">
+		work_corp = #{workCorp,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeStory != null">
+		trainee_story = #{traineeStory,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="traineeStoryInfo != null">
+		trainee_story_info = #{traineeStoryInfo,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="traineeStoryTitle != null">
+		trainee_story_title = #{traineeStoryTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		star_id = #{starId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_STU_STAR WHERE
+		star_id =
+		#{starId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_STU_STAR WHERE
+		star_id in
+		<foreach item="starId" collection="array" open="("
+			separator="," close=")">
+#{starId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_STU_STAR WHERE
+		star_id = #{starId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_STU_STAR
+        <where>
+                <if test="orgId != null and orgId.trim() != ''">
+                and ORG_ID =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="starPic != null and starPic.trim() != ''">
+                and star_pic =#{starPic,jdbcType=VARCHAR}            </if>
+                <if test="starName != null and starName.trim() != ''">
+                and star_name like concat ('%', #{starName,jdbcType=VARCHAR} ,'%')             </if>
+                <if test="starSalary != null and starSalary.trim() != ''">
+                and star_salary =#{starSalary,jdbcType=VARCHAR}            </if>
+                <if test="workAge != null and workAge != ''">
+                and work_age like concat ('%', #{workAge,jdbcType=INTEGER} ,'%')             </if>
+                <if test="workProvice != null and workProvice.trim() != ''">
+                and work_provice like concat ('%', #{workProvice,jdbcType=VARCHAR} ,'%')             </if>
+                <if test="workCorp != null and workCorp.trim() != ''">
+                and work_corp like concat ('%', #{workCorp,jdbcType=VARCHAR} ,'%')             </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="traineeStory != null and traineeStory.trim() != ''">
+                and trainee_story =#{traineeStory,jdbcType=LONGVARCHAR}            </if>
+                <if test="traineeStoryInfo != null and traineeStoryInfo.trim() != ''">
+                and trainee_story_info =#{traineeStoryInfo,jdbcType=LONGVARCHAR}            </if>
+                <if test="traineeStoryTitle != null and traineeStoryTitle.trim() != ''">
+                and trainee_story_title =#{traineeStoryTitle,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by star_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_STU_STAR t1
+        <where>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.ORG_ID =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="starPic != null and starPic.trim() != ''">
+                and t1.star_pic =#{starPic,jdbcType=VARCHAR}            </if>
+                <if test="starName != null and starName.trim() != ''">
+                and t1.star_name =#{starName,jdbcType=VARCHAR}            </if>
+                <if test="starSalary != null and starSalary.trim() != ''">
+                and t1.star_salary =#{starSalary,jdbcType=VARCHAR}            </if>
+                <if test="workAge != null and workAge != ''">
+                and t1.work_age =#{workAge,jdbcType=INTEGER}            </if>
+                <if test="workProvice != null and workProvice.trim() != ''">
+                and t1.work_provice =#{workProvice,jdbcType=VARCHAR}            </if>
+                <if test="workCorp != null and workCorp.trim() != ''">
+                and t1.work_corp =#{workCorp,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="traineeStory != null and traineeStory.trim() != ''">
+                and t1.trainee_story =#{traineeStory,jdbcType=LONGVARCHAR}            </if>
+                <if test="traineeStoryInfo != null and traineeStoryInfo.trim() != ''">
+                and t1.trainee_story_info =#{traineeStoryInfo,jdbcType=LONGVARCHAR}            </if>
+                <if test="traineeStoryTitle != null and traineeStoryTitle.trim() != ''">
+                and t1.trainee_story_title =#{traineeStoryTitle,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.star_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

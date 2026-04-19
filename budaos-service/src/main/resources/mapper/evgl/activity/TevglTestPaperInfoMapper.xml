@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityTestPaperMapper">
+	
+	<select id="selectListMapByMap" resultType="map" parameterType="map">
+		select * from T_EP_EXAMINE_PAPER_INFO t1
+		<where>
+			<if test="activityIds != null and activityIds.size() > 0">
+			and t1.activity_id in 
+			    <foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+			        #{activityId,jdbcType=VARCHAR}
+			    </foreach> 
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and SUBSTR(t1.create_time FROM 1 FOR 4) =#{createTime,jdbcType=VARCHAR}
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t1.paper_name =#{paperName,jdbcType=VARCHAR}
+			</if>
+			<if test="paperType != null and paperType.trim() != ''">
+				and t1.paper_type =#{paperType,jdbcType=VARCHAR}
+			</if>
+			<if test="paperTotalScore != null and paperTotalScore.trim() != ''">
+				and t1.paper_total_score =#{paperTotalScore,jdbcType=VARCHAR}
+			</if>
+			<if test="paperPracticeTime != null and paperPracticeTime != ''">
+				and t1.paper_practice_time =#{paperPracticeTime,jdbcType=INTEGER}
+			</if>
+			<if test="paperState != null and paperState.trim() != ''">
+				and t1.paper_state =#{paperState,jdbcType=VARCHAR}
+			</if>
+			<if test="paperSource != null and paperSource.trim() != ''">
+				and t1.paper_source =#{paperSource,jdbcType=VARCHAR}
+			</if>
+			<if test="paperIsRandom != null and paperIsRandom.trim() != ''">
+				and t1.paper_is_random =#{paperIsRandom,jdbcType=VARCHAR}
+			</if>
+			<if test="paperBeginTime != null and paperBeginTime.trim() != ''">
+				and t1.paper_begin_time =#{paperBeginTime,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperExaminersId != null and paperExaminersId.trim() != ''">
+				and t1.paper_examiners_id =#{paperExaminersId,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="paperConfinementTime != null and paperConfinementTime.trim() != ''">
+				and t1.paper_confinement_time =#{paperConfinementTime,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="redoNum != null and redoNum != ''">
+            	and t1.redo_num =#{redoNum,jdbcType=INTEGER}            </if>
+            <if test="viewResultTime != null and viewResultTime.trim() != ''">
+            	and t1.view_result_time =#{viewResultTime,jdbcType=VARCHAR}            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if> 
+            <if test="fromType != null and fromType.trim() != ''">
+                and t1.from_type =#{fromType,jdbcType=VARCHAR}            </if>         
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.paper_id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 根据课堂id搜索课堂信息 -->
+	<select id="selectClassroomList" resultType="map" parameterType="map">
+		SELECT
+			t1.ct_id AS ctId,
+			t1.major_id AS majorId,
+			t1.teacher_id AS teacherId,
+			t1.class_id AS classId,
+			t1.pkg_id AS pkgId,
+			t1.pic,
+			t1.invitation_code AS invitationCode,
+			t1.NAME,
+			t1.intro,
+			ifnull(t1.study_num, 0) AS studyNum,
+			ifnull( t1.qr_code, '' ) AS qrCode,
+			t1.is_check AS isCheck,
+			ifnull(t1.collect_num, 0) AS collectNum,
+			ifnull(t1.like_num, 0) AS likeNum,
+			ifnull(t1.view_num, 0) as viewNum,
+			t1.is_public AS isPublic,
+			t1.state,
+			t1.classroom_state AS classroomState 
+		FROM
+			t_evgl_tch_classroom t1
+		<where>
+   				<if test="ctIds != null and ctIds.size() > 0">
+                	and t1.ct_id in
+                	<foreach collection="ctIds" item="ctId" open="(" separator="," close=")">
+                		#{ctId} 
+                	</foreach>
+                </if>
+        		<if test="teacherIds != null and teacherIds.size() > 0">
+                	and t1.teacher_id in
+                	<foreach collection="teacherIds" item="teacherId" open="(" separator="," close=")">
+                		#{teacherId} 
+                	</foreach>
+                </if>
+                <if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="teacherId != null and teacherId.trim() != ''">
+                and t1.teacher_id =#{teacherId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="isPublic != null and isPublic.trim() != ''">
+                and t1.is_public =#{isPublic,jdbcType=VARCHAR}            </if>
+                <if test="pic != null and pic.trim() != ''">
+                and t1.pic =#{pic,jdbcType=VARCHAR}            </if>
+                <if test="invitationCode != null and invitationCode.trim() != ''">
+                and t1.invitation_code =#{invitationCode,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="intro != null and intro.trim() != ''">
+                and t1.intro =#{intro,jdbcType=VARCHAR}            </if>
+                <if test="studyNum != null and studyNum != ''">
+                and t1.study_num =#{studyNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.ct_id  desc
+            </otherwise>
+        </choose>
+	</select>
+	
+	<!-- 根据活动状态和活动类型查询与教学包id对应的活动 -->
+	<select id="selectRelationList" resultType="map" parameterType="map">
+        select * from T_EVGL_PKG_ACTIVITY_RELATION
+        <where>
+        	(activity_state = "1" OR activity_state = "2")
+        		<if test="activityEndTimeIsNotNull != null and activityEndTimeIsNotNull.trim() != ''">
+                and activity_end_time is not null and activity_end_time != ''            
+                </if>
+                <if test="pkgIds != null and pkgIds.size() > 0">
+					and pkg_id in 
+				    <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+				        #{pkgId,jdbcType=VARCHAR}
+				    </foreach> 
+				</if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            
+                </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and activity_id =#{activityId,jdbcType=VARCHAR}            
+                </if>
+                <if test="activityType != null and activityType.trim() != ''">
+                and activity_type =#{activityType,jdbcType=VARCHAR}            
+                </if>
+                <if test="activityBeginTime != null and activityBeginTime.trim() != ''">
+                and activity_begin_time =#{activityBeginTime,jdbcType=VARCHAR}            
+                </if>
+                <if test="activityEndTime != null and activityEndTime.trim() != ''">
+                and activity_end_time =#{activityEndTime,jdbcType=VARCHAR}            
+                </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by pa_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+     <!-- 根据试卷id查询试卷信息 -->
+    <select id="selectPaperList" resultType="map" parameterType="map">
+    	SELECT
+			t1.paper_id AS paperId,
+			t1.paper_name as paperName,
+			t1.paper_type as paperType,
+			t1.paper_total_score as paperTotalScore,
+			t1.paper_practice_time as paperPracticeTime,
+			t1.paper_state as paperState,
+			t1.paper_source as paperSource,
+			t1.paper_is_random as paper_isRandom,
+			t1.paper_begin_time as paper_beginTime,
+			t1.paper_confinement_time as paper_confinementTime,
+			t1.redo_num as redoNum,
+			t1.view_result_time as viewResultTime,
+			t1.chapter_id as chapterId,
+			t1.resgroup_id as resgroupId,
+			t1.empirical_value as empiricalValue,
+			t1.question_number as questioNumber,
+			t1.single_choice_score as singleChoiceScore,
+			t1.multiple_choice_score as multipleChoiceScore,
+			t1.judge_score as judgeScore,
+			t1.short_answer_score as shortAnswerScore,
+			t1.gap_filling as gap_filling,
+			t1.gap_filling_score_standard as gap_fillingScoreStandard,
+			ifnull(t1.composite_score, 0) as compositeScore,
+			ifnull(t1.single_choice_num, 0) as singleChoiceNum,
+			ifnull(t1.multiple_choice_num, 0) as multiple_choiceNum,
+			ifnull(t1.judge_num, 0) as judgeNum,
+			ifnull(t1.short_answer_num, 0) as short_answerNum,
+			ifnull(t1.gap_filling_num, 0) as gap_fillingNum,
+			ifnull(t1.composite_num, 0) as compositeNum,
+			t2.pkg_id as pkgId
+		FROM
+			t_ep_examine_paper_info t1
+			left JOIN t_evgl_pkg_activity_relation t2 ON t1.paper_id = t2.activity_id
+		<where>
+			<if test="activityId != null and activityId.trim() != ''">
+            and t1.paper_id = #{activityId,jdbcType=VARCHAR}
+            </if>
+            <if test="paperIds != null and paperIds.size() > 0">
+            and t1.paper_id in
+	            <foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+	            	#{paperId,jdbcType=VARCHAR}
+            	</foreach> 
+            </if>
+            <if test="paperName != null and paperName.trim() != ''">
+            and t1.paper_name like concat('%', #{paperName,jdbcType=VARCHAR} ,'%') 
+            </if>
+            
+		</where>
+    </select>
+    
+    <!-- 根据教学包id查询所有的衍生教学包 -->
+    <select id="queryTotalViewNum" resultType="map" parameterType="map">
+    	SELECT
+			* 
+		FROM
+			t_evgl_book_subject 
+		WHERE
+			subject_id IN 
+			( 
+				SELECT subject_id FROM t_evgl_pkg_info
+				<where>
+					<if test="pkgIds != null and pkgIds.size() > 0">
+		            and pkg_id in
+			            <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+			            	#{pkgId,jdbcType=VARCHAR}
+		            	</foreach> 
+		            </if>
+				</where>
+			)
+    </select>
+</mapper>
+

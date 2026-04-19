@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.budaos.modules.job.persistence.TsysAttachMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TsysAttach">
+		<result column="ATTACH_ID" jdbcType="VARCHAR"
+			property="attachId" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="FILE_URL" jdbcType="VARCHAR" property="fileUrl" />
+		<result column="FILE_NAME" jdbcType="VARCHAR"
+			property="fileName" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="SECOND_NAME" jdbcType="VARCHAR"
+			property="secondName" />
+		<result column="FILE_TYPE" jdbcType="VARCHAR"
+			property="fileType" />
+		<result column="PKID" jdbcType="VARCHAR" property="pkid" />
+		<result column="FILE_SIZE" jdbcType="VARCHAR"
+			property="fileSize" />
+		<result column="FILE_SUFFIX" jdbcType="VARCHAR"
+			property="fileSuffix" />
+		<result column="LJ_URL" jdbcType="VARCHAR" property="ljUrl" />
+		<result column="FILE_NO" jdbcType="VARCHAR" property="fileNo" />
+		<result column="FILE_STATE" jdbcType="VARCHAR"
+			property="fileState" />
+		<result column="FILE_ORERNO" jdbcType="INTEGER"
+			property="fileOrerno" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ATTACH_ID,create_user_id,create_time,FILE_URL,FILE_NAME,REMARK,SECOND_NAME,FILE_TYPE,PKID,FILE_SIZE,FILE_SUFFIX,LJ_URL,FILE_NO,FILE_STATE,FILE_ORERNO
+	</sql>
+	<insert id="insert"
+		parameterType="com.budaos.modules.sys.domain.TsysAttach">
+		INSERT INTO T_SYS_ATTACH (
+		ATTACH_ID ,
+		FILE_URL ,
+		FILE_NAME ,
+		REMARK ,
+		SECOND_NAME ,
+		FILE_TYPE ,
+		PKID ,
+		FILE_SIZE ,
+		FILE_SUFFIX ,
+		LJ_URL ,
+		FILE_NO ,
+		FILE_STATE ,
+		FILE_ORERNO,
+		create_user_id,
+		create_time,
+		update_user_id,
+		update_time
+		) VALUES (
+
+		#{attachId,jdbcType=VARCHAR} ,
+
+		#{fileUrl,jdbcType=VARCHAR} ,
+
+		#{fileName,jdbcType=VARCHAR} ,
+
+		#{remark,jdbcType=VARCHAR} ,
+
+		#{secondName,jdbcType=VARCHAR} ,
+
+		#{fileType,jdbcType=VARCHAR} ,
+
+		#{pkid,jdbcType=VARCHAR} ,
+
+		#{fileSize,jdbcType=VARCHAR} ,
+
+		#{fileSuffix,jdbcType=VARCHAR} ,
+
+		#{ljUrl,jdbcType=VARCHAR} ,
+
+		#{fileNo,jdbcType=VARCHAR} ,
+
+		#{fileState,jdbcType=VARCHAR} ,
+
+		#{fileOrerno,jdbcType=INTEGER},
+		#{createUserId},
+		#{createTime},
+		#{updateUserId},
+		#{updateTime}
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.budaos.modules.sys.domain.TsysAttach">
+		UPDATE T_SYS_ATTACH
+		<set>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				create_user_id = #{createUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				update_user_id = #{updateUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null and updateTime.trim() != ''">
+				update_time = #{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="fileUrl != null and fileUrl.trim() != ''">
+				FILE_URL = #{fileUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="fileName != null and fileName.trim() != ''">
+				FILE_NAME = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null and remark.trim() != ''">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="secondName != null and secondName.trim() != ''">
+				SECOND_NAME = #{secondName,jdbcType=VARCHAR},
+			</if>
+			<if test="fileType != null and fileType.trim() != ''">
+				FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+			</if>
+			<if test="pkid != null and pkid.trim() != ''">
+				PKID = #{pkid,jdbcType=VARCHAR},
+			</if>
+			<if test="fileSize != null and fileSize.trim() != ''">
+				FILE_SIZE = #{fileSize,jdbcType=VARCHAR},
+			</if>
+			<if test="fileSuffix != null and fileSuffix.trim() != ''">
+				FILE_SUFFIX = #{fileSuffix,jdbcType=VARCHAR},
+			</if>
+			<if test="ljUrl != null and ljUrl.trim() != ''">
+				LJ_URL = #{ljUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="fileNo != null and fileNo.trim() != ''">
+				FILE_NO = #{fileNo,jdbcType=VARCHAR},
+			</if>
+			<if test="fileState != null and fileState.trim() != ''">
+				FILE_STATE = #{fileState,jdbcType=VARCHAR},
+			</if>
+			<if test="fileOrerno != null and fileOrerno != ''">
+				FILE_ORERNO = #{fileOrerno,jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE
+		ATTACH_ID = #{attachId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_ATTACH WHERE
+		ATTACH_ID =
+		#{attachId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_SYS_ATTACH WHERE
+		ATTACH_ID in
+		<foreach item="attachId" collection="array" open="("
+			separator="," close=")">
+			#{attachId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_SYS_ATTACH WHERE
+		ATTACH_ID = #{attachId,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from T_SYS_ATTACH
+		<where>
+			<if test="uploadMan != null and uploadMan.trim() != ''">
+				and create_user_id like concat('%',
+				#{uploadMan,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="suploadTime != null and suploadTime.trim() != ''">
+				and CREATE_TIME &gt;=#{suploadTime,jdbcType=VARCHAR}
+			</if>
+			<if test="euploadTime != null and euploadTime.trim() != ''">
+				and CREATE_TIME &lt;=#{euploadTime,jdbcType=VARCHAR}
+			</if>
+			<if test="fileUrl != null and fileUrl.trim() != ''">
+				and FILE_URL =#{fileUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="fileName != null and fileName.trim() != ''">
+				and FILE_NAME like concat('%',
+				#{fileName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="remark != null and remark.trim() != ''">
+				and REMARK like concat('%', #{remark,jdbcType=VARCHAR},
+				'%')
+			</if>
+			<if test="secondName != null and secondName.trim() != ''">
+				and SECOND_NAME like concat('%',
+				#{secondName,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="fileType != null and fileType.trim() != ''">
+				and FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+			</if>
+			<if test="pkid != null and pkid.trim() != ''">
+				and PKID =#{pkid,jdbcType=VARCHAR}
+			</if>
+			<if test="fileSize != null and fileSize.trim() != ''">
+				and FILE_SIZE =#{fileSize,jdbcType=VARCHAR}
+			</if>
+			<if test="fileSuffix != null and fileSuffix.trim() != ''">
+				and FILE_SUFFIX =#{fileSuffix,jdbcType=VARCHAR}
+			</if>
+			<if test="ljUrl != null and ljUrl.trim() != ''">
+				and LJ_URL =#{ljUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="fileNo != null and fileNo.trim() != ''">
+				and FILE_NO =#{fileNo,jdbcType=VARCHAR}
+			</if>
+			<if test="fileState != null and fileState.trim() != ''">
+				and FILE_STATE =#{fileState,jdbcType=VARCHAR}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc,update_time desc
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAttachIds" parameterType="com.budaos.modules.sys.query.AttachQuery" resultType="java.lang.String">
+		SELECT attach_id FROM t_sys_attach WHERE file_type = #{fileType}
+		<if test="pkIds != null and pkIds.size() > 0">
+			AND PKID IN
+			<foreach collection="pkIds" item="pkId" open="(" separator="," close=")">#{pkId}</foreach>
+		</if>
+	</select>
+	<update id="unBind" parameterType="java.util.List">
+		<if test="attachIdList != null and attachIdList.size() > 0">
+			UPDATE t_sys_attach SET file_state = '0'
+			WHERE attach_id IN (
+				<foreach collection="attachIdList" item="attachId" separator=",">#{attachId}</foreach>
+			)
+		</if>
+	</update>
+</mapper>
+

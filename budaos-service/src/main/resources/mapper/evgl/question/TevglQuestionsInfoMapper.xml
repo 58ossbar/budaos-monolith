@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 题目 -->
+<mapper namespace="com.budaos.modules.evgl.question.persistence.TevglQuestionsInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TevglQuestionsInfo">
+		<result column="questions_id" jdbcType="VARCHAR"
+			property="questionsId" />
+		<result column="major_id" jdbcType="VARCHAR"
+			property="majorId" />	
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="chapters_id" jdbcType="VARCHAR"
+			property="chaptersId" />
+		<result column="knowledge_id" jdbcType="VARCHAR"
+			property="knowledgeId" />
+		<result column="questions_name" jdbcType="LONGVARCHAR"
+			property="questionsName" />
+		<result column="questions_parse" jdbcType="LONGVARCHAR"
+			property="questionsParse" />
+		<result column="reply_ids" jdbcType="VARCHAR"
+			property="replyIds" />
+		<result column="questions_complexity" jdbcType="VARCHAR"
+			property="questionsComplexity" />
+		<result column="questions_star" jdbcType="VARCHAR"
+			property="questionsStar" />
+		<result column="questions_state" jdbcType="VARCHAR"
+			property="questionsState" />
+		<result column="questions_constructing_num" jdbcType="INTEGER"
+			property="questionsConstructingNum" />
+		<result column="questions_type" jdbcType="VARCHAR"
+			property="questionsType" />
+		<result column="questions_accuracy" jdbcType="DECIMAL"
+			property="questionsAccuracy" />
+		<result column="questions_store_num" jdbcType="INTEGER"
+			property="questionsStoreNum" />
+		<result column="questions_answer_num" jdbcType="INTEGER"
+			property="questionsAnswerNum" />
+		<result column="questions_correct_num" jdbcType="INTEGER"
+			property="questionsCorrectNum" />
+		<result column="questions_error_num" jdbcType="INTEGER"
+			property="questionsErrorNum" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="questions_style" jdbcType="VARCHAR"
+			property="questionsStyle" />
+		<result column="from_type" jdbcType="VARCHAR"
+			property="fromType" />
+		<result column="tag" jdbcType="VARCHAR"
+			property="tag" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="show_type" jdbcType="VARCHAR"
+			property="showType" />					
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		questions_id,major_id,subject_id,chapters_id,knowledge_id,questions_name,questions_parse,reply_ids,questions_complexity,questions_star,questions_state,questions_constructing_num,questions_type,questions_accuracy,questions_store_num,questions_answer_num,questions_correct_num,questions_error_num,create_user_id,create_time,update_user_id,update_time,questions_style,from_type,tag,parent_id
+		,sort_num,show_type
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.question.domain.TevglQuestionsInfo" keyProperty="questionsId">
+		INSERT INTO T_EVGL_QUESTIONS_INFO (
+		questions_id ,
+		major_id ,
+		subject_id ,
+		chapters_id ,
+		knowledge_id ,
+		questions_name ,
+		questions_parse ,
+		reply_ids ,
+		questions_complexity ,
+		questions_star ,
+		questions_state ,
+		questions_constructing_num ,
+		questions_type ,
+		questions_accuracy ,
+		questions_store_num ,
+		questions_answer_num ,
+		questions_correct_num ,
+		questions_error_num ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		questions_style ,
+		from_type ,
+		tag ,
+		parent_id  ,
+		sort_num ,
+		show_type
+		) VALUES (
+
+#{questionsId,jdbcType=VARCHAR} ,
+
+#{majorId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{chaptersId,jdbcType=VARCHAR} ,
+
+#{knowledgeId,jdbcType=VARCHAR} ,
+
+#{questionsName,jdbcType=LONGVARCHAR} ,
+
+#{questionsParse,jdbcType=LONGVARCHAR} ,
+
+#{replyIds,jdbcType=VARCHAR} ,
+
+#{questionsComplexity,jdbcType=VARCHAR} ,
+
+#{questionsStar,jdbcType=VARCHAR} ,
+
+#{questionsState,jdbcType=VARCHAR} ,
+
+#{questionsConstructingNum,jdbcType=INTEGER} ,
+
+#{questionsType,jdbcType=VARCHAR} ,
+
+#{questionsAccuracy,jdbcType=DECIMAL} ,
+
+#{questionsStoreNum,jdbcType=INTEGER} ,
+
+#{questionsAnswerNum,jdbcType=INTEGER} ,
+
+#{questionsCorrectNum,jdbcType=INTEGER} ,
+
+#{questionsErrorNum,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{questionsStyle,jdbcType=VARCHAR} ,
+
+#{fromType,jdbcType=VARCHAR}  ,
+
+#{tag,jdbcType=VARCHAR} ,
+
+#{parentId,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER}  ,
+
+#{showType,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.question.domain.TevglQuestionsInfo">
+		UPDATE T_EVGL_QUESTIONS_INFO 
+		<set>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="majorId != null">
+		major_id = #{majorId,jdbcType=VARCHAR},
+		</if>
+		<if test="chaptersId != null">
+		chapters_id = #{chaptersId,jdbcType=VARCHAR},
+		</if>
+		<if test="knowledgeId != null">
+		knowledge_id = #{knowledgeId,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsName != null">
+		questions_name = #{questionsName,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="questionsParse != null">
+		questions_parse = #{questionsParse,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="replyIds != null">
+		reply_ids = #{replyIds,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsComplexity != null">
+		questions_complexity = #{questionsComplexity,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsStar != null">
+		questions_star = #{questionsStar,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsState != null">
+		questions_state = #{questionsState,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsConstructingNum != null">
+		questions_constructing_num = #{questionsConstructingNum,jdbcType=INTEGER},
+		</if>
+		<if test="questionsType != null">
+		questions_type = #{questionsType,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsAccuracy != null">
+		questions_accuracy = #{questionsAccuracy,jdbcType=DECIMAL},
+		</if>
+		<if test="questionsStoreNum != null">
+		questions_store_num = #{questionsStoreNum,jdbcType=INTEGER},
+		</if>
+		<if test="questionsAnswerNum != null">
+		questions_answer_num = #{questionsAnswerNum,jdbcType=INTEGER},
+		</if>
+		<if test="questionsCorrectNum != null">
+		questions_correct_num = #{questionsCorrectNum,jdbcType=INTEGER},
+		</if>
+		<if test="questionsErrorNum != null">
+		questions_error_num = #{questionsErrorNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="questionsStyle != null">
+		questions_style = #{questionsStyle,jdbcType=VARCHAR},
+		</if>
+		<if test="fromType != null">
+		from_type = #{fromType,jdbcType=VARCHAR},
+		</if>
+		<if test="tag != null">
+		tag = #{tag,jdbcType=VARCHAR},
+		</if>
+		<if test="parentId != null">
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="showType != null">
+		show_type = #{showType,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		questions_id = #{questionsId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_QUESTIONS_INFO WHERE
+		questions_id =
+		#{questionsId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_QUESTIONS_INFO WHERE
+		questions_id in
+		<foreach item="questionsId" collection="array" open="("
+			separator="," close=")">
+#{questionsId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_QUESTIONS_INFO WHERE
+		questions_id = #{questionsId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_QUESTIONS_INFO
+        <where>
+        		<if test="questionsId != null and questionsId.size() > 0">
+        		and questions_id in 
+        			<foreach collection="questionsId" item="questionId" open="(" separator="," close=")">
+						#{questionId,jdbcType=VARCHAR}
+					</foreach>
+                </if>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chaptersId != null and chaptersId.trim() != ''">
+                and chapters_id =#{chaptersId,jdbcType=VARCHAR}            </if>
+                <if test="knowledgeId != null and knowledgeId.trim() != ''">
+                and knowledge_id =#{knowledgeId,jdbcType=VARCHAR}            </if>
+                <if test="questionsName != null and questionsName.trim() != ''">
+                and questions_name =#{questionsName,jdbcType=LONGVARCHAR}            </if>
+                <if test="questionsParse != null and questionsParse.trim() != ''">
+                and questions_parse =#{questionsParse,jdbcType=LONGVARCHAR}            </if>
+                <if test="replyIds != null and replyIds.trim() != ''">
+                and reply_ids =#{replyIds,jdbcType=VARCHAR}            </if>
+                <if test="questionsComplexity != null and questionsComplexity.trim() != ''">
+                and questions_complexity =#{questionsComplexity,jdbcType=VARCHAR}            </if>
+                <if test="questionsStar != null and questionsStar.trim() != ''">
+                and questions_star =#{questionsStar,jdbcType=VARCHAR}            </if>
+                <if test="questionsState != null and questionsState.trim() != ''">
+                and questions_state =#{questionsState,jdbcType=VARCHAR}            </if>
+                <if test="questionsConstructingNum != null and questionsConstructingNum != ''">
+                and questions_constructing_num =#{questionsConstructingNum,jdbcType=INTEGER}            </if>
+                <if test="questionsType != null and questionsType.trim() != ''">
+                and questions_type =#{questionsType,jdbcType=VARCHAR}            </if>
+                <if test="questionsAccuracy != null and questionsAccuracy.trim() != ''">
+                and questions_accuracy =#{questionsAccuracy,jdbcType=DECIMAL}            </if>
+                <if test="questionsStoreNum != null and questionsStoreNum != ''">
+                and questions_store_num =#{questionsStoreNum,jdbcType=INTEGER}            </if>
+                <if test="questionsAnswerNum != null and questionsAnswerNum != ''">
+                and questions_answer_num =#{questionsAnswerNum,jdbcType=INTEGER}            </if>
+                <if test="questionsCorrectNum != null and questionsCorrectNum != ''">
+                and questions_correct_num =#{questionsCorrectNum,jdbcType=INTEGER}            </if>
+                <if test="questionsErrorNum != null and questionsErrorNum != ''">
+                and questions_error_num =#{questionsErrorNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="questionsStyle != null and questionsStyle.trim() != ''">
+                and questions_style =#{questionsStyle,jdbcType=VARCHAR}            </if>
+                <if test="fromType != null and fromType.trim() != ''">
+                and from_type =#{fromType,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showType != null and showType.trim() != ''">
+                and show_type =#{showType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by questions_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_QUESTIONS_INFO t1
+        <where>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chaptersId != null and chaptersId.trim() != ''">
+                and t1.chapters_id =#{chaptersId,jdbcType=VARCHAR}            </if>
+                <if test="knowledgeId != null and knowledgeId.trim() != ''">
+                and t1.knowledge_id =#{knowledgeId,jdbcType=VARCHAR}            </if>
+                <if test="questionsName != null and questionsName.trim() != ''">
+                and t1.questions_name =#{questionsName,jdbcType=LONGVARCHAR}            </if>
+                <if test="questionsParse != null and questionsParse.trim() != ''">
+                and t1.questions_parse =#{questionsParse,jdbcType=LONGVARCHAR}            </if>
+                <if test="replyIds != null and replyIds.trim() != ''">
+                and t1.reply_ids =#{replyIds,jdbcType=VARCHAR}            </if>
+                <if test="questionsComplexity != null and questionsComplexity.trim() != ''">
+                and t1.questions_complexity =#{questionsComplexity,jdbcType=VARCHAR}            </if>
+                <if test="questionsStar != null and questionsStar.trim() != ''">
+                and t1.questions_star =#{questionsStar,jdbcType=VARCHAR}            </if>
+                <if test="questionsState != null and questionsState.trim() != ''">
+                and t1.questions_state =#{questionsState,jdbcType=VARCHAR}            </if>
+                <if test="questionsConstructingNum != null and questionsConstructingNum != ''">
+                and t1.questions_constructing_num =#{questionsConstructingNum,jdbcType=INTEGER}            </if>
+                <if test="questionsType != null and questionsType.trim() != ''">
+                and t1.questions_type =#{questionsType,jdbcType=VARCHAR}            </if>
+                <if test="questionsAccuracy != null and questionsAccuracy.trim() != ''">
+                and t1.questions_accuracy =#{questionsAccuracy,jdbcType=DECIMAL}            </if>
+                <if test="questionsStoreNum != null and questionsStoreNum != ''">
+                and t1.questions_store_num =#{questionsStoreNum,jdbcType=INTEGER}            </if>
+                <if test="questionsAnswerNum != null and questionsAnswerNum != ''">
+                and t1.questions_answer_num =#{questionsAnswerNum,jdbcType=INTEGER}            </if>
+                <if test="questionsCorrectNum != null and questionsCorrectNum != ''">
+                and t1.questions_correct_num =#{questionsCorrectNum,jdbcType=INTEGER}            </if>
+                <if test="questionsErrorNum != null and questionsErrorNum != ''">
+                and t1.questions_error_num =#{questionsErrorNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="questionsStyle != null and questionsStyle.trim() != ''">
+                and t1.questions_style =#{questionsStyle,jdbcType=VARCHAR}            </if>
+                <if test="fromType != null and fromType.trim() != ''">
+                and t1.from_type =#{fromType,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showType != null and showType.trim() != ''">
+                and t1.show_type =#{showType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.questions_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListMap" resultType="map" parameterType="map">
+        select t1.questions_id as questionsId, t1.parent_id as parentId, t1.major_id as majorId, t1.subject_id as subjectId, t1.chapters_id as chaptersId, 
+        t1.questions_name as questionsName, t1.questions_complexity as questionsComplexity, t1.questions_star as questionsStar,
+        t1.questions_constructing_num as questionsConstructingNum, t1.questions_type as questionsType, t1.questions_type as questionsTypeName, 
+        t1.reply_ids as replyIds, t1.questions_parse as questionsParse, t1.tag,
+        t1.questions_accuracy as questionsAccuracy, t1.questions_store_num as questionsStoreNum, t1.questions_answer_num as questionsAnswerNum,
+        t1.questions_correct_num as questionsCorrectNum
+        from T_EVGL_QUESTIONS_INFO t1
+        <where>
+        		(t1.show_type is null or t1.show_type = "" or t1.show_type = '1')
+        		<if test="noChildrenQuestion != null and noChildrenQuestion.trim() != ''">
+					and (t1.parent_id is null or t1.parent_id = '')
+				</if>
+        		<if test="questionsIds != null and questionsIds.size() > 0">
+					and t1.questions_id in
+					<foreach collection="questionsIds" item="questionsId" open="(" separator="," close=")">
+						#{questionsId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+        		<if test='parentIdIsNull != null and parentIdIsNull == "Y"'>
+                and (t1.parent_id is null or parent_id = '')
+                </if>
+                <if test="parentIds != null and parentIds.size() > 0">
+				and t1.parent_id in
+					<foreach collection="parentIds" item="parentId" open="(" separator="," close=")">
+						#{parentId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+				<if test="majorIds != null and majorIds.size() > 0">
+					and t1.major_id in
+					<foreach collection="majorIds" item="majorId" open="(" separator="," close=")">
+						#{majorId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chaptersId != null and chaptersId.trim() != ''">
+                and t1.chapters_id =#{chaptersId,jdbcType=VARCHAR}            </if>
+                <if test="knowledgeId != null and knowledgeId.trim() != ''">
+                and t1.knowledge_id =#{knowledgeId,jdbcType=VARCHAR}            </if>
+                <if test="questionsName != null and questionsName.trim() != ''">
+                and t1.questions_name like concat ('%', #{questionsName,jdbcType=LONGVARCHAR}, '%')            </if>
+                <if test="questionsParse != null and questionsParse.trim() != ''">
+                and t1.questions_parse =#{questionsParse,jdbcType=LONGVARCHAR}            </if>
+                <if test="replyIds != null and replyIds.trim() != ''">
+                and t1.reply_ids =#{replyIds,jdbcType=VARCHAR}            </if>
+                <if test="questionsComplexity != null and questionsComplexity.trim() != ''">
+                and t1.questions_complexity =#{questionsComplexity,jdbcType=VARCHAR}            </if>
+                <if test="questionsStar != null and questionsStar.trim() != ''">
+                and t1.questions_star =#{questionsStar,jdbcType=VARCHAR}            </if>
+                <if test="questionsState != null and questionsState.trim() != ''">
+                and t1.questions_state =#{questionsState,jdbcType=VARCHAR}            </if>
+                <if test="questionsConstructingNum != null and questionsConstructingNum != ''">
+                and t1.questions_constructing_num =#{questionsConstructingNum,jdbcType=INTEGER}            </if>
+                <if test="questionsType != null and questionsType.trim() != ''">
+                and t1.questions_type =#{questionsType,jdbcType=VARCHAR}            </if>
+                <if test="questionsAccuracy != null and questionsAccuracy.trim() != ''">
+                and t1.questions_accuracy =#{questionsAccuracy,jdbcType=DECIMAL}            </if>
+                <if test="questionsStoreNum != null and questionsStoreNum != ''">
+                and t1.questions_store_num =#{questionsStoreNum,jdbcType=INTEGER}            </if>
+                <if test="questionsAnswerNum != null and questionsAnswerNum != ''">
+                and t1.questions_answer_num =#{questionsAnswerNum,jdbcType=INTEGER}            </if>
+                <if test="questionsCorrectNum != null and questionsCorrectNum != ''">
+                and t1.questions_correct_num =#{questionsCorrectNum,jdbcType=INTEGER}            </if>
+                <if test="questionsErrorNum != null and questionsErrorNum != ''">
+                and t1.questions_error_num =#{questionsErrorNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="id != null and id.trim() != ''">
+                and t1.id =#{id,jdbcType=BIGINT}            </if>
+                <if test="questionsStyle != null and questionsStyle.trim() != ''">
+                and t1.questions_style =#{questionsStyle,jdbcType=VARCHAR}            </if>
+                <if test="fromType != null and fromType.trim() != ''">
+                and t1.from_type =#{fromType,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="showType != null and showType.trim() != ''">
+                and t1.show_type =#{showType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.questions_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 只根据条件统计选择题数量和判断题题数量,以及题目总数量(问答题不在统计范围内) -->
+    <select id="countQuestionNumByMap" resultType="map"
+		parameterType="map">
+		select 
+		count(CASE WHEN questions_type in ('1', '2')  THEN 1 END) totalChose,
+		count(CASE WHEN questions_type='3' THEN 1 END) totalJudge,	
+		count(questions_id) totalSize from t_evgl_questions_info	
+		<where>
+			<if test="chaptersId != null and chaptersId.trim() != ''">
+				and chapters_id =#{chaptersId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsState != null and questionsState.trim() != ''">
+				and questions_state =#{questionsState,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			and questions_type !='4'
+		</where>
+	</select>
+	
+	<!-- 根据条件统计单选题、多选题、判断题、问答题的题数，以及总题目数量 -->
+	<select id="countQuestionNumByMap2" resultType="map"
+		parameterType="map">
+		<!-- 
+		select 
+		count(CASE WHEN questions_type = "1" THEN 1 END) totalSingleChose,
+		count(CASE WHEN questions_type = "2" THEN 1 END) totalMultipleChose,
+		count(CASE WHEN questions_type = '3' THEN 1 END) totalJudge,
+		count(CASE WHEN questions_type = '4' THEN 1 END) totalShortAnswer,
+		count(CASE WHEN questions_type = '5' THEN 1 END) totalGapFilling,
+		count(questions_id) totalSize from t_evgl_questions_info
+		 -->
+		select 
+		count(CASE WHEN questions_type = "1" and (parent_id is null or parent_id = '') THEN 1 END) totalSingleChose,
+		count(CASE WHEN questions_type = "2" and (parent_id is null or parent_id = '') THEN 1 END) totalMultipleChose,
+		count(CASE WHEN questions_type = '3' and (parent_id is null or parent_id = '') THEN 1 END) totalJudge,
+		count(CASE WHEN questions_type = '4' and (parent_id is null or parent_id = '') THEN 1 END) totalShortAnswer,
+		count(CASE WHEN questions_type = '5' and (parent_id is null or parent_id = '') THEN 1 END) totalGapFilling,
+		count(CASE WHEN questions_type = '6' and (parent_id is null or parent_id = '') THEN 1 END) totalComposite,
+		count(case when parent_id is null or parent_id = '' then 1 end) totalSize from t_evgl_questions_info
+		<where>
+			<!-- 为空表示是在题库录入的题目，值为1表示是测试活动那边录入的
+			0不显示1显示 从测试活动录入的题目，也就是from_type为1时，根据此值是否在题库显示 -->
+			<if test="filterQuestion != null and filterQuestion.trim() != ''">
+				(from_type is null or from_type = '') and (show_type = 1 or show_type is null)
+			</if>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and subject_id =#{subjectId,jdbcType=VARCHAR}
+			</if>
+			<if test="chaptersId != null and chaptersId.trim() != ''">
+				and chapters_id =#{chaptersId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsState != null and questionsState.trim() != ''">
+				and questions_state =#{questionsState,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+    
+    <!-- 根据条件随机筛选题目，如章节ID、题目类型 -->
+    <select id="selectRandomQuestionListByMap" resultMap="BaseResultMap" parameterType="map">
+		SELECT questions_id as questionsId, questions_name as questionsName,
+		RAND() as r FROM t_evgl_questions_info
+		<where>
+			<if test="questionsTypes != null and questionsTypes.size() > 0">
+				and questions_type in
+					<foreach collection="questionsTypes" item="questionsType" open="(" separator="," close=")">
+						#{questionsType,jdbcType=VARCHAR}
+					</foreach>
+			</if>
+			<if test="questionsType != null and questionsType.trim() != ''">
+				and questions_type =#{questionsType,jdbcType=VARCHAR}
+			</if>
+			<if test="chaptersId != null and chaptersId.trim() != ''">
+				and chapters_id =#{chaptersId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsState != null and questionsState.trim() != ''">
+				and questions_state =#{questionsState,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY r LIMIT ${limit}
+	</select>
+	
+	<select id="findQuestionByQuestionIdList" parameterType="java.util.List" resultType="com.budaos.modules.evgl.question.vo.GenerateQuestionVO">
+		SELECT questions_id, questions_name, questions_type, questions_type as questionsTypeName,
+	   	questions_complexity, questions_complexity as questionsComplexityName, questions_parse as questionsParse, tag,
+	   	reply_ids, subject_id
+		FROM t_evgl_questions_info
+		where questions_state = "Y"
+		<if test="list != null and list.size() > 0">
+			and questions_id in
+			<foreach collection="list" item="questionId" open="(" separator="," close=")">
+				#{questionId,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+	</select>
+	<select id="findQuestionByParentIdList" parameterType="java.util.List" resultType="com.budaos.modules.evgl.question.vo.GenerateQuestionVO">
+		SELECT questions_id, questions_name, questions_type, questions_type as questionsTypeName,
+		questions_complexity, questions_complexity as questionsComplexityName, questions_parse as questionsParse, tag,
+		reply_ids, subject_id, parent_id
+		FROM t_evgl_questions_info
+		where questions_state = "Y"
+		<if test="list != null and list.size() > 0">
+			and parent_id in
+			<foreach collection="list" item="questionId" open="(" separator="," close=")">
+				#{questionId,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+	</select>
+	<select id="findQuestionOptionByQuestionIdList" parameterType="java.util.List" resultType="com.budaos.modules.evgl.question.vo.GenerateOptionVO">
+		select t1.option_id as optionId, t1.questions_id as questionsId, t1.content, t1.state, t1.code from T_EVGL_QUESTION_CHOSE t1
+		where t1.state = "Y"
+		<if test="list != null and list.size() > 0">
+			and questions_id in
+			<foreach collection="list" item="questionId" open="(" separator="," close=")">
+				#{questionId,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="selectRandomQuestionSimpleListByMap" resultType="map" parameterType="map">
+		SELECT questions_id as questionsId, questions_name as questionsName, questions_type as questionsType, questions_type as questionsTypeName,
+		questions_complexity as questionsComplexity, questions_complexity as questionsComplexityName, questions_parse as questionsParse, tag,
+		reply_ids as replyIds, subject_id as subjectId,
+		RAND() as r FROM t_evgl_questions_info
+		<where>
+			<if test="filterQuestion != null and filterQuestion.trim() != ''">
+				(from_type is null or from_type = '') and (show_type = 1 or show_type is null)
+			</if>
+			<if test="noChildrenQuestion != null and noChildrenQuestion.trim() != ''">
+				and (parent_id is null or parent_id = '')
+			</if>
+			<if test="existedQuestionsIds != null and existedQuestionsIds.size() > 0">
+				and questions_id not in
+					<foreach collection="existedQuestionsIds" item="existedQuestionsId" open="(" separator="," close=")">
+						#{existedQuestionsId,jdbcType=VARCHAR}
+					</foreach>
+			</if>
+			<if test="questionsTypes != null and questionsTypes.size() > 0">
+				and questions_type in
+					<foreach collection="questionsTypes" item="questionsType" open="(" separator="," close=")">
+						#{questionsType,jdbcType=VARCHAR}
+					</foreach>
+			</if>
+			<if test="questionsType != null and questionsType.trim() != ''">
+				and questions_type =#{questionsType,jdbcType=VARCHAR}
+			</if>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and subject_id =#{subjectId,jdbcType=VARCHAR}
+			</if>
+			<if test="chaptersId != null and chaptersId.trim() != ''">
+				and chapters_id =#{chaptersId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsState != null and questionsState.trim() != ''">
+				and questions_state =#{questionsState,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY r LIMIT ${limit}
+	</select>
+    
+    <!-- 根据题目ID批量查询题目信息 -->
+    <select id="selectBatchQuestionsByArrays" parameterType="string"
+		resultMap="BaseResultMap">
+		select * from t_evgl_questions_info where questions_id in
+		<foreach item="questionsId" collection="array" open="("
+			separator="," close=")">
+			#{questionsId,jdbcType=VARCHAR}
+		</foreach>
+		order by questions_type desc
+	</select>
+    
+    <!-- 统计教材的总题目数量 -->
+    <select id="countSubjectQuestionTotal" parameterType="java.lang.String" resultType="int">
+    	select count(*) from t_evgl_questions_info 
+    	where questions_state = "Y" 
+    	and subject_id = #{subjectId,jdbcType=VARCHAR} 
+    </select>
+    
+    <update id="plusNum"
+		parameterType="com.budaos.modules.evgl.question.domain.TevglQuestionsInfo">
+		UPDATE t_evgl_questions_info
+		<set>
+			<if test="questionsConstructingNum != null">
+				questions_constructing_num =
+				IFNULL(questions_constructing_num,0)+
+				#{questionsConstructingNum,jdbcType=INTEGER},
+			</if>
+			<if test="questionsAccuracy != null">
+				questions_accuracy =
+				IFNULL(questions_accuracy,0)+
+				#{questionsAccuracy,jdbcType=INTEGER},
+			</if>
+			<if test="questionsStoreNum != null">
+				questions_store_num = IFNULL(questions_store_num,0)+
+				#{questionsStoreNum,jdbcType=INTEGER},
+			</if>
+			<if test="questionsAnswerNum != null">
+				questions_answer_num = IFNULL(questions_answer_num,0)+
+				#{questionsAnswerNum,jdbcType=INTEGER},
+			</if>
+			<if test="questionsCorrectNum != null">
+				questions_correct_num = IFNULL(questions_correct_num,0)+
+				#{questionsCorrectNum,jdbcType=INTEGER},
+			</if>
+			<if test="questionsErrorNum != null">
+				questions_error_num = IFNULL(questions_error_num,0)+
+				#{questionsErrorNum,jdbcType=INTEGER},
+			</if>
+			<if test="showType != null">
+				show_type = #{showType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE
+		questions_id = #{questionsId,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectQuestionIdListByMap" resultType="string" parameterType="map">
+        select t1.questions_id from T_EVGL_QUESTIONS_INFO t1
+        <where>
+        		(t1.show_type is null or t1.show_type = '1')
+        		<if test="noChildrenQuestion != null and noChildrenQuestion.trim() != ''">
+					and (t1.parent_id is null or t1.parent_id = '')
+				</if>
+        		<if test="questionsIds != null and questionsIds.size() > 0">
+					and t1.questions_id in
+					<foreach collection="questionsIds" item="questionsId" open="(" separator="," close=")">
+						#{questionsId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+				<if test="questionIds != null and questionIds.size() > 0">
+					and t1.questions_id in
+					<foreach collection="questionIds" item="questionId" open="(" separator="," close=")">
+						#{questionId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+        		<if test='parentIdIsNull != null and parentIdIsNull == "Y"'>
+                and (t1.parent_id is null or parent_id = '')
+                </if>
+                <if test="parentIds != null and parentIds.size() > 0">
+				and t1.parent_id in
+					<foreach collection="parentIds" item="parentId" open="(" separator="," close=")">
+						#{parentId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+				<if test="majorIds != null and majorIds.size() > 0">
+					and t1.major_id in
+					<foreach collection="majorIds" item="majorId" open="(" separator="," close=")">
+						#{majorId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+        		<if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chaptersId != null and chaptersId.trim() != ''">
+                and t1.chapters_id =#{chaptersId,jdbcType=VARCHAR}            </if>
+                <if test="knowledgeId != null and knowledgeId.trim() != ''">
+                and t1.knowledge_id =#{knowledgeId,jdbcType=VARCHAR}            </if>
+                <if test="questionsName != null and questionsName.trim() != ''">
+                and t1.questions_name like concat ('%', #{questionsName,jdbcType=LONGVARCHAR}, '%')            </if>
+                <if test="questionsParse != null and questionsParse.trim() != ''">
+                and t1.questions_parse =#{questionsParse,jdbcType=LONGVARCHAR}            </if>
+                <if test="replyIds != null and replyIds.trim() != ''">
+                and t1.reply_ids =#{replyIds,jdbcType=VARCHAR}            </if>
+                <if test="questionsComplexity != null and questionsComplexity.trim() != ''">
+                and t1.questions_complexity =#{questionsComplexity,jdbcType=VARCHAR}            </if>
+                <if test="questionsStar != null and questionsStar.trim() != ''">
+                and t1.questions_star =#{questionsStar,jdbcType=VARCHAR}            </if>
+                <if test="questionsState != null and questionsState.trim() != ''">
+                and t1.questions_state =#{questionsState,jdbcType=VARCHAR}            </if>
+                <if test="questionsConstructingNum != null and questionsConstructingNum != ''">
+                and t1.questions_constructing_num =#{questionsConstructingNum,jdbcType=INTEGER}            </if>
+                <if test="questionsType != null and questionsType.trim() != ''">
+                and t1.questions_type =#{questionsType,jdbcType=VARCHAR}            </if>
+                <if test="questionsAccuracy != null and questionsAccuracy.trim() != ''">
+                and t1.questions_accuracy =#{questionsAccuracy,jdbcType=DECIMAL}            </if>
+                <if test="questionsStoreNum != null and questionsStoreNum != ''">
+                and t1.questions_store_num =#{questionsStoreNum,jdbcType=INTEGER}            </if>
+                <if test="questionsAnswerNum != null and questionsAnswerNum != ''">
+                and t1.questions_answer_num =#{questionsAnswerNum,jdbcType=INTEGER}            </if>
+                <if test="questionsCorrectNum != null and questionsCorrectNum != ''">
+                and t1.questions_correct_num =#{questionsCorrectNum,jdbcType=INTEGER}            </if>
+                <if test="questionsErrorNum != null and questionsErrorNum != ''">
+                and t1.questions_error_num =#{questionsErrorNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="id != null and id.trim() != ''">
+                and t1.id =#{id,jdbcType=BIGINT}            </if>
+                <if test="questionsStyle != null and questionsStyle.trim() != ''">
+                and t1.questions_style =#{questionsStyle,jdbcType=VARCHAR}            </if>
+                <if test="fromType != null and fromType.trim() != ''">
+                and t1.from_type =#{fromType,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="showType != null and showType.trim() != ''">
+                and t1.show_type =#{showType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.questions_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <update id="plusNumBatchByCaseWhen" parameterType="java.util.List">
+		UPDATE t_evgl_questions_info
+		<set>
+			questions_constructing_num = CASE questions_id
+			<foreach collection="list" item="item" open="" separator="" close="">
+				WHEN #{item.questionsId} THEN IFNULL(questions_constructing_num, 0) + IFNULL(#{item.questionsConstructingNum,jdbcType=INTEGER}, 0)
+			</foreach>
+			END,
+			questions_accuracy = CASE questions_id
+			<foreach collection="list" item="item" open="" separator="" close="">
+				WHEN #{item.questionsId} THEN IFNULL(#{item.questionsAccuracy}, 0)
+			</foreach>
+			END,
+			questions_answer_num = CASE questions_id
+			<foreach collection="list" item="item" open="" separator="" close="">
+				WHEN #{item.questionsId} THEN IFNULL(questions_answer_num, 0) + IFNULL(#{item.questionsAnswerNum,jdbcType=INTEGER}, 0)
+			</foreach>
+			END,
+			questions_correct_num = CASE questions_id
+			<foreach collection="list" item="item" open="" separator="" close="">
+				WHEN #{item.questionsId} THEN IFNULL(questions_correct_num, 0) + IFNULL(#{item.questionsCorrectNum,jdbcType=INTEGER}, 0)
+			</foreach>
+			END,
+			questions_error_num = CASE questions_id
+			<foreach collection="list" item="item" open="" separator="" close="">
+				WHEN #{item.questionsId} THEN IFNULL(questions_error_num, 0) + IFNULL(#{item.questionsErrorNum,jdbcType=INTEGER}, 0)
+			</foreach>
+			END,
+			show_type = CASE questions_id
+			<foreach collection="list" item="item" open="" separator="" close="">
+				WHEN #{item.questionsId} THEN IFNULL(#{item.showType}, "")
+			</foreach>
+			END
+		</set>
+		WHERE questions_id IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.questionsId}
+		</foreach>
+	</update>
+	<select id="findQuestionIdsByUnionAll" resultType="string" parameterType="map">
+		select DISTINCT t.questions_id from (
+			select DISTINCT t1.questions_id from t_ep_examine_paper_score t1
+			union all
+			select DISTINCT t2.questions_id from t_evgl_examine_paper_score t2
+		) t
+	</select>
+</mapper>
+

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityVoteQuestionnaireTraineeAnswerMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivityVoteQuestionnaireTraineeAnswer">
+		<result column="id" jdbcType="VARCHAR"
+			property="id" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="activity_id" jdbcType="VARCHAR"
+			property="activityId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="question_id" jdbcType="VARCHAR"
+			property="questionId" />
+		<result column="option_id" jdbcType="VARCHAR"
+			property="optionId" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="question_type" jdbcType="VARCHAR"
+			property="questionType" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		id,ct_id,activity_id,trainee_id,question_id,option_id,content,question_type,create_time
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityVoteQuestionnaireTraineeAnswer">
+		INSERT INTO T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER (
+		id ,
+		ct_id ,
+		activity_id ,
+		trainee_id ,
+		question_id ,
+		option_id ,
+		content ,
+		question_type ,
+		create_time 
+		) VALUES (
+
+#{id,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{activityId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{questionId,jdbcType=VARCHAR} ,
+
+#{optionId,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{questionType,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityVoteQuestionnaireTraineeAnswer">
+		UPDATE T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="activityId != null">
+		activity_id = #{activityId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="questionId != null">
+		question_id = #{questionId,jdbcType=VARCHAR},
+		</if>
+		<if test="optionId != null">
+		option_id = #{optionId,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="questionType != null">
+		question_type = #{questionType,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		id = #{id,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER WHERE
+		id =
+		#{id,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER WHERE
+		id in
+		<foreach item="id" collection="array" open="("
+			separator="," close=")">
+#{id,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER WHERE
+		id = #{id,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="questionId != null and questionId.trim() != ''">
+                and question_id =#{questionId,jdbcType=VARCHAR}            </if>
+                <if test="optionId != null and optionId.trim() != ''">
+                and option_id =#{optionId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="questionType != null and questionType.trim() != ''">
+                and question_type =#{questionType,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="optionIds != null and optionIds.length > 0">
+                and option_id in
+                	<foreach collection="optionIds" item="optionId" open="(" separator="," close=")">
+                		#{optionId,jdbcType=VARCHAR}   
+                	</foreach>         
+                </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select t1.id, t1.ct_id as ctId, t1.activity_id as activityId , t1.trainee_id as traineeId, 
+        t1.question_id as questionId, t1.option_id as optionId, t1.content, t1.question_type as questionType, t1.create_time as createTime,
+        ifnull(t2.trainee_name, t2.nick_name) as traineeName, ifnull(t2.trainee_pic, t2.trainee_head) as traineePic, t2.trainee_head as traineeHead,
+        t2.trainee_sex as traineeSex, t2.mobile
+        from T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER t1
+        inner join t_evgl_trainee_info t2 on t1.trainee_id = t2.trainee_id
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and t1.activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="questionId != null and questionId.trim() != ''">
+                and t1.question_id =#{questionId,jdbcType=VARCHAR}            </if>
+                <if test="optionId != null and optionId.trim() != ''">
+                and t1.option_id =#{optionId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="questionType != null and questionType.trim() != ''">
+                and t1.question_type =#{questionType,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 统计此课堂，投票问卷总提交人数 -->
+    <select id="countAnswerNum" parameterType="map" resultType="java.lang.Integer">
+    	select COUNT(DISTINCT trainee_id) from t_evgl_activity_vote_questionnaire_trainee_answer
+    	where ct_id = #{ctId} and activity_id =#{activityId}	
+    </select>
+    
+    <!-- 仅查询主键id -->
+    <select id="selectIdListByMap" resultType="string" parameterType="map">
+        select t1.id from T_EVGL_ACTIVITY_VOTE_QUESTIONNAIRE_TRAINEE_ANSWER t1
+        <where>
+        		<if test="questionIds != null and questionIds.size() > 0">
+                and t1.question_id in 
+                	<foreach collection="questionIds" item="questionId" open="(" separator="," close=")">
+                		#{questionId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and t1.activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="questionId != null and questionId.trim() != ''">
+                and t1.question_id =#{questionId,jdbcType=VARCHAR}            </if>
+                <if test="optionId != null and optionId.trim() != ''">
+                and t1.option_id =#{optionId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="questionType != null and questionType.trim() != ''">
+                and t1.question_type =#{questionType,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

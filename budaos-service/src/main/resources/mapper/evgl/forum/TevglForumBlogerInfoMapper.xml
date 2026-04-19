@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.forum.persistence.TevglForumBlogerInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.forum.domain.TevglForumBlogerInfo">
+		<result column="blog_id" jdbcType="VARCHAR"
+			property="blogId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="trainee_sex" jdbcType="VARCHAR"
+			property="traineeSex" />
+		<result column="trainee_age" jdbcType="INTEGER"
+			property="traineeAge" />
+		<result column="trainee_name" jdbcType="VARCHAR"
+			property="traineeName" />
+		<result column="trainee_headimg" jdbcType="VARCHAR"
+			property="traineeHeadimg" />
+		<result column="class_id" jdbcType="VARCHAR"
+			property="classId" />
+		<result column="class_name" jdbcType="VARCHAR"
+			property="className" />
+		<result column="blog_name" jdbcType="VARCHAR"
+			property="blogName" />
+		<result column="blog_summar" jdbcType="VARCHAR"
+			property="blogSummar" />
+		<result column="blog_logo" jdbcType="VARCHAR"
+			property="blogLogo" />
+		<result column="blog_attention_num" jdbcType="INTEGER"
+			property="blogAttentionNum" />
+		<result column="blog_fans_num" jdbcType="INTEGER"
+			property="blogFansNum" />
+		<result column="blog_topic_num" jdbcType="INTEGER"
+			property="blogTopicNum" />
+		<result column="blog_reply_num" jdbcType="INTEGER"
+			property="blogReplyNum" />
+		<result column="blog_access_num" jdbcType="INTEGER"
+			property="blogAccessNum" />
+		<result column="register_time" jdbcType="VARCHAR"
+			property="registerTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		blog_id,trainee_id,trainee_sex,trainee_age,trainee_name,trainee_headimg,class_id,class_name,blog_name,blog_summar,blog_logo,blog_attention_num,blog_fans_num,blog_topic_num,blog_reply_num,blog_access_num,register_time,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumBlogerInfo">
+		INSERT INTO T_EVGL_FORUM_BLOGER_INFO (
+		blog_id ,
+		trainee_id ,
+		trainee_sex ,
+		trainee_age ,
+		trainee_name ,
+		trainee_headimg ,
+		class_id ,
+		class_name ,
+		blog_name ,
+		blog_summar ,
+		blog_logo ,
+		blog_attention_num ,
+		blog_fans_num ,
+		blog_topic_num ,
+		blog_reply_num ,
+		blog_access_num ,
+		register_time ,
+		state 
+		) VALUES (
+
+#{blogId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{traineeSex,jdbcType=VARCHAR} ,
+
+#{traineeAge,jdbcType=INTEGER} ,
+
+#{traineeName,jdbcType=VARCHAR} ,
+
+#{traineeHeadimg,jdbcType=VARCHAR} ,
+
+#{classId,jdbcType=VARCHAR} ,
+
+#{className,jdbcType=VARCHAR} ,
+
+#{blogName,jdbcType=VARCHAR} ,
+
+#{blogSummar,jdbcType=VARCHAR} ,
+
+#{blogLogo,jdbcType=VARCHAR} ,
+
+#{blogAttentionNum,jdbcType=INTEGER} ,
+
+#{blogFansNum,jdbcType=INTEGER} ,
+
+#{blogTopicNum,jdbcType=INTEGER} ,
+
+#{blogReplyNum,jdbcType=INTEGER} ,
+
+#{blogAccessNum,jdbcType=INTEGER} ,
+
+#{registerTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumBlogerInfo">
+		UPDATE T_EVGL_FORUM_BLOGER_INFO 
+		<set>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeSex != null">
+		trainee_sex = #{traineeSex,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeAge != null">
+		trainee_age = #{traineeAge,jdbcType=INTEGER},
+		</if>
+		<if test="traineeName != null">
+		trainee_name = #{traineeName,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeHeadimg != null">
+		trainee_headimg = #{traineeHeadimg,jdbcType=VARCHAR},
+		</if>
+		<if test="classId != null">
+		class_id = #{classId,jdbcType=VARCHAR},
+		</if>
+		<if test="className != null">
+		class_name = #{className,jdbcType=VARCHAR},
+		</if>
+		<if test="blogName != null">
+		blog_name = #{blogName,jdbcType=VARCHAR},
+		</if>
+		<if test="blogSummar != null">
+		blog_summar = #{blogSummar,jdbcType=VARCHAR},
+		</if>
+		<if test="blogLogo != null">
+		blog_logo = #{blogLogo,jdbcType=VARCHAR},
+		</if>
+		<if test="blogAttentionNum != null">
+		blog_attention_num = #{blogAttentionNum,jdbcType=INTEGER},
+		</if>
+		<if test="blogFansNum != null">
+		blog_fans_num = #{blogFansNum,jdbcType=INTEGER},
+		</if>
+		<if test="blogTopicNum != null">
+		blog_topic_num = #{blogTopicNum,jdbcType=INTEGER},
+		</if>
+		<if test="blogReplyNum != null">
+		blog_reply_num = #{blogReplyNum,jdbcType=INTEGER},
+		</if>
+		<if test="blogAccessNum != null">
+		blog_access_num = #{blogAccessNum,jdbcType=INTEGER},
+		</if>
+		<if test="registerTime != null">
+		register_time = #{registerTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		blog_id = #{blogId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_BLOGER_INFO WHERE
+		blog_id =
+		#{blogId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_BLOGER_INFO WHERE
+		blog_id in
+		<foreach item="blogId" collection="array" open="("
+			separator="," close=")">
+#{blogId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_FORUM_BLOGER_INFO WHERE
+		blog_id = #{blogId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_FORUM_BLOGER_INFO
+        <where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="traineeSex != null and traineeSex.trim() != ''">
+                and trainee_sex =#{traineeSex,jdbcType=VARCHAR}            </if>
+                <if test="traineeAge != null and traineeAge != ''">
+                and trainee_age =#{traineeAge,jdbcType=INTEGER}            </if>
+                <if test="traineeName != null and traineeName.trim() != ''">
+                and trainee_name =#{traineeName,jdbcType=VARCHAR}            </if>
+                <if test="traineeHeadimg != null and traineeHeadimg.trim() != ''">
+                and trainee_headimg =#{traineeHeadimg,jdbcType=VARCHAR}            </if>
+                <if test="classId != null and classId.trim() != ''">
+                and class_id =#{classId,jdbcType=VARCHAR}            </if>
+                <if test="className != null and className.trim() != ''">
+                and class_name =#{className,jdbcType=VARCHAR}            </if>
+                <if test="blogName != null and blogName.trim() != ''">
+                and blog_name =#{blogName,jdbcType=VARCHAR}            </if>
+                <if test="blogSummar != null and blogSummar.trim() != ''">
+                and blog_summar =#{blogSummar,jdbcType=VARCHAR}            </if>
+                <if test="blogLogo != null and blogLogo.trim() != ''">
+                and blog_logo =#{blogLogo,jdbcType=VARCHAR}            </if>
+                <if test="blogAttentionNum != null and blogAttentionNum != ''">
+                and blog_attention_num =#{blogAttentionNum,jdbcType=INTEGER}            </if>
+                <if test="blogFansNum != null and blogFansNum != ''">
+                and blog_fans_num =#{blogFansNum,jdbcType=INTEGER}            </if>
+                <if test="blogTopicNum != null and blogTopicNum != ''">
+                and blog_topic_num =#{blogTopicNum,jdbcType=INTEGER}            </if>
+                <if test="blogReplyNum != null and blogReplyNum != ''">
+                and blog_reply_num =#{blogReplyNum,jdbcType=INTEGER}            </if>
+                <if test="blogAccessNum != null and blogAccessNum != ''">
+                and blog_access_num =#{blogAccessNum,jdbcType=INTEGER}            </if>
+                <if test="registerTime != null and registerTime.trim() != ''">
+                and register_time =#{registerTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by blog_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_FORUM_BLOGER_INFO t1
+        <where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="traineeSex != null and traineeSex.trim() != ''">
+                and t1.trainee_sex =#{traineeSex,jdbcType=VARCHAR}            </if>
+                <if test="traineeAge != null and traineeAge != ''">
+                and t1.trainee_age =#{traineeAge,jdbcType=INTEGER}            </if>
+                <if test="traineeName != null and traineeName.trim() != ''">
+                and t1.trainee_name =#{traineeName,jdbcType=VARCHAR}            </if>
+                <if test="traineeHeadimg != null and traineeHeadimg.trim() != ''">
+                and t1.trainee_headimg =#{traineeHeadimg,jdbcType=VARCHAR}            </if>
+                <if test="classId != null and classId.trim() != ''">
+                and t1.class_id =#{classId,jdbcType=VARCHAR}            </if>
+                <if test="className != null and className.trim() != ''">
+                and t1.class_name =#{className,jdbcType=VARCHAR}            </if>
+                <if test="blogName != null and blogName.trim() != ''">
+                and t1.blog_name =#{blogName,jdbcType=VARCHAR}            </if>
+                <if test="blogSummar != null and blogSummar.trim() != ''">
+                and t1.blog_summar =#{blogSummar,jdbcType=VARCHAR}            </if>
+                <if test="blogLogo != null and blogLogo.trim() != ''">
+                and t1.blog_logo =#{blogLogo,jdbcType=VARCHAR}            </if>
+                <if test="blogAttentionNum != null and blogAttentionNum != ''">
+                and t1.blog_attention_num =#{blogAttentionNum,jdbcType=INTEGER}            </if>
+                <if test="blogFansNum != null and blogFansNum != ''">
+                and t1.blog_fans_num =#{blogFansNum,jdbcType=INTEGER}            </if>
+                <if test="blogTopicNum != null and blogTopicNum != ''">
+                and t1.blog_topic_num =#{blogTopicNum,jdbcType=INTEGER}            </if>
+                <if test="blogReplyNum != null and blogReplyNum != ''">
+                and t1.blog_reply_num =#{blogReplyNum,jdbcType=INTEGER}            </if>
+                <if test="blogAccessNum != null and blogAccessNum != ''">
+                and t1.blog_access_num =#{blogAccessNum,jdbcType=INTEGER}            </if>
+                <if test="registerTime != null and registerTime.trim() != ''">
+                and t1.register_time =#{registerTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.blog_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

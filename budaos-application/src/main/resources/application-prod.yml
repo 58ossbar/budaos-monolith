@@ -1,0 +1,28 @@
+# 生产环境配置
+# Copyright 2026 BudaOS Team
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/budaos?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: budaos
+
+  redis:
+    host: localhost
+    port: 6379
+    password: budaos
+
+# MyBatis日志关闭
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# 日志级别
+logging:
+  level:
+    root: INFO
+    com.budaos: INFO
+
+# 应用配置
+budaos:
+  captcha-enabled: true

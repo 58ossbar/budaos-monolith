@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.examine.persistence.TevglExamineDynamicPaperMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.examine.domain.TevglExamineDynamicPaper">
+		<result column="dy_id" jdbcType="VARCHAR"
+			property="dyId" />
+		<result column="paper_id" jdbcType="VARCHAR"
+			property="paperId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="dynamic_type" jdbcType="VARCHAR"
+			property="dynamicType" />
+		<result column="dynamic_state" jdbcType="VARCHAR"
+			property="dynamicState" />
+		<result column="paper_is_finished" jdbcType="VARCHAR"
+			property="paperIsFinished" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		dy_id,paper_id,trainee_id,dynamic_type,dynamic_state,paper_is_finished
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.examine.domain.TevglExamineDynamicPaper">
+		INSERT INTO T_EVGL_EXAMINE_DYNAMIC_PAPER (
+		dy_id ,
+		paper_id ,
+		trainee_id ,
+		dynamic_type ,
+		dynamic_state ,
+		paper_is_finished 
+		) VALUES (
+
+#{dyId,jdbcType=VARCHAR} ,
+
+#{paperId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{dynamicType,jdbcType=VARCHAR} ,
+
+#{dynamicState,jdbcType=VARCHAR} ,
+
+#{paperIsFinished,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.examine.domain.TevglExamineDynamicPaper">
+		UPDATE T_EVGL_EXAMINE_DYNAMIC_PAPER 
+		<set>
+		<if test="paperId != null">
+		paper_id = #{paperId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="dynamicType != null">
+		dynamic_type = #{dynamicType,jdbcType=VARCHAR},
+		</if>
+		<if test="dynamicState != null">
+		dynamic_state = #{dynamicState,jdbcType=VARCHAR},
+		</if>
+		<if test="paperIsFinished != null">
+		paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		dy_id = #{dyId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_EXAMINE_DYNAMIC_PAPER WHERE
+		dy_id =
+		#{dyId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_EXAMINE_DYNAMIC_PAPER WHERE
+		dy_id in
+		<foreach item="dyId" collection="array" open="("
+			separator="," close=")">
+#{dyId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_EXAMINE_DYNAMIC_PAPER WHERE
+		dy_id = #{dyId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_EXAMINE_DYNAMIC_PAPER
+        <where>
+                <if test="paperId != null and paperId.trim() != ''">
+                and paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="dynamicType != null and dynamicType.trim() != ''">
+                and dynamic_type =#{dynamicType,jdbcType=VARCHAR}            </if>
+                <if test="dynamicState != null and dynamicState.trim() != ''">
+                and dynamic_state =#{dynamicState,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim() != ''">
+                and paper_is_finished =#{paperIsFinished,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by dy_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_EXAMINE_DYNAMIC_PAPER t1
+        <where>
+                <if test="paperId != null and paperId.trim() != ''">
+                and t1.paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="dynamicType != null and dynamicType.trim() != ''">
+                and t1.dynamic_type =#{dynamicType,jdbcType=VARCHAR}            </if>
+                <if test="dynamicState != null and dynamicState.trim() != ''">
+                and t1.dynamic_state =#{dynamicState,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim() != ''">
+                and t1.paper_is_finished =#{paperIsFinished,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dy_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

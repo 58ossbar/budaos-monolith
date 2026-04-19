@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.cloudpan.persistence.TcloudPanFileMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.cloudpan.domain.TcloudPanFile">
+		<result column="file_id" jdbcType="VARCHAR"
+			property="fileId" />
+		<result column="dir_id" jdbcType="VARCHAR"
+			property="dirId" />
+		<result column="name" jdbcType="VARCHAR"
+			property="name" />
+		<result column="path" jdbcType="VARCHAR"
+			property="path" />
+		<result column="file_access_url" jdbcType="VARCHAR"
+			property="fileAccessUrl" />
+		<result column="file_save_path" jdbcType="VARCHAR"
+			property="fileSavePath" />
+		<result column="file_suffix" jdbcType="VARCHAR"
+			property="fileSuffix" />
+		<result column="file_size" jdbcType="BIGINT"
+			property="fileSize" />
+		<result column="file_type" jdbcType="VARCHAR"
+			property="fileType" />
+		<result column="original_filename" jdbcType="VARCHAR"
+			property="originalFilename" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		file_id,dir_id,name,path,file_access_url,file_save_path,file_suffix,file_size,file_type,original_filename,sort_num,create_user_id,create_time,update_user_id,update_time,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanFile">
+		INSERT INTO T_CLOUD_PAN_FILE (
+		file_id ,
+		dir_id ,
+		name ,
+		path ,
+		file_access_url ,
+		file_save_path ,
+		file_suffix ,
+		file_size ,
+		file_type ,
+		original_filename ,
+		sort_num ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state 
+		) VALUES (
+
+#{fileId,jdbcType=VARCHAR} ,
+
+#{dirId,jdbcType=VARCHAR} ,
+
+#{name,jdbcType=VARCHAR} ,
+
+#{path,jdbcType=VARCHAR} ,
+
+#{fileAccessUrl,jdbcType=VARCHAR} ,
+
+#{fileSavePath,jdbcType=VARCHAR} ,
+
+#{fileSuffix,jdbcType=VARCHAR} ,
+
+#{fileSize,jdbcType=BIGINT} ,
+
+#{fileType,jdbcType=VARCHAR} ,
+
+#{originalFilename,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanFile">
+		UPDATE T_CLOUD_PAN_FILE 
+		<set>
+		<if test="dirId != null">
+		dir_id = #{dirId,jdbcType=VARCHAR},
+		</if>
+		<if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="path != null">
+		path = #{path,jdbcType=VARCHAR},
+		</if>
+		<if test="fileAccessUrl != null">
+		file_access_url = #{fileAccessUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSavePath != null">
+		file_save_path = #{fileSavePath,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSuffix != null">
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSize != null">
+		file_size = #{fileSize,jdbcType=BIGINT},
+		</if>
+		<if test="fileType != null">
+		file_type = #{fileType,jdbcType=VARCHAR},
+		</if>
+		<if test="originalFilename != null">
+		original_filename = #{originalFilename,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		file_id = #{fileId,jdbcType=VARCHAR} 
+	</update>
+	<update id="updateForUpload" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanFile">
+		UPDATE T_CLOUD_PAN_FILE 
+		<set>
+		<if test="dirId != null">
+		dir_id = #{dirId,jdbcType=VARCHAR},
+		</if>
+		<if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="path != null">
+		path = #{path,jdbcType=VARCHAR},
+		</if>
+		<if test="fileAccessUrl != null">
+		file_access_url = #{fileAccessUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSavePath != null">
+		file_save_path = #{fileSavePath,jdbcType=VARCHAR},
+		</if>
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		<!-- <if test="fileSuffix != null">
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		</if> -->
+		<if test="fileSize != null">
+		file_size = #{fileSize,jdbcType=BIGINT},
+		</if>
+		file_type = #{fileType,jdbcType=VARCHAR},
+		<!-- <if test="fileType != null">
+		file_type = #{fileType,jdbcType=VARCHAR},
+		</if> -->
+		<if test="originalFilename != null">
+		original_filename = #{originalFilename,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		file_id = #{fileId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_CLOUD_PAN_FILE WHERE
+		file_id =
+		#{fileId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_CLOUD_PAN_FILE WHERE
+		file_id in
+		<foreach item="fileId" collection="array" open="("
+			separator="," close=")">
+#{fileId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_CLOUD_PAN_FILE WHERE
+		file_id = #{fileId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_CLOUD_PAN_FILE
+        <where>
+        		<if test="dirIds != null and dirIds.size() > 0">
+        			and dir_id in 
+        			<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+        				#{dirId,jdbcType=VARCHAR}
+        			</foreach>
+        		</if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and name like concat ('%', #{name,jdbcType=VARCHAR}, '%')           </if>
+                <if test="path != null and path.trim() != ''">
+                and path =#{path,jdbcType=VARCHAR}            </if>
+                <if test="fileAccessUrl != null and fileAccessUrl.trim() != ''">
+                and file_access_url =#{fileAccessUrl,jdbcType=VARCHAR}            </if>
+                <if test="fileSavePath != null and fileSavePath.trim() != ''">
+                and file_save_path =#{fileSavePath,jdbcType=VARCHAR}            </if>
+                <if test="fileSuffix != null and fileSuffix.trim() != ''">
+                and file_suffix =#{fileSuffix,jdbcType=VARCHAR}            </if>
+                <if test="fileSize != null and fileSize.trim() != ''">
+                and file_size =#{fileSize,jdbcType=BIGINT}            </if>
+                <if test="fileType != null and fileType.trim() != ''">
+                and file_type =#{fileType,jdbcType=VARCHAR}            </if>
+                <if test="originalFilename != null and originalFilename.trim() != ''">
+                and original_filename =#{originalFilename,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by file_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_CLOUD_PAN_FILE t1
+        <where>
+        		<if test="dirIds != null and dirIds.size() > 0">
+        			and t1.dir_id in 
+        			<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+        				#{dirId,jdbcType=VARCHAR}
+        			</foreach>
+        		</if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="path != null and path.trim() != ''">
+                and t1.path =#{path,jdbcType=VARCHAR}            </if>
+                <if test="fileAccessUrl != null and fileAccessUrl.trim() != ''">
+                and t1.file_access_url =#{fileAccessUrl,jdbcType=VARCHAR}            </if>
+                <if test="fileSavePath != null and fileSavePath.trim() != ''">
+                and t1.file_save_path =#{fileSavePath,jdbcType=VARCHAR}            </if>
+                <if test="fileSuffix != null and fileSuffix.trim() != ''">
+                and t1.file_suffix =#{fileSuffix,jdbcType=VARCHAR}            </if>
+                <if test="fileSize != null and fileSize.trim() != ''">
+                and t1.file_size =#{fileSize,jdbcType=BIGINT}            </if>
+                <if test="fileType != null and fileType.trim() != ''">
+                and t1.file_type =#{fileType,jdbcType=VARCHAR}            </if>
+                <if test="originalFilename != null and originalFilename.trim() != ''">
+                and t1.original_filename =#{originalFilename,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.file_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getMaxSortNum" resultType="INTEGER" parameterType="map">
+    	select IFNULL(max(sort_num), 0) + 1 from T_CLOUD_PAN_FILE
+    	<where>
+                <if test="dirId != null and dirId.trim() != ''">
+                and dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+    </select>
+    
+    <select id="selectFileInfoListByDirId" resultType="map" parameterType="java.lang.String">
+    	select file_id as fileId, 
+    	name, path, 
+    	dir_id as dirId,
+    	file_access_url as fileAccessUrl,
+    	file_save_path as fileSavePath,
+    	file_suffix as fileSuffix,
+    	file_size as fileSize,
+    	file_type as fileType,
+    	original_filename as originalFilename,
+    	sort_num as sort_num,
+    	create_user_id as createUserId
+    	from T_CLOUD_PAN_FILE where dir_id = #{dirId}
+    </select>
+    
+    <select id="selectSimpleInfoList" resultType="map" parameterType="map">
+    	select file_id as fileId, file_id as id, name, '2' as type, update_time as updateTime, create_user_id as createUserId,
+    	dir_id as parentId, file_save_path as fileSavePath, file_suffix as fileSuffix, file_size as fileSize, file_type as fileType,
+    	file_access_url as fileAccessUrl, dir_id as dirId
+    	from T_CLOUD_PAN_FILE
+    	<where>
+    		(path is null or path = '')
+      		<if test="suffixList != null and suffixList.size() > 0">
+      			and file_suffix in 
+      			<foreach collection="suffixList" item="suffix" open="(" separator="," close=")">
+      				#{suffix,jdbcType=VARCHAR}
+      			</foreach>
+      		</if>
+      		<if test="fileIds != null and fileIds.size() > 0">
+      			and file_id in 
+      			<foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
+      				#{fileId,jdbcType=VARCHAR}
+      			</foreach>
+      		</if>
+      		<if test="dirIds != null and dirIds.size() > 0">
+      			and dir_id in 
+      			<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+      				#{dirId,jdbcType=VARCHAR}
+      			</foreach>
+      		</if>
+      		<if test="dirId != null and dirId.trim() != ''">
+			and dir_id = #{dirId,jdbcType=VARCHAR}
+			</if>
+			<if test="fileId != null and fileId.trim() != ''">
+			and file_id = #{fileId,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name.trim() != ''">
+            and name like concat ('%', #{name,jdbcType=VARCHAR}, '%')           
+			</if>
+   		</where>
+    </select>
+    
+    <select id="countNumByMap" resultType="map" parameterType="map">
+        select t1.file_id from t_cloud_pan_file t1
+        <where>	
+       		<if test="dirIds != null and dirIds.size() > 0">
+                and t1.dir_id in
+                <foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+                	#{dirId,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    
+    <!-- 根据文件id以及文件夹id查找文件夹的父级目录 -->
+    <select id="selectParentIdByfileIdAnddirId" resultType="map" parameterType="map">
+    	SELECT
+			t1.file_id AS fileId,
+			t2.dir_id AS dirId,
+			t2.dir_id AS id,
+			t2.NAME,
+			t2.parent_id AS parentId,
+			t2.pkg_id as pkgId
+		FROM
+			t_cloud_pan_file t1
+			INNER JOIN t_cloud_pan_directory t2 ON t1.dir_id = t2.dir_id 
+		<where>
+			<if test="dirId != null and dirId.trim() != ''">
+			and t1.dir_id = #{dirId,jdbcType=VARCHAR}
+			</if>
+			<if test="fileId != null and fileId.trim() != ''">
+			and t1.file_id = #{fileId,jdbcType=VARCHAR}
+			</if>
+			<if test="dirIds != null and dirIds.size() > 0">
+			and t1.dir_id in  
+				<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+					#{dirId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="parentId != null and parentId.trim()  != ''">
+			and t2.parent_id = #{parentId,jdbcType=VARCHAR}
+			</if>
+		</where>
+    </select>
+    
+    <!-- 根据文件id和文件夹id查找文件是否在数据库中存在 -->
+    <select id="selectFileIdByDirIdAndFileIds" resultType="map" parameterType="map">
+    	SELECT
+			t1.file_id AS fileId,
+			t1.dir_id AS dirId,
+			t1.NAME AS NAME,
+			t2.per_id as perId 
+		FROM
+			t_cloud_pan_file t1
+			INNER JOIN t_cloud_pan_permissions t2 ON t1.file_id = t2.file_id
+		<where>
+			<if test="dirId != null and dirId.trim() != ''">
+			and t1.dir_id = #{dirId,jdbcType=VARCHAR}
+			</if>
+			<if test="fileId != null and fileId.trim() != ''">
+			and t1.file_id = #{fileId,jdbcType=VARCHAR}
+			</if>
+			<if test="fileIds != null and fileIds.size() > 0">
+			and t1.file_id in  
+				<foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
+					#{fileId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="dirIds != null and dirIds.size() > 0">
+			and t1.dir_id in  
+				<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+					#{dirId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="traineeId != null and traineeId.trim() != ''">
+			and t2.owner = #{traineeId,jdbcType=VARCHAR}
+			</if>
+		</where>
+    </select>
+    
+    <select id="queryAllFile" resultType="map" parameterType="map">
+    	SELECT
+			t.* 
+		FROM
+			(
+		SELECT
+			file_id AS fileId,
+			file_id AS id,
+			NAME,
+			dir_id AS parentId,
+			dir_id AS dirId,
+			NULL AS pkgId 
+		FROM
+			T_CLOUD_PAN_FILE 
+		<where>
+			<!-- 当前课堂全部目录的文件 -->
+			<if test="allDirId != null and allDirId.trim() != ''">
+			and dir_id = #{allDirId,jdbcType=VARCHAR}
+			</if>
+			<if test="allFileId != null and allFileId.trim() != ''">
+			and file_id = #{allFileId,jdbcType=VARCHAR}
+			</if>
+			
+			<!-- 教学包带过来的且在全部目录下的文件 -->
+			<if test="allRefDirId != null and allRefDirId.trim() != ''">
+			and dir_id = #{allRefDirId,jdbcType=VARCHAR}
+			</if>
+			<if test="allRefFileId != null and allRefFileId.trim() != ''">
+			and file_id = #{allRefFileId,jdbcType=VARCHAR}
+			</if>
+		</where>
+			
+		UNION ALL
+		
+		SELECT
+			t1.file_id AS fileId,
+			t2.dir_id AS dirId,
+			t2.dir_id AS id,
+			t2.NAME,
+			t2.parent_id AS parentId,
+			t2.pkg_id AS pkgId 
+		FROM
+			t_cloud_pan_file t1
+			INNER JOIN t_cloud_pan_directory t2 ON t1.dir_id = t2.dir_id 
+		<where>
+			<if test="currentDirId != null and currentDirId.trim() != ''">
+			and t1.dir_id = #{currentDirId,jdbcType=VARCHAR}
+			</if>
+			<if test="currentFileId != null and currentFileId.trim() != ''">
+			and t1.file_id = #{currentFileId,jdbcType=VARCHAR}
+			</if>
+		</where>
+			) t
+    </select>
+    
+    <select id="selectUploadFile" resultType="map" parameterType="map">
+    	SELECT
+    		t2.pkg_id as pkgId,
+			t1.file_id AS fileId,
+			t1.file_id AS id,
+			t1.name,
+			t1.dir_id AS dirId,
+			t1.file_access_url AS fileAccessUrl,
+			t1.file_save_path AS fileSavePath,
+			t1.path,
+			'2' AS type,
+			t1.update_time AS updateTime,
+			t1.create_user_id AS createUserId, 
+			t1.file_size AS fileSize,
+			t1.file_type AS fileType,
+			'' AS dictCode,
+			NULL AS icon 
+		FROM
+			T_CLOUD_PAN_FILE t1
+			inner join t_evgl_tch_classroom t2
+			on t1.dir_id = t2.pkg_id
+    	<where>
+    		<if test="dirId != null and dirId != ''">
+			and t1.dir_id = #{dirId,jdbcType=VARCHAR}
+			</if>
+			<if test="fileId != null and fileId != ''">
+			and t1.file_id = #{fileId,jdbcType=VARCHAR}
+			</if>
+			<if test="pkgId != null and pkgId != ''">
+			and t2.pkg_id = #{pkgId,jdbcType=VARCHAR}
+			</if>
+			<if test="pkgIds != null and pkgIds.size() > 0">
+			and t2.pkg_id in
+				<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+					 #{pkgId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="fileIds != null and fileIds.size() > 0">
+			and t1.file_id in
+			<foreach collection="fileIds" item="fileId" open="(" close=")" separator=",">
+				#{fileId,jdbcType=VARCHAR}
+			</foreach> 
+			</if>
+    	</where>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into t_cloud_pan_file
+			(
+				file_id, dir_id, name, path, file_access_url,
+				file_save_path, file_suffix, file_size, file_type, original_filename,
+				sort_num, create_user_id, create_time, state
+			)
+		values
+	    <foreach collection="list" item="obj" separator="," >
+	    	(
+	    		#{obj.fileId}, #{obj.dirId}, #{obj.name}, #{obj.path}, #{obj.fileAccessUrl},
+	    		#{obj.fileSavePath}, #{obj.fileSuffix}, #{obj.fileSize}, #{obj.fileType}, #{obj.originalFilename},
+	    		#{obj.sortNum}, #{obj.createUserId}, #{obj.createTime}, #{obj.state}
+	   		)
+	    </foreach>
+    </insert>
+    <select id="queryTopFileList" parameterType="map" resultType="map">
+		select t1.file_id as id, '2' as type, '' as dictCode, t1.sort_num as sortNum,
+		t1.dir_id as dirId, t1.dir_id as pkgId,
+		t1.name, t1.dir_id as parentId, t1.update_time as updateTime, '' as icon,
+		'' as isTraineeVisible, t1.file_access_url as fileAccessUrl
+		from t_cloud_pan_file t1
+		<where>
+			<if test="name != null and name.trim() != ''">
+				and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="pkgIds != null and pkgIds.size() > 0">
+				and t1.dir_id in
+				<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+					#{pkgId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="sonFiles != null and sonFiles.size() > 0">
+				and t1.file_id in
+				<foreach collection="sonFiles" item="sonFile" open="(" separator="," close=")">
+					#{sonFile,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+		</where>
+	</select>
+</mapper>
+

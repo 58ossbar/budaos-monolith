@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.question.persistence.TepExaminePaperQuestionsOptionRandomMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TepExaminePaperQuestionsOptionRandom">
+		<result column="dy_id" jdbcType="VARCHAR"
+			property="dyId" />
+		<result column="rd_id" jdbcType="VARCHAR"
+			property="rdId" />
+		<result column="option_id" jdbcType="VARCHAR"
+			property="optionId" />
+		<result column="question_id" jdbcType="VARCHAR"
+			property="questionId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="option_num" jdbcType="INTEGER"
+			property="optionNum" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		dy_id,rd_id,option_id,question_id,trainee_id,option_num
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperQuestionsOptionRandom">
+		INSERT INTO T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM (
+		dy_id ,
+		rd_id ,
+		option_id ,
+		question_id ,
+		trainee_id ,
+		option_num 
+		) VALUES (
+
+#{dyId,jdbcType=VARCHAR} ,
+
+#{rdId,jdbcType=VARCHAR} ,
+
+#{optionId,jdbcType=VARCHAR} ,
+
+#{questionId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{optionNum,jdbcType=INTEGER} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperQuestionsOptionRandom">
+		UPDATE T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM 
+		<set>
+		<if test="dyId != null">
+		dy_id = #{dyId,jdbcType=VARCHAR},
+		</if>
+		<if test="optionId != null">
+		option_id = #{optionId,jdbcType=VARCHAR},
+		</if>
+		<if test="questionId != null">
+		question_id = #{questionId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="optionNum != null">
+		option_num = #{optionNum,jdbcType=INTEGER},
+		</if>
+		</set>
+		WHERE
+		rd_id = #{rdId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM WHERE
+		rd_id =
+		#{rdId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM WHERE
+		rd_id in
+		<foreach item="rdId" collection="array" open="("
+			separator="," close=")">
+#{rdId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM WHERE
+		rd_id = #{rdId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM
+        <where>
+        		<if test="rdIds != null and rdIds.size() > 0">
+                and rd_id in
+	                <foreach collection="rdIds" item="rdId" open="(" separator="," close=")">
+	                	#{rdIds,jdbcType=VARCHAR}     
+	                </foreach>       
+                </if>
+        		<if test="dyIds != null and dyIds.size() > 0">
+                and dy_id in
+	                <foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+	                	#{dyId,jdbcType=VARCHAR}     
+	                </foreach>       
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="dyId != null and dyId.trim() != ''">
+                and dy_id =#{dyId,jdbcType=VARCHAR}            </if>
+                <if test="optionId != null and optionId.trim() != ''">
+                and option_id =#{optionId,jdbcType=VARCHAR}            </if>
+                <if test="questionId != null and questionId.trim() != ''">
+                and question_id =#{questionId,jdbcType=VARCHAR}            </if>
+				<if test="questionsId != null and questionsId.trim() != ''">
+				and question_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="optionNum != null and optionNum != ''">
+                and option_num =#{optionNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by rd_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM t1
+        <where>
+        		<if test="rdIds != null and rdIds.size() > 0">
+                and t1.rd_id in
+	                <foreach collection="rdIds" item="rdId" open="(" separator="," close=")">
+	                	#{rdIds,jdbcType=VARCHAR}     
+	                </foreach>       
+                </if>
+        		<if test="dyIds != null and dyIds.size() > 0">
+                and t1.dy_id in
+	                <foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+	                	#{dyId,jdbcType=VARCHAR}     
+	                </foreach>       
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and t1.trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="dyId != null and dyId.trim() != ''">
+                and t1.dy_id =#{dyId,jdbcType=VARCHAR}            </if>
+                <if test="optionId != null and optionId.trim() != ''">
+                and t1.option_id =#{optionId,jdbcType=VARCHAR}            </if>
+                <if test="questionId != null and questionId.trim() != ''">
+                and t1.question_id =#{questionId,jdbcType=VARCHAR}            </if>
+				<if test="questionsId != null and questionsId.trim() != ''">
+				and t1.question_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="optionNum != null and optionNum != ''">
+                and t1.option_num =#{optionNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.rd_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectIdListByMap" resultType="string" parameterType="map">
+        select * from T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM t1
+        <where>
+        		<if test="dyIds != null and dyIds.trim() != ''">
+                and t1.dy_id in
+	                <foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+	                	#{dyId,jdbcType=VARCHAR}     
+	                </foreach>       
+                </if>
+                <if test="dyId != null and dyId.trim() != ''">
+                and t1.dy_id =#{dyId,jdbcType=VARCHAR}            </if>
+                <if test="optionId != null and optionId.trim() != ''">
+                and t1.option_id =#{optionId,jdbcType=VARCHAR}            </if>
+                <if test="questionId != null and questionId.trim() != ''">
+                and t1.question_id =#{questionId,jdbcType=VARCHAR}            </if>
+				<if test="questionsId != null and questionsId.trim() != ''">
+				and t1.question_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="optionNum != null and optionNum != ''">
+                and t1.option_num =#{optionNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.rd_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into T_EP_EXAMINE_PAPER_QUESTIONS_OPTION_RANDOM
+                (rd_id, dy_id, question_id, option_id, trainee_id, option_num)
+        values
+        <foreach collection="list" item="obj" separator="," >
+                (#{obj.rdId}, #{obj.dyId}, #{obj.questionId}, #{obj.optionId}, #{obj.traineeId}, #{obj.optionNum})
+        </foreach>
+    </insert>
+    
+</mapper>
+

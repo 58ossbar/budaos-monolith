@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.site.persistence.TevglSiteResourceextMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.site.domain.TevglSiteResourceext">
+		<result column="site_id" jdbcType="VARCHAR"
+			property="siteId" />
+		<result column="MENU_ID" jdbcType="VARCHAR"
+			property="menuId" />
+		<result column="site_primary" jdbcType="VARCHAR"
+			property="sitePrimary" />
+		<result column="site_http" jdbcType="VARCHAR"
+			property="siteHttp" />
+		<result column="trade_type" jdbcType="VARCHAR"
+			property="tradeType" />
+		<result column="site_logo" jdbcType="VARCHAR"
+			property="siteLogo" />
+		<result column="site_urlicon" jdbcType="VARCHAR"
+			property="siteUrlicon" />
+		<result column="status" jdbcType="VARCHAR"
+			property="status" />
+		<result column="isaudit" jdbcType="VARCHAR"
+			property="isaudit" />
+		<result column="mobile_phone" jdbcType="VARCHAR"
+			property="mobilePhone" />
+		<result column="email" jdbcType="VARCHAR"
+			property="email" />
+		<result column="address" jdbcType="VARCHAR"
+			property="address" />
+		<result column="corporate_name" jdbcType="VARCHAR"
+			property="corporateName" />
+		<result column="wechat_url" jdbcType="VARCHAR"
+			property="wechatUrl" />
+		<result column="phone" jdbcType="VARCHAR"
+			property="phone" />
+		<result column="manager" jdbcType="VARCHAR"
+			property="manager" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		site_id,MENU_ID,site_primary,site_http,trade_type,site_logo,site_urlicon,status,isaudit,mobile_phone,email,address,corporate_name,wechat_url,phone,manager
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteResourceext">
+		INSERT INTO T_EVGL_SITE_RESOURCEEXT (
+		site_id ,
+		MENU_ID ,
+		site_primary ,
+		site_http ,
+		trade_type ,
+		site_logo ,
+		site_urlicon ,
+		status ,
+		isaudit ,
+		mobile_phone ,
+		email ,
+		address ,
+		corporate_name ,
+		wechat_url ,
+		phone ,
+		manager 
+		) VALUES (
+
+#{siteId,jdbcType=VARCHAR} ,
+
+#{menuId,jdbcType=VARCHAR} ,
+
+#{sitePrimary,jdbcType=VARCHAR} ,
+
+#{siteHttp,jdbcType=VARCHAR} ,
+
+#{tradeType,jdbcType=VARCHAR} ,
+
+#{siteLogo,jdbcType=VARCHAR} ,
+
+#{siteUrlicon,jdbcType=VARCHAR} ,
+
+#{status,jdbcType=VARCHAR} ,
+
+#{isaudit,jdbcType=VARCHAR} ,
+
+#{mobilePhone,jdbcType=VARCHAR} ,
+
+#{email,jdbcType=VARCHAR} ,
+
+#{address,jdbcType=VARCHAR} ,
+
+#{corporateName,jdbcType=VARCHAR} ,
+
+#{wechatUrl,jdbcType=VARCHAR} ,
+
+#{phone,jdbcType=VARCHAR} ,
+
+#{manager,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteResourceext">
+		UPDATE T_EVGL_SITE_RESOURCEEXT 
+		<set>
+		<if test="menuId != null">
+		MENU_ID = #{menuId,jdbcType=VARCHAR},
+		</if>
+		<if test="sitePrimary != null">
+		site_primary = #{sitePrimary,jdbcType=VARCHAR},
+		</if>
+		<if test="siteHttp != null">
+		site_http = #{siteHttp,jdbcType=VARCHAR},
+		</if>
+		<if test="tradeType != null">
+		trade_type = #{tradeType,jdbcType=VARCHAR},
+		</if>
+		<if test="siteLogo != null">
+		site_logo = #{siteLogo,jdbcType=VARCHAR},
+		</if>
+		<if test="siteUrlicon != null">
+		site_urlicon = #{siteUrlicon,jdbcType=VARCHAR},
+		</if>
+		<if test="status != null">
+		status = #{status,jdbcType=VARCHAR},
+		</if>
+		<if test="isaudit != null">
+		isaudit = #{isaudit,jdbcType=VARCHAR},
+		</if>
+		<if test="mobilePhone != null">
+		mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+		</if>
+		<if test="email != null">
+		email = #{email,jdbcType=VARCHAR},
+		</if>
+		<if test="address != null">
+		address = #{address,jdbcType=VARCHAR},
+		</if>
+		<if test="corporateName != null">
+		corporate_name = #{corporateName,jdbcType=VARCHAR},
+		</if>
+		<if test="wechatUrl != null">
+		wechat_url = #{wechatUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="phone != null">
+		phone = #{phone,jdbcType=VARCHAR},
+		</if>
+		<if test="manager != null">
+		manager = #{manager,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		site_id = #{siteId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_RESOURCEEXT WHERE
+		site_id =
+		#{siteId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_RESOURCEEXT WHERE
+		site_id in
+		<foreach item="siteId" collection="array" open="("
+			separator="," close=")">
+#{siteId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_SITE_RESOURCEEXT WHERE
+		site_id = #{siteId,jdbcType=VARCHAR} 
+	</select>
+	<select id="selectObjectByMenuId"
+		parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_SITE_RESOURCEEXT WHERE
+		menu_id = #{menuId,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_SITE_RESOURCEEXT
+        <where>
+                <if test="menuId != null and menuId.trim() != ''">
+                and MENU_ID =#{menuId,jdbcType=VARCHAR}            </if>
+                <if test="sitePrimary != null and sitePrimary.trim() != ''">
+                and site_primary =#{sitePrimary,jdbcType=VARCHAR}            </if>
+                <if test="siteHttp != null and siteHttp.trim() != ''">
+                and site_http =#{siteHttp,jdbcType=VARCHAR}            </if>
+                <if test="tradeType != null and tradeType.trim() != ''">
+                and trade_type =#{tradeType,jdbcType=VARCHAR}            </if>
+                <if test="siteLogo != null and siteLogo.trim() != ''">
+                and site_logo =#{siteLogo,jdbcType=VARCHAR}            </if>
+                <if test="siteUrlicon != null and siteUrlicon.trim() != ''">
+                and site_urlicon =#{siteUrlicon,jdbcType=VARCHAR}            </if>
+                <if test="status != null and status.trim() != ''">
+                and status =#{status,jdbcType=VARCHAR}            </if>
+                <if test="isaudit != null and isaudit.trim() != ''">
+                and isaudit =#{isaudit,jdbcType=VARCHAR}            </if>
+                <if test="mobilePhone != null and mobilePhone.trim() != ''">
+                and mobile_phone =#{mobilePhone,jdbcType=VARCHAR}            </if>
+                <if test="email != null and email.trim() != ''">
+                and email =#{email,jdbcType=VARCHAR}            </if>
+                <if test="address != null and address.trim() != ''">
+                and address =#{address,jdbcType=VARCHAR}            </if>
+                <if test="corporateName != null and corporateName.trim() != ''">
+                and corporate_name =#{corporateName,jdbcType=VARCHAR}            </if>
+                <if test="wechatUrl != null and wechatUrl.trim() != ''">
+                and wechat_url =#{wechatUrl,jdbcType=VARCHAR}            </if>
+                <if test="phone != null and phone.trim() != ''">
+                and phone =#{phone,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by site_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_SITE_RESOURCEEXT t1
+        <where>
+                <if test="menuId != null and menuId.trim() != ''">
+                and t1.MENU_ID =#{menuId,jdbcType=VARCHAR}            </if>
+                <if test="sitePrimary != null and sitePrimary.trim() != ''">
+                and t1.site_primary =#{sitePrimary,jdbcType=VARCHAR}            </if>
+                <if test="siteHttp != null and siteHttp.trim() != ''">
+                and t1.site_http =#{siteHttp,jdbcType=VARCHAR}            </if>
+                <if test="tradeType != null and tradeType.trim() != ''">
+                and t1.trade_type =#{tradeType,jdbcType=VARCHAR}            </if>
+                <if test="siteLogo != null and siteLogo.trim() != ''">
+                and t1.site_logo =#{siteLogo,jdbcType=VARCHAR}            </if>
+                <if test="siteUrlicon != null and siteUrlicon.trim() != ''">
+                and t1.site_urlicon =#{siteUrlicon,jdbcType=VARCHAR}            </if>
+                <if test="status != null and status.trim() != ''">
+                and t1.status =#{status,jdbcType=VARCHAR}            </if>
+                <if test="isaudit != null and isaudit.trim() != ''">
+                and t1.isaudit =#{isaudit,jdbcType=VARCHAR}            </if>
+                <if test="mobilePhone != null and mobilePhone.trim() != ''">
+                and t1.mobile_phone =#{mobilePhone,jdbcType=VARCHAR}            </if>
+                <if test="email != null and email.trim() != ''">
+                and t1.email =#{email,jdbcType=VARCHAR}            </if>
+                <if test="address != null and address.trim() != ''">
+                and t1.address =#{address,jdbcType=VARCHAR}            </if>
+                <if test="corporateName != null and corporateName.trim() != ''">
+                and t1.corporate_name =#{corporateName,jdbcType=VARCHAR}            </if>
+                <if test="wechatUrl != null and wechatUrl.trim() != ''">
+                and t1.wechat_url =#{wechatUrl,jdbcType=VARCHAR}            </if>
+                <if test="phone != null and phone.trim() != ''">
+                and t1.phone =#{phone,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.site_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

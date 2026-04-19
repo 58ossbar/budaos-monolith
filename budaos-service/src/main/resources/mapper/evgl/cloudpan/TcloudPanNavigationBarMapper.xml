@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.cloudpan.persistence.TcloudPanNavigationBarMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.cloudpan.domain.TcloudPanNavigationBar">
+		<result column="id" jdbcType="VARCHAR"
+			property="id" />
+		<result column="dir_id" jdbcType="VARCHAR"
+			property="dirId" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		id,dir_id,sort_num,ct_id,pkg_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanNavigationBar">
+		INSERT INTO T_CLOUD_PAN_NAVIGATION_BAR (
+		id ,
+		dir_id ,
+		sort_num ,
+		ct_id ,
+		pkg_id 
+		) VALUES (
+
+#{id,jdbcType=VARCHAR} ,
+
+#{dirId,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanNavigationBar">
+		UPDATE T_CLOUD_PAN_NAVIGATION_BAR 
+		<set>
+		<if test="dirId != null">
+		dir_id = #{dirId,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		id = #{id,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_CLOUD_PAN_NAVIGATION_BAR WHERE
+		id =
+		#{id,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_CLOUD_PAN_NAVIGATION_BAR WHERE
+		id in
+		<foreach item="id" collection="array" open="("
+			separator="," close=")">
+#{id,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_CLOUD_PAN_NAVIGATION_BAR WHERE
+		id = #{id,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_CLOUD_PAN_NAVIGATION_BAR
+        <where>
+                <if test="dirId != null and dirId.trim() != ''">
+                and dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_CLOUD_PAN_NAVIGATION_BAR t1
+        <where>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into t_cloud_pan_navigation_bar
+			(id, dir_id, sort_num, ct_id, pkg_id)
+		values
+	    <foreach collection="list" item="obj" separator="," >
+	    	(#{obj.id}, #{obj.dirId}, #{obj.sortNum}, #{obj.ctId}, #{obj.pkgId})
+	    </foreach>
+	</insert>
+	
+	<select id="getMaxSortNum" resultType="INTEGER" parameterType="map">
+        select ifnull(max(t1.sort_num), 0) + 1 from T_HNIU_QUESTION_INFO t1
+        <where>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="querNavBarList" resultType="map"
+        parameterType="map">
+        select t1.id, t1.dir_id as dirId, t1.ct_id as ctId, t1.pkg_id as pkgId,
+        t2.name, t2.icon, t1.sort_num as sortNum
+        from T_CLOUD_PAN_NAVIGATION_BAR t1
+        inner join t_cloud_pan_directory t2 on t1.dir_id = t2.dir_id
+        <where>
+        		<if test="name != null and name.trim() != ''">
+                and t2.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.sort_num asc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

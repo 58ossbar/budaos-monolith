@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.pkg.persistence.TevglPkgResgroupMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.pkg.domain.TevglPkgResgroup">
+		<result column="resgroup_id" jdbcType="VARCHAR"
+			property="resgroupId" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />	
+		<result column="chapter_id" jdbcType="VARCHAR"
+			property="chapterId" />
+		<result column="resgroup_name" jdbcType="VARCHAR"
+			property="resgroupName" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
+		<result column="res_type" jdbcType="VARCHAR"
+			property="resType" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="resgroup_total" jdbcType="INTEGER"
+			property="resgroupTotal" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="group_type" jdbcType="VARCHAR"
+			property="groupType" />
+		<result column="dict_code" jdbcType="VARCHAR"
+			property="dictCode" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		resgroup_id,ct_id,pkg_id,subject_id,chapter_id,resgroup_name,parent_id,res_type,sort_num,resgroup_total,create_user_id,create_time,update_user_id,update_time,state,group_type,dict_code
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgResgroup">
+		INSERT INTO T_EVGL_PKG_RESGROUP (
+		resgroup_id ,
+		ct_id ,
+		pkg_id ,
+		subject_id,
+		chapter_id ,
+		resgroup_name ,
+		parent_id ,
+		res_type ,
+		sort_num ,
+		resgroup_total ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state ,
+		group_type ,
+		dict_code 
+		) VALUES (
+
+#{resgroupId,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{chapterId,jdbcType=VARCHAR} ,
+
+#{resgroupName,jdbcType=VARCHAR} ,
+
+#{parentId,jdbcType=VARCHAR} ,
+
+#{resType,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{resgroupTotal,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{groupType,jdbcType=VARCHAR} ,
+
+#{dictCode,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgResgroup">
+		UPDATE T_EVGL_PKG_RESGROUP 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterId != null">
+		chapter_id = #{chapterId,jdbcType=VARCHAR},
+		</if>
+		<if test="resgroupName != null">
+		resgroup_name = #{resgroupName,jdbcType=VARCHAR},
+		</if>
+		<if test="parentId != null">
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		</if>
+		<if test="resType != null">
+		res_type = #{resType,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="resgroupTotal != null">
+		resgroup_total = #{resgroupTotal,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="groupType != null">
+		group_type = #{groupType,jdbcType=VARCHAR},
+		</if>
+		<if test="dictCode != null">
+		dict_code = #{dictCode,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_RESGROUP WHERE
+		resgroup_id =
+		#{resgroupId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_RESGROUP WHERE
+		resgroup_id in
+		<foreach item="resgroupId" collection="array" open="("
+			separator="," close=")">
+#{resgroupId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_PKG_RESGROUP WHERE
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_PKG_RESGROUP
+        <where>
+        		<if test="resgroupIds != null and resgroupIds.size() > 0">
+                and resgroup_id in
+                  <foreach collection="resgroupIds" item="resgroupId" open="(" separator="," close=")">
+                    #{resgroupId,jdbcType=VARCHAR}
+                  </foreach>
+                </if>
+        		<if test="chapterIds != null and chapterIds.size() > 0">
+                and chapter_id in
+                  <foreach collection="chapterIds" item="chapterId" open="(" separator="," close=")">
+                    #{chapterId,jdbcType=VARCHAR}
+                  </foreach>
+                </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupName != null and resgroupName.trim() != ''">
+                and resgroup_name =#{resgroupName,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupTotal != null and resgroupTotal != ''">
+                and resgroup_total =#{resgroupTotal,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="groupType != null and groupType.trim() != ''">
+                and group_type =#{groupType,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by resgroup_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_PKG_RESGROUP t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupName != null and resgroupName.trim() != ''">
+                and t1.resgroup_name =#{resgroupName,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupTotal != null and resgroupTotal != ''">
+                and t1.resgroup_total =#{resgroupTotal,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="groupType != null and groupType.trim() != ''">
+                and t1.group_type =#{groupType,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.resgroup_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    
+<!-- 获取排序号 -->
+    <select id="getMaxSortNum" parameterType="map" resultType="INTEGER">
+      select ifnull(max(sort_num), 0) + 1 from T_EVGL_PKG_RESGROUP
+      <where>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupName != null and resgroupName.trim() != ''">
+                and resgroup_name =#{resgroupName,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupTotal != null and resgroupTotal != ''">
+                and resgroup_total =#{resgroupTotal,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="groupType != null and groupType.trim() != ''">
+                and group_type =#{groupType,jdbcType=VARCHAR}            </if>
+        </where>
+    </select>
+    
+    <select id="selectSimpleListMap" resultType="map"
+        parameterType="map">
+        select t1.resgroup_id as resgroupId, t1.pkg_id as pkgId,
+        t1.chapter_id as chapterId, t1.resgroup_name as resgroupName, 
+        t1.sort_num as sortNum, ifnull(t1.dict_code, '') as dictCode,
+        t2.res_id as resId, ifnull(t2.res_content, '') as resContent
+        from T_EVGL_PKG_RESGROUP t1
+        inner join t_evgl_pkg_res t2 on t1.resgroup_id = t2.resgroup_id
+        <where>
+        	<if test="chapterIdList != null and chapterIdList.size() > 0">
+                and t1.chapter_id in
+                <foreach collection="chapterIdList" item="chapterId" open="(" separator="," close=")">
+                    #{chapterId,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t2.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+            	<if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupName != null and resgroupName.trim() != ''">
+                and t1.resgroup_name =#{resgroupName,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupTotal != null and resgroupTotal != ''">
+                and t1.resgroup_total =#{resgroupTotal,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="flag != null and flag.trim() != ''">
+                and t1.flag =#{flag,jdbcType=VARCHAR}            </if>
+                <if test="groupType != null and groupType.trim() != ''">
+                and t1.group_type =#{groupType,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.resgroup_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+     <select id="selectSimpleListMap2" resultType="map"
+        parameterType="map">
+        <!-- select t1.resgroup_id as resgroupId, t1.pkg_id as pkgId,
+        t1.chapter_id as chapterId, t1.resgroup_name as resgroupName, 
+        t1.sort_num as sortNum, ifnull(t1.dict_code, '') as dictCode,
+        t2.res_id as resId, ifnull(t2.res_content, '') as resContent
+        from T_EVGL_PKG_RESGROUP t1
+        inner join t_evgl_pkg_res t2 on t1.resgroup_id = t2.resgroup_id -->
+        select 
+        ifnull(t4.is_trainees_visible, 'Y') as isTraineesVisible, t4.rv_id as rvId,
+        ifnull(t3.is_can_copy, 'Y') as isCanCopy, t3.cp_id as cpId, t3.pkg_id,
+		t1.resgroup_id as resgroupId, t1.pkg_id as pkgId,
+        t1.chapter_id as chapterId, t1.resgroup_name as resgroupName, 
+        t1.sort_num as sortNum, ifnull(t1.dict_code, '') as dictCode,
+        t2.res_id as resId, ifnull(t2.res_content, '') as resContent
+        from T_EVGL_PKG_RESGROUP t1
+        inner join t_evgl_pkg_res t2 on t1.resgroup_id = t2.resgroup_id
+		left join t_evgl_pkg_resgroup_allow_copy t3 on t1.resgroup_id = t3.resgroup_id and t3.pkg_id = #{ctPkgId}
+		left join t_evgl_pkg_resgroup_visible t4 on t1.resgroup_id = t4.resgroup_id and t4.pkg_id = #{ctPkgId}
+        <where>
+               	<if test="pkgId != null and pkgId.trim() != ''">
+                and (t1.pkg_id =#{pkgId,jdbcType=VARCHAR} or t1.subject_id =#{subjectId,jdbcType=VARCHAR})           
+                </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            
+                </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.resgroup_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="findSimpleList" parameterType="map" resultType="com.budaos.modules.evgl.pkg.vo.ResVO">
+        select
+        ifnull(t4.is_trainees_visible, 'Y') as isTraineesVisible, t4.rv_id as rvId,
+        ifnull(t3.is_can_copy, 'Y') as isCanCopy, t3.cp_id as cpId, t3.pkg_id,
+        t1.resgroup_id as resgroupId, t1.pkg_id as pkgId,
+        t1.chapter_id as chapterId, t1.resgroup_name as resgroupName,
+        t1.sort_num as sortNum, ifnull(t1.dict_code, '') as dictCode,
+        t2.res_id as resId, ifnull(t2.res_content, '') as resContent
+        from T_EVGL_PKG_RESGROUP t1
+        inner join t_evgl_pkg_res t2 on t1.resgroup_id = t2.resgroup_id
+        left join t_evgl_pkg_resgroup_allow_copy t3 on t1.resgroup_id = t3.resgroup_id and t3.pkg_id = #{ctPkgId}
+        left join t_evgl_pkg_resgroup_visible t4 on t1.resgroup_id = t4.resgroup_id and t4.pkg_id = #{ctPkgId}
+        <where>
+            <if test="pkgId != null and pkgId.trim() != ''">
+                and (t1.pkg_id =#{pkgId,jdbcType=VARCHAR} or t1.subject_id =#{subjectId,jdbcType=VARCHAR})
+            </if>
+            <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.resgroup_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into t_evgl_pkg_resgroup
+        (
+        resgroup_id, ct_id, pkg_id, subject_id, chapter_id,
+        resgroup_name, parent_id, res_type, sort_num, resgroup_total,
+        create_user_id, create_time, update_user_id, update_time, state,
+        group_type, dict_code
+        )
+        values
+        <foreach collection="list" item="obj" separator="," >
+            (
+            #{obj.resgroupId}, #{obj.ctId}, #{obj.pkgId}, #{obj.subjectId}, #{obj.chapterId},
+            #{obj.resgroupName}, #{obj.parentId}, #{obj.resType}, #{obj.sortNum}, #{obj.resgroupTotal},
+            #{obj.createUserId}, #{obj.createTime}, #{obj.updateUserId}, #{obj.updateTime}, #{obj.state},
+            #{obj.groupType}, #{obj.dictCode}
+            )
+        </foreach>
+    </insert>
+    
+    <select id="selectResgroupIdListByMap" resultType="string"
+        parameterType="map">
+        select resgroup_id from T_EVGL_PKG_RESGROUP t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupName != null and resgroupName.trim() != ''">
+                and t1.resgroup_name =#{resgroupName,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupTotal != null and resgroupTotal != ''">
+                and t1.resgroup_total =#{resgroupTotal,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="groupType != null and groupType.trim() != ''">
+                and t1.group_type =#{groupType,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.resgroup_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 统计课程下的资源总数 -->
+    <select id="countResourceNums" resultType="map" parameterType="map">
+    	select subject_id, count(resgroup_name) as resourceNum from t_evgl_pkg_resgroup
+    	<where>
+    		dict_code = "1"
+            <if test="subjectId != null and subjectId.trim() != ''">
+            and subject_id = #{subjectId,jdbcType=VARCHAR} 
+            </if>
+        </where>
+    </select>
+    
+    <select id="countResourceNum" resultType="integer" parameterType="string">
+    	select ifnull(count(t2.res_id), 0) from t_evgl_pkg_resgroup t1
+		inner join t_evgl_pkg_res t2 on t1.resgroup_id = t2.resgroup_id
+		where 
+		t1.subject_id = #{subjectId} 
+		and t1.dict_code != '2'
+		and t2.res_content is not null
+    </select>
+</mapper>
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.budaos.modules.job.persistence.TsysLoginLogMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TsysLoginLog">
+		<result column="loginlogid" jdbcType="VARCHAR" property="loginlogid" />
+		<result column="logname" jdbcType="VARCHAR" property="logname" />
+		<result column="userid" jdbcType="VARCHAR" property="userid" />
+		<result column="create_time" jdbcType="VARCHAR" property="createTime" />
+		<result column="succeed" jdbcType="VARCHAR" property="succeed" />
+		<result column="message" jdbcType="LONGVARCHAR" property="message" />
+		<result column="ip" jdbcType="VARCHAR" property="ip" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		loginlogid,logname,userid,create_time,succeed,message,ip
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TsysLoginLog">
+		INSERT INTO T_SYS_LOGIN_LOG (
+		loginlogid ,
+		logname ,
+		userid ,
+		create_time ,
+		succeed ,
+		message ,
+		ip
+		) VALUES (
+
+		#{loginlogid,jdbcType=VARCHAR} ,
+
+		#{logname,jdbcType=VARCHAR} ,
+
+		#{userid,jdbcType=VARCHAR} ,
+
+		#{createTime,jdbcType=VARCHAR} ,
+
+		#{succeed,jdbcType=VARCHAR} ,
+
+		#{message,jdbcType=LONGVARCHAR} ,
+
+		#{ip,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TsysLoginLog">
+		UPDATE T_SYS_LOGIN_LOG SET
+		logname = #{logname,jdbcType=VARCHAR},
+		userid =
+		#{userid,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=VARCHAR},
+		succeed = #{succeed,jdbcType=VARCHAR},
+		message = #{message,jdbcType=LONGVARCHAR},
+		ip = #{ip,jdbcType=VARCHAR}
+		WHERE
+		loginlogid = #{loginlogid,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_LOGIN_LOG
+		WHERE
+		loginlogid =
+		#{loginlogid,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_SYS_LOGIN_LOG WHERE
+		loginlogid in
+		<foreach item="loginlogid" collection="array" open="("
+			separator="," close=")">
+			#{loginlogid,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_SYS_LOGIN_LOG WHERE
+		loginlogid = #{loginlogid,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" resultType="com.budaos.modules.sys.domain.TsysLoginLog">
+		select * from T_SYS_LOGIN_LOG
+		<where>
+			<if test="logname != null and logname.trim() != ''">
+				and logname like concat('%',#{logname},'%')</if>
+			<if test="userid != null and userid.trim() != ''">
+				and userid like concat('%',#{userid},'%')</if>
+			<if test="beginTime != null and '' != beginTime">
+				<![CDATA[AND create_time>=CONCAT(#{beginTime},' 00:00:00') ]]>
+			</if>
+			<if test="endTime != null and '' != endTime">
+				<![CDATA[AND create_time<=CONCAT(#{endTime},' 23:59:59') ]]>
+			</if>
+			<if test="succeed != null and succeed.trim() != ''">
+				and succeed like concat('%',#{succeed},'%')</if>
+			<if test="ip != null and ip.trim() != ''">
+				and ip like concat('%',#{ip},'%')</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+

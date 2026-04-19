@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.question.persistence.TepExamineDynamicPaperMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TepExamineDynamicPaper">
+		<result column="dy_id" jdbcType="VARCHAR"
+			property="dyId" />
+		<result column="paper_id" jdbcType="VARCHAR"
+			property="paperId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="dynamic_type" jdbcType="VARCHAR"
+			property="dynamicType" />
+		<result column="dynamic_state" jdbcType="VARCHAR"
+			property="dynamicState" />
+		<result column="paper_is_finished" jdbcType="VARCHAR"
+			property="paperIsFinished" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		dy_id,paper_id,trainee_id,dynamic_type,dynamic_state,paper_is_finished,ct_id,pkg_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.question.domain.TepExamineDynamicPaper">
+		INSERT INTO T_EP_EXAMINE_DYNAMIC_PAPER (
+		dy_id ,
+		paper_id ,
+		trainee_id ,
+		dynamic_type ,
+		dynamic_state,
+		paper_is_finished ,
+		ct_id ,
+		pkg_id 
+		) VALUES (
+
+#{dyId,jdbcType=VARCHAR} ,
+
+#{paperId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{dynamicType,jdbcType=VARCHAR} ,
+#{dynamicState,jdbcType=VARCHAR} ,
+
+#{paperIsFinished,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.question.domain.TepExamineDynamicPaper">
+		UPDATE T_EP_EXAMINE_DYNAMIC_PAPER 
+		<set>
+		<if test="paperId != null">
+		paper_id = #{paperId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="dynamicType != null">
+		dynamic_type = #{dynamicType,jdbcType=VARCHAR},
+		</if>
+		<if test="dynamicState != null">
+		dynamic_state = #{dynamicState,jdbcType=VARCHAR},
+		</if>
+		<if test="paperIsFinished != null">
+		paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR},
+		</if>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		dy_id = #{dyId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_DYNAMIC_PAPER WHERE
+		dy_id =
+		#{dyId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_DYNAMIC_PAPER WHERE
+		dy_id in
+		<foreach item="dyId" collection="array" open="("
+			separator="," close=")">
+#{dyId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EP_EXAMINE_DYNAMIC_PAPER WHERE
+		dy_id = #{dyId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EP_EXAMINE_DYNAMIC_PAPER
+        <where>
+        		<if test="paperIds != null and paperIds.size() > 0">
+                and paper_id in
+                	<foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+                		#{paperId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="dyIds != null and dyIds.size() > 0">
+                and dy_id in
+                	<foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+                		#{dyId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="paperId != null and paperId.trim() != ''">
+                and paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim()!=''">
+				and paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR}
+				</if>
+				<if test="dynamicState != null and dynamicState.trim()!=''">
+				and dynamic_state = #{dynamicState,jdbcType=VARCHAR}
+				</if>
+				<if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by dy_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EP_EXAMINE_DYNAMIC_PAPER t1
+        <where>
+        		<if test="paperIds != null and paperIds.size() > 0">
+                and t1.paper_id in
+                	<foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+                		#{paperId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="dyIds != null and dyIds.size() > 0">
+                and t1.dy_id in
+                	<foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+                		#{dyId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and t1.trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="paperId != null and paperId.trim() != ''">
+                and t1.paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim()!=''">
+				and t1.paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR}</if>
+				<if test="dynamicState != null and dynamicState.trim()!=''">
+				and t1.dynamic_state = #{dynamicState,jdbcType=VARCHAR}</if>
+				<if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dy_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectDynamicAndRandom" resultType="map"
+        parameterType="map">
+    	SELECT
+			t2.dy_id, t1.* 
+		FROM
+			t_ep_examine_dynamic_paper t1
+			LEFT JOIN t_ep_examine_paper_questions_option_random t2 ON t1.dy_id = t2.dy_id
+			LEFT JOIN t_ep_examine_paper_questions_random t3 ON t2.rd_id = t3.rd_id
+		<where>
+        		<if test="paperIds != null and paperIds.size() > 0">
+                and t1.paper_id in
+                	<foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+                		#{paperId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and t1.trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="dyIds != null and dyIds.size() > 0">
+                and t1.dy_id in
+                	<foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+                		#{dyId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="rdIds != null and rdIds.size() > 0">
+                and t2.rd_id in
+                	<foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+                		#{rdId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="rdIds != null and rdIds.size() > 0">
+                and t3.rd_id in
+                	<foreach collection="dyIds" item="dyId" open="(" separator="," close=")">
+                		#{rdId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="paperId != null and paperId.trim() != ''">
+                and t1.paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim()!=''">
+				and t1.paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR}</if>
+				<if test="dynamicState != null and dynamicState.trim()!=''">
+				and t1.dynamic_state = #{dynamicState,jdbcType=VARCHAR}</if>
+				<if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dy_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectTraineeIdList" resultType="string"
+        parameterType="map">
+        select t1.trainee_id from T_EP_EXAMINE_DYNAMIC_PAPER t1
+        inner join t_ep_examine_history_paper t2 on t1.dy_id = t2.dy_id
+        <where>
+        		<if test="activityIds != null and activityIds.size() > 0">
+                and t1.paper_id in
+                	<foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+                		#{activityId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+        		<if test="paperIds != null and paperIds.size() > 0">
+                and t1.paper_id in
+                	<foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+                		#{paperId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="historyIds != null and historyIds.size() > 0">
+                and t2.history_id in
+                	<foreach collection="historyIds" item="historyId" open="(" separator="," close=")">
+                		#{historyId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="paperId != null and paperId.trim() != ''">
+                and t1.paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim()!=''">
+				and t1.paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR}</if>
+				<if test="dynamicState != null and dynamicState.trim()!=''">
+				and t1.dynamic_state = #{dynamicState,jdbcType=VARCHAR}</if>
+				<if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+        </where>
+        <!-- group by t1.trainee_id -->
+        ORDER BY t2.paper_final_score desc
+    </select>
+    
+    <select id="selectTraineeInfoList" resultType="map"
+        parameterType="map">
+        select t1.trainee_id as traineeId,
+        ifnull(t2.trainee_name, t2.nick_name) as traineeName,
+        ifnull(t2.job_number, '') as jobNumber,
+		ifnull(t2.trainee_pic, ifnull(t2.trainee_head, '/uploads/defaulthead.png')) as traineePic,
+		ifnull(t2.mobile, '') as mobile,
+		ifnull(t2.trainee_sex, "0") as traineeSex
+        from T_EP_EXAMINE_DYNAMIC_PAPER t1
+        left join t_evgl_trainee_info t2 on t1.trainee_id = t2.trainee_id
+        <where>
+        		<if test="activityIds != null and activityIds.size() > 0">
+                and t1.paper_id in
+                	<foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+                		#{activityId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+        		<if test="paperIds != null and paperIds.size() > 0">
+                and t1.paper_id in
+                	<foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+                		#{paperId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="traineeName != null and traineeName.trim() != ''">
+                and 
+                (
+                	t2.trainee_name like concat ('%', #{traineeName,jdbcType=VARCHAR}, '%') 
+                	or t2.nick_name like concat ('%', #{traineeName,jdbcType=VARCHAR}, '%')
+                )
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and t1.trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId} 
+                	</foreach>
+                </if>
+                <if test="traineeSex != null and traineeSex.trim() != ''">
+                and t2.trainee_sex =#{traineeSex,jdbcType=VARCHAR}            </if>
+                <if test="jobNumber != null and jobNumber.trim() != ''">
+                and t2.job_number like concat ('%', #{jobNumber,jdbcType=VARCHAR}, '%')            </if>
+                <if test="mobile != null and mobile.trim() != ''">
+                and t2.mobile like concat ('%', #{mobile,jdbcType=VARCHAR}, '%')            </if>
+                
+                <if test="paperId != null and paperId.trim() != ''">
+                and t1.paper_id =#{paperId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="paperIsFinished != null and paperIsFinished.trim()!=''">
+				and t1.paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR}</if>
+				<if test="dynamicState != null and dynamicState.trim()!=''">
+				and t1.dynamic_state = #{dynamicState,jdbcType=VARCHAR}</if>
+				<if test="paperIsFinished != null and paperIsFinished.trim()!=''">
+				and t1.paper_is_finished = #{paperIsFinished,jdbcType=VARCHAR}</if>
+				<if test="dynamicState != null and dynamicState.trim()!=''">
+				and t1.dynamic_state = #{dynamicState,jdbcType=VARCHAR}</if>
+				<if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+				
+        </where>
+        group by t1.trainee_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dy_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

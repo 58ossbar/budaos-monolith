@@ -1,0 +1,1002 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.cloudpan.persistence.TcloudPanDirectoryMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.cloudpan.domain.TcloudPanDirectory">
+		<result column="dir_id" jdbcType="VARCHAR"
+			property="dirId" />
+		<result column="ref_dir_id" jdbcType="VARCHAR"
+			property="refDirId" />	
+		<result column="name" jdbcType="VARCHAR"
+			property="name" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
+		<result column="intr" jdbcType="VARCHAR"
+			property="intr" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="dict_code" jdbcType="VARCHAR"
+			property="dictCode" />
+		<result column="icon" jdbcType="VARCHAR"
+			property="icon" />		
+		<result column="is_trainee_visible" jdbcType="VARCHAR"
+			property="isTraineeVisible" />		
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		dir_id,ref_dir_id,pkg_id,name,parent_id,intr,sort_num,create_user_id,create_time,update_user_id,update_time,state,dict_code,icon,is_trainee_visible
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanDirectory">
+		INSERT INTO T_CLOUD_PAN_DIRECTORY (
+		dir_id ,
+		ref_dir_id ,
+		pkg_id ,
+		name ,
+		parent_id ,
+		intr ,
+		sort_num ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state ,
+		dict_code ,
+		icon,
+		is_trainee_visible
+		) VALUES (
+
+#{dirId,jdbcType=VARCHAR} ,
+
+#{refDirId,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} ,
+
+#{name,jdbcType=VARCHAR} ,
+
+#{parentId,jdbcType=VARCHAR} ,
+
+#{intr,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{dictCode,jdbcType=VARCHAR} ,
+
+#{icon,jdbcType=VARCHAR},
+
+#{isTraineeVisible,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanDirectory">
+		UPDATE T_CLOUD_PAN_DIRECTORY 
+		<set>
+		ref_dir_id = #{refDirId,jdbcType=VARCHAR},
+		<!-- <if test="refDirId != null">
+		ref_dir_id = #{refDirId,jdbcType=VARCHAR},
+		</if> -->
+		<if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="parentId != null">
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		</if>
+		<if test="intr != null">
+		intr = #{intr,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="dictCode != null">
+		dict_code = #{dictCode,jdbcType=VARCHAR},
+		</if>
+		<if test="icon != null">
+		icon = #{icon,jdbcType=VARCHAR},
+		</if>
+		<if test="isTraineeVisible != null">
+		is_trainee_visible = #{isTraineeVisible,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		dir_id = #{dirId,jdbcType=VARCHAR} 
+	</update>
+	
+	<update id="updateDirectory" parameterType="com.budaos.modules.evgl.cloudpan.domain.TcloudPanDirectory">
+		UPDATE T_CLOUD_PAN_DIRECTORY 
+		<set>
+		<if test="refDirId != null">
+		ref_dir_id = #{refDirId,jdbcType=VARCHAR},
+		</if>
+		<if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="parentId != null">
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		</if>
+		<if test="intr != null">
+		intr = #{intr,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="dictCode != null">
+		dict_code = #{dictCode,jdbcType=VARCHAR},
+		</if>
+		<if test="icon != null">
+		icon = #{icon,jdbcType=VARCHAR},
+		</if>
+		<if test="isTraineeVisible != null">
+		is_trainee_visible = #{isTraineeVisible,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		dir_id = #{dirId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_CLOUD_PAN_DIRECTORY WHERE
+		dir_id =
+		#{dirId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_CLOUD_PAN_DIRECTORY WHERE
+		dir_id in
+		<foreach item="dirId" collection="array" open="("
+			separator="," close=")">
+#{dirId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_CLOUD_PAN_DIRECTORY WHERE
+		dir_id = #{dirId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_CLOUD_PAN_DIRECTORY
+        <where>
+        		<if test="refDirIdIsNotNull != null">
+                and ref_dir_id is not null and dir_id != ''         
+                </if>
+        		<if test="refDirId != null and refDirId.trim() != ''">
+                and ref_dir_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="intr != null and intr.trim() != ''">
+                and intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+                <if test="isTraineeVisible != null and isTraineeVisible.trim() != ''">
+                and is_trainee_visible =#{isTraineeVisible,jdbcType=VARCHAR}            </if>
+                
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- name切记不要有模糊查询 -->
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_CLOUD_PAN_DIRECTORY t1
+        <where>
+        		<if test="dirIds != null and dirIds.size() > 0">
+                and t1.dir_id in 
+                	<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+                		#{dirId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+        		<if test="refDirId != null and refDirId.trim() != ''">
+                and t1.ref_dir_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="intr != null and intr.trim() != ''">
+                and t1.intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+                <if test="isTraineeVisible != null and isTraineeVisible.trim() != ''">
+                and t1.is_trainee_visible =#{isTraineeVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListMap" resultType="map"
+        parameterType="map">
+        select t1.dir_id as id, '1' as type, ifnull(t1.dict_code, '') as dictCode,
+        t1.dir_id as dirId, 
+        t1.pkg_id as pkgId,
+        t1.name, t1.parent_id as parentId, t1.update_time as updateTime, t1.icon,
+        t1.create_time as createTime,
+        t1.is_trainee_visible as isTraineeVisible,
+        t1.ref_dir_id as refDirId
+        from T_CLOUD_PAN_DIRECTORY t1
+        <where>
+        		<if test="dictCodeNotNull != null and dictCodeNotNull.trim() != ''">
+                and t1.dict_code is not null and dict_code != ''          
+                </if>
+        		<if test="parentIds != null and parentIds.size() > 0">
+                and t1.parent_id in 
+                	<foreach collection="parentIds" item="parentId" open="(" separator="," close=")">
+                		#{parentId,jdbcType=VARCHAR}            
+                	</foreach>
+                </if>
+       	 		<if test="dirId != null and dirId.trim() != ''">
+                and t1.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+        		<if test="refDirId != null and refDirId.trim() != ''">
+                and t1.ref_dir_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="intr != null and intr.trim() != ''">
+                and t1.intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+                <if test="isTraineeVisible != null and isTraineeVisible.trim() != ''">
+                and t1.is_trainee_visible =#{isTraineeVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectTopDirectoryList" resultType="map"
+        parameterType="map">
+        select t1.dir_id as id, '1' as type, ifnull(t1.dict_code, '') as dictCode,
+        t1.dir_id as dirId, 
+        t1.pkg_id as pkgId,
+        t1.name, t1.parent_id as parentId, t1.update_time as updateTime, t1.icon,
+        ifnull(t1.is_trainee_visible, "N") as isTraineeVisible
+        from T_CLOUD_PAN_DIRECTORY t1
+        
+        <where>
+        		(parent_id = '0') and if(t1.pkg_id != #{sourcePkgId}, t1.dict_code is null or t1.dict_code ='', 1=1)
+        		
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+	                and t1.pkg_id in
+	                <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+	                	#{pkgId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+        		<if test="dirIds != null and dirIds.size() > 0">
+	                and t1.dir_id in
+	                <foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+	                	#{dirId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <!-- <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if> -->
+                <if test="intr != null and intr.trim() != ''">
+                and t1.intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+                <if test="isTraineeVisible != null and isTraineeVisible.trim() != ''">
+                and t1.is_trainee_visible =#{isTraineeVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        GROUP BY name 
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectTopDirectoryListNew" resultType="map"
+        parameterType="map">
+        select t1.dir_id as id, '1' as type, ifnull(t1.dict_code, '') as dictCode,
+        t1.dir_id as dirId, 
+        t1.pkg_id as pkgId,
+        t1.name, t1.parent_id as parentId, t1.update_time as updateTime, t1.icon,
+        ifnull(t1.is_trainee_visible, "N") as isTraineeVisible
+        from T_CLOUD_PAN_DIRECTORY t1
+        
+        <where>
+        		(parent_id = '0')
+        		
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+	                and t1.pkg_id in
+	                <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+	                	#{pkgId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+        		<if test="dirIds != null and dirIds.size() > 0">
+	                and t1.dir_id in
+	                <foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+	                	#{dirId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <!-- <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if> -->
+                <if test="intr != null and intr.trim() != ''">
+                and t1.intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+                <if test="isTraineeVisible != null and isTraineeVisible.trim() != ''">
+                and t1.is_trainee_visible =#{isTraineeVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        GROUP BY name 
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    
+    <select id="selectChildrenDirectoryList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from t_cloud_pan_directory 
+        where create_user_id = #{loginUserId}
+        	and parent_id in 
+        	(select dir_id from  t_cloud_pan_directory where parent_id = '0' and state = 'Y' and pkg_id=#{pkgId})
+        order by update_time desc
+    </select>
+    
+    <select id="getMaxSortNum" resultType="java.lang.Integer" parameterType="map">
+        select IFNULL(max(sort_num), 0) + 1  from T_CLOUD_PAN_DIRECTORY
+        <where>
+                <if test="name != null and name.trim() != ''">
+                and name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="intr != null and intr.trim() != ''">
+                and intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="search" resultType="map" parameterType="map">
+        select t.*
+        from (
+        	select t1.pkg_id, t1.dir_id as id, t1.name, '1' as type, t1.update_time as updateTime, t1.create_user_id as createUserId,
+        	t1.parent_id as parentId, '' as path, '' as pkgType, t1.pkg_id as pkgId
+        	from t_cloud_pan_directory t1
+        	<where>
+        		<if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.parent_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+        	</where>
+        	
+        	union all
+        	
+        	select t1.pkg_id, t2.file_id as id, t2.name, '2' as type, t2.update_time as updateTime, t2.create_user_id as createUserId,
+        	t2.dir_id as parentId, t2.path, '' as pkgType, t1.pkg_id as pkgId
+        	from t_cloud_pan_file t2 join t_cloud_pan_directory t1 on t1.dir_id = t2.dir_id
+        	<where>
+        		<if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t2.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+        	</where>
+        	
+        	union all
+        	
+        	select t1.pkg_id, t1.dir_id as id, t1.name, '1' as type, t1.update_time as updateTime, t1.create_user_id as createUserId,
+        	t1.parent_id as parentId, '' as path, 'refPkg' as pkgType, t1.pkg_id as pkgId
+        	from t_cloud_pan_directory t1
+        	<where>
+        		<if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.pkg_id = #{refPkgId,jdbcType=VARCHAR}        </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.parent_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+        	</where>
+        	
+        	union all
+        	
+        	select t1.pkg_id, t2.file_id as id, t2.name, '2' as type, t2.update_time as updateTime, t2.create_user_id as createUserId,
+        	t2.dir_id as parentId, t2.path, 'refPkg' as pkgType, t1.pkg_id as pkgId
+        	from t_cloud_pan_file t2 join t_cloud_pan_directory t1 on t1.dir_id = t2.dir_id
+        	<where>
+        		<if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.pkg_id = #{refPkgId,jdbcType=VARCHAR}        </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t2.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t2.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            </if>
+        	</where>
+        	
+        ) t
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t.updateTime desc, t.name asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListByUnionAll" resultType="map" parameterType="map">
+        select t.*
+        from (
+        	select t1.pkg_id, t1.pkg_id as pkgId, t1.dir_id as id, t1.name, '1' as type, t1.update_time as updateTime, t1.create_user_id as createUserId,
+        	t1.parent_id as parentId, '' as fileSavePath, '' as fileSuffix, 0 as fileSize, '' as fileType, '' as path,
+        	'' as fileAccessUrl, t1.dict_code as dictCode, t1.icon
+        	from t_cloud_pan_directory t1
+        	<where>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.parent_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="refDirId != null and refDirId.trim() != ''">
+                and t1.parent_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="dirIds != null and dirIds.size() > 0">
+               	and t1.parent_id in
+               		<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+               			#{dirId,jdbcType=VARCHAR}
+               		</foreach>
+                </if>
+                <if test="sonFiles != null and sonFiles.size() > 0">
+               	and t1.dir_id in
+               		<foreach collection="sonFiles" item="sonFile" open="(" separator="," close=")">
+               			#{sonFile,jdbcType=VARCHAR}
+               		</foreach>
+                </if>
+        	</where>
+        	
+        	union all
+        	
+        	select t1.pkg_id, t1.pkg_id as pkgId,  t2.file_id as id, t2.name, '2' as type, t2.update_time as updateTime, t2.create_user_id as createUserId,
+        	t2.dir_id as parentId, t2.file_save_path as fileSavePath, t2.file_suffix as fileSuffix, t2.file_size as fileSize, t2.file_type as fileType, t2.path,
+        	t2.file_access_url as fileAccessUrl, '' as dictCode, null as icon
+        	from t_cloud_pan_file t2 join t_cloud_pan_directory t1 on t1.dir_id = t2.dir_id
+        	<where>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t2.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="refDirId != null and refDirId.trim() != ''">
+                and t2.dir_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="dirIds != null and dirIds.size() > 0">
+               	and t2.dir_id in
+               		<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+               			#{dirId,jdbcType=VARCHAR}
+               		</foreach>
+                </if>
+                <if test="sonFiles != null and sonFiles.size() > 0">
+               	and t2.file_id in
+               		<foreach collection="sonFiles" item="sonFile" open="(" separator="," close=")">
+               			#{sonFile,jdbcType=VARCHAR}
+               		</foreach>
+                </if>
+        	</where>
+        	
+        ) t
+        <where>	
+        		<if test="dirIdIsNull != null">
+                and t.parentId  != '0'
+                </if>
+        		<if test="pkgId != null and pkgId.trim() != ''">
+                and t.pkg_id = #{pkgId,jdbcType=VARCHAR}
+                </if>
+                <if test="pkgIds != null and pkgIds.size() > 0">
+	                and t.pkgId in
+	                <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+	                	#{pkgId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+                <if test="name != null and name.trim() != ''">
+                and t.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            
+                </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t.createUserId =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t.updateTime desc, t.name asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListByUnionAllNew" resultType="map" parameterType="map">
+        select t.*
+        from (
+        	select t1.pkg_id, t1.pkg_id as pkgId, t1.dir_id as id, t1.name, '1' as type, t1.update_time as updateTime, t1.create_user_id as createUserId,
+        	t1.parent_id as parentId, '' as fileSavePath, '' as fileSuffix, 0 as fileSize, '' as fileType, '' as path,
+        	'' as fileAccessUrl, t1.dict_code as dictCode, t1.icon, t1.ref_dir_id as refDirId
+        	from t_cloud_pan_directory t1
+        	<where>
+        		<if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            
+                </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                and t1.parent_id =#{dirId,jdbcType=VARCHAR}            
+                </if>
+                <if test="refDirId != null and refDirId.trim() != ''">
+                and t1.parent_id =#{refDirId,jdbcType=VARCHAR}            
+                </if>
+                <if test="dirIds != null and dirIds.size() > 0">
+               	and t1.parent_id in
+               		<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+               			#{dirId,jdbcType=VARCHAR}
+               		</foreach>
+                </if>
+                <if test="sonFiles != null and sonFiles.size() > 0">
+               	and t1.dir_id in
+               		<foreach collection="sonFiles" item="sonFile" open="(" separator="," close=")">
+               			#{sonFile,jdbcType=VARCHAR}
+               		</foreach>
+                </if>
+                <if test="pkgIds != null and pkgIds.size() > 0">
+                and t1.pkg_id in
+	                <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+	                	#{pkgId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+                <if test="parentIdList != null and parentIdList.size() > 0">
+                    and t1.parent_id in
+                    <foreach collection="parentIdList" item="parentId" open="(" separator="," close=")">
+                        #{parentId,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+        	</where>
+        	
+        	union all
+
+            select t1.pkg_id, t1.pkg_id as pkgId,  t2.file_id as id, t2.name, '2' as type, t2.update_time as updateTime, t2.create_user_id as createUserId,
+            t2.dir_id as parentId, t2.file_save_path as fileSavePath, t2.file_suffix as fileSuffix, t2.file_size as fileSize, t2.file_type as fileType, t2.path,
+            t2.file_access_url as fileAccessUrl, '' as dictCode, null as icon, t1.ref_dir_id as refDirId
+            from t_cloud_pan_file t2 join t_cloud_pan_directory t1 on t1.dir_id = t2.dir_id
+            <where>
+                <if test="name != null and name.trim() != ''">
+                    and t2.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')
+                </if>
+                <if test="dirId != null and dirId.trim() != ''">
+                    and t2.dir_id =#{dirId,jdbcType=VARCHAR}            </if>
+                <if test="refDirId != null and refDirId.trim() != ''">
+                    and t2.dir_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="dirIds != null and dirIds.size() > 0">
+                    and t2.dir_id in
+                    <foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+                        #{dirId,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+                <if test="fileIds != null and fileIds.size() > 0">
+                    and t2.file_id in
+                    <foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
+                        #{fileId,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+                <if test="sonFiles != null and sonFiles.size() > 0">
+                    and t2.file_id in
+                    <foreach collection="sonFiles" item="sonFile" open="(" separator="," close=")">
+                        #{sonFile,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+                <if test="pkgIds != null and pkgIds.size() > 0">
+                    and t1.pkg_id in
+                    <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+                        #{pkgId,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+                <if test="parentIdList != null and parentIdList.size() > 0">
+                 and t1.dir_id in
+                 <foreach collection="parentIdList" item="parentId" open="(" separator="," close=")">
+                     #{parentId,jdbcType=VARCHAR}
+                 </foreach>
+             </if>
+            </where>
+
+			<if test="queryTopFile != null and queryTopFile.trim() != ''">
+        		union all
+        	
+	        	select t2.dir_id as pkg_id, t2.dir_id as pkgId, t2.file_id as id, t2.name, '2' as type, t2.update_time as updateTime, t2.create_user_id as createUserId,
+	        	t2.dir_id as parentId, t2.file_save_path as fileSavePath, t2.file_suffix as fileSuffix, t2.file_size as fileSize, t2.file_type as fileType, t2.path,
+	        	t2.file_access_url as fileAccessUrl, '' as dictCode, null as icon, '' as refDirId
+	        	from t_cloud_pan_file t2
+	        	
+	        	<where>
+	                <if test="pkgIds != null and pkgIds.size() > 0">
+		                and t2.dir_id in
+		                <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+		                	#{pkgId,jdbcType=VARCHAR}
+		                </foreach>
+	                </if>
+	                <if test="fileIds != null and fileIds.size() > 0">
+	               	and t2.file_id in
+	               		<foreach collection="fileIds" item="fileId" open="(" separator="," close=")">
+	               			#{fileId,jdbcType=VARCHAR}
+	               		</foreach>
+	                </if>
+	                <if test="sonFiles != null and sonFiles.size() > 0">
+	               	and t2.file_id in
+	               		<foreach collection="sonFiles" item="sonFile" open="(" separator="," close=")">
+	               			#{sonFile,jdbcType=VARCHAR}
+	               		</foreach>
+	                </if>
+	                <if test="name != null and name.trim() != ''">
+	                and t2.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            
+	                </if>
+	        	</where>
+       		</if>
+        	
+        ) t
+        <where>
+        	<if test="parentIdNotZero != null">
+            	and t.parentId  != '0'
+            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t.updateTime desc, t.name asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="countNumByMap" resultType="map" parameterType="map">
+        select t1.dir_id from t_cloud_pan_directory t1
+        <where>	
+       		<if test="pkgIds != null and pkgIds.size() > 0">
+                and t1.pkg_id in
+                <foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+                	#{pkgId,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    
+    <!-- 根据文件夹id查询父级目录id -->
+    <select id="selectParentIdBydirId"  resultType="map" parameterType="map">
+    	SELECT
+			t1.*,
+			t2.OWNER 
+		FROM
+			t_cloud_pan_directory t1
+			INNER JOIN t_cloud_pan_permissions t2 ON t1.dir_id = t2.dir_id
+		<where>
+			<if test="dirIds != null and dirIds.size() > 0">
+           	and t2.dir_id in
+           		<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+           			#{dirId,jdbcType=VARCHAR}
+           		</foreach>
+            </if>
+            <if test="pkgId != null and pkgId.trim() != ''">
+            and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}
+            </if>
+            <if test="traineeId != null and traineeId.trim() != ''">
+            and t2.owner = #{traineeId,jdbcType=VARCHAR}
+            </if>
+		</where>
+    </select>
+    
+    <!-- 查询所有目录及文件 -->
+    <select id="queryAllDirAndFile" resultType="map" parameterType="map">
+    	SELECT
+			t.* 
+		FROM
+			(
+		SELECT
+			t1.dir_id AS id,
+			t1.dir_id as dirId,
+			null as fileId,
+			t1.ref_dir_id AS refDirId,
+			t1.pkg_id AS pkgId,
+			t1.NAME,
+			t1.parent_id AS parentId 
+		FROM
+			t_cloud_pan_directory t1 UNION ALL
+		SELECT
+			t1.file_id AS id,
+			t2.dir_id as dirId,
+			t1.file_id as fileId,
+			t2.ref_dir_id AS refDirId,
+			t2.pkg_id AS pkgId,
+			t1.NAME,
+			t1.dir_id AS parentId 
+		FROM
+			t_cloud_pan_file t1
+			INNER JOIN t_cloud_pan_directory t2 ON t1.dir_id = t2.dir_id 
+			) t
+		<where>
+			<if test="pkgId != null and pkgId.trim() != ''">
+            and t.pkgId = #{pkgId,jdbcType=VARCHAR}
+            </if>
+		</where>
+    </select>
+    
+    <select id="queryTopDirectoryList" resultType="map"
+        parameterType="map">
+        
+        select t.* from (
+        	select t1.dir_id as id, '1' as type, ifnull(t1.dict_code, '') as dictCode, '1' as sortNum,
+	        t1.dir_id as dirId, t1.pkg_id as pkgId,
+	        t1.name, t1.parent_id as parentId, t1.update_time as updateTime, t1.icon,
+	        ifnull(t1.is_trainee_visible, "N") as isTraineeVisible
+	        from T_CLOUD_PAN_DIRECTORY t1
+	        <where>
+	        	t1.parent_id = '0' and t1.pkg_id = #{pkgId}
+	        	<if test="dirIds != null and dirIds.size() > 0">
+	                and t1.dir_id in
+	                <foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+	                	#{dirId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            
+                </if>
+	        </where>
+	        <if test="refPkgId != null and refPkgId.trim() != ''">
+	        	union all
+	        	
+	        	select t1.dir_id as id, '1' as type, ifnull(t1.dict_code, '') as dictCode, '2' as sortNum,
+		        t1.dir_id as dirId, t1.pkg_id as pkgId,
+		        t1.name, t1.parent_id as parentId, t1.update_time as updateTime, t1.icon,
+		        ifnull(t1.is_trainee_visible, "N") as isTraineeVisible
+		        from T_CLOUD_PAN_DIRECTORY t1
+		        <where>
+		        	t1.parent_id = '0' and t1.pkg_id = #{refPkgId}
+		        	<if test="dirIds != null and dirIds.size() > 0">
+		                and t1.dir_id in
+		                <foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+		                	#{dirId,jdbcType=VARCHAR}
+		                </foreach>
+	                </if>
+	                <if test="name != null and name.trim() != ''">
+	                and t1.name like concat ('%', #{name,jdbcType=VARCHAR}, '%')            
+	                </if>
+		        </where>		        
+	        </if>
+        ) t 
+        order by t.sortNum asc, t.dictCode asc, t.updateTime desc
+    </select>
+    
+    <select id="selectDirIdListByMap" resultType="string" parameterType="map">
+        select dir_id from T_CLOUD_PAN_DIRECTORY t1
+        <where>
+        		<if test="dirIds != null and dirIds.size() > 0">
+                and t1.dir_id in 
+                	<foreach collection="dirIds" item="dirId" open="(" separator="," close=")">
+                		#{dirId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="pkgIds != null and pkgIds.size() > 0">
+                and t1.pkg_id in 
+                	<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+                		#{pkgId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+        		<if test="refDirId != null and refDirId.trim() != ''">
+                and t1.ref_dir_id =#{refDirId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id = #{pkgId,jdbcType=VARCHAR}        </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="intr != null and intr.trim() != ''">
+                and t1.intr =#{intr,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+                <if test="isTraineeVisible != null and isTraineeVisible.trim() != ''">
+                and t1.is_trainee_visible =#{isTraineeVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.dir_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into t_cloud_pan_directory
+			(
+				dir_id, pkg_id, name, parent_id, intr,
+				sort_num, create_user_id, create_time, update_user_id,
+				update_time, state, dict_code, icon
+			)
+		values
+	    <foreach collection="list" item="obj" separator="," >
+	    	(
+	    		#{obj.dirId}, #{obj.pkgId}, #{obj.name}, #{obj.parentId}, #{obj.intr},
+	    		#{obj.sortNum}, #{obj.createUserId}, #{obj.createTime}, #{obj.updateUserId}, #{obj.updateTime},
+	    		#{obj.state}, #{obj.dictCode}, #{obj.icon}
+	   		)
+	    </foreach>
+	</insert>
+</mapper>
+

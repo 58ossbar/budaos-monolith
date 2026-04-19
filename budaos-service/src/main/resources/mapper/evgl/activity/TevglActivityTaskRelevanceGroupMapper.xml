@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityTaskRelevanceGroupMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivityTaskRelevanceGroup">
+		<result column="relevance_id" jdbcType="VARCHAR"
+			property="relevanceId" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="activity_id" jdbcType="VARCHAR"
+			property="activityId" />
+		<result column="group_id" jdbcType="VARCHAR"
+			property="groupId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		relevance_id,ct_id,activity_id,group_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTaskRelevanceGroup">
+		INSERT INTO T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP (
+		relevance_id ,
+		ct_id ,
+		activity_id ,
+		group_id 
+		) VALUES (
+
+#{relevanceId,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{activityId,jdbcType=VARCHAR} ,
+
+#{groupId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTaskRelevanceGroup">
+		UPDATE T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="activityId != null">
+		activity_id = #{activityId,jdbcType=VARCHAR},
+		</if>
+		<if test="groupId != null">
+		group_id = #{groupId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		relevance_id = #{relevanceId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP WHERE
+		relevance_id =
+		#{relevanceId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP WHERE
+		relevance_id in
+		<foreach item="relevanceId" collection="array" open="("
+			separator="," close=")">
+#{relevanceId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP WHERE
+		relevance_id = #{relevanceId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="groupId != null and groupId.trim() != ''">
+                and group_id =#{groupId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by relevance_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_TASK_RELEVANCE_GROUP t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and t1.activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="groupId != null and groupId.trim() != ''">
+                and t1.group_id =#{groupId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.relevance_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findGroupIdBy" resultType="string" >
+		select group_id from t_evgl_activity_task_relevance_group where ct_id = #{ctId} and activity_id = #{activityId}
+	</select>
+</mapper>
+

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.tch.persistence.TevglTchClassMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.tch.domain.TevglTchClass">
+		<result column="class_id" jdbcType="VARCHAR"
+			property="classId" />
+		<result column="major_id" jdbcType="VARCHAR"
+			property="majorId" />
+		<result column="ORG_ID" jdbcType="VARCHAR"
+			property="orgId" />
+		<result column="class_no" jdbcType="VARCHAR"
+			property="classNo" />
+		<result column="class_name" jdbcType="VARCHAR"
+			property="className" />
+		<result column="class_pic" jdbcType="VARCHAR"
+			property="classPic" />
+		<result column="class_img" jdbcType="VARCHAR"
+			property="classImg" />
+		<result column="y_price" jdbcType="DECIMAL"
+			property="yprice" />
+		<result column="yh_price" jdbcType="DECIMAL"
+			property="yhPrice" />
+		<result column="tg_price" jdbcType="DECIMAL"
+			property="tgPrice" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="class_time" jdbcType="VARCHAR"
+			property="classTime" />
+		<result column="class_state" jdbcType="VARCHAR"
+			property="classState" />
+		<result column="registration_start_time" jdbcType="VARCHAR"
+			property="registrationStartTime" />
+		<result column="expect_time" jdbcType="VARCHAR"
+			property="expectTime" />
+		<result column="accept_time" jdbcType="VARCHAR"
+			property="acceptTime" />
+		<result column="cur_sum" jdbcType="INTEGER"
+			property="curSum" />
+		<result column="expect_sum" jdbcType="INTEGER"
+			property="expectSum" />
+		<result column="accept_sum" jdbcType="INTEGER"
+			property="acceptSum" />
+		<result column="remark" jdbcType="VARCHAR"
+			property="remark" />
+		<result column="teaching_assistant" jdbcType="VARCHAR"
+			property="teachingAssistant" />
+		<result column="type" jdbcType="VARCHAR"
+			property="type" />
+		<result column="teacher_id" jdbcType="VARCHAR"
+			property="teacherId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		class_id,major_id,ORG_ID,class_no,class_name,class_pic,class_img,y_price,yh_price,tg_price,create_user_id,create_time,update_user_id,
+		update_time,class_time,class_state,registration_start_time,expect_time,accept_time,cur_sum,expect_sum,accept_sum,remark,teaching_assistant,type,
+		teacher_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchClass">
+		INSERT INTO T_EVGL_TCH_CLASS (
+		class_id ,
+		major_id ,
+		ORG_ID ,
+		class_no ,
+		class_name ,
+		class_pic ,
+		class_img ,
+		y_price ,
+		yh_price ,
+		tg_price ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		class_time ,
+		class_state ,
+		registration_start_time,
+		expect_time ,
+		accept_time ,
+		cur_sum ,
+		expect_sum ,
+		accept_sum ,
+		remark ,
+		teaching_assistant,
+		type ,
+		teacher_id
+		) VALUES (
+
+#{classId,jdbcType=VARCHAR} ,
+
+#{majorId,jdbcType=VARCHAR} ,
+
+#{orgId,jdbcType=VARCHAR} ,
+
+#{classNo,jdbcType=VARCHAR} ,
+
+#{className,jdbcType=VARCHAR} ,
+
+#{classPic,jdbcType=VARCHAR} ,
+
+#{classImg,jdbcType=VARCHAR} ,
+
+#{yprice,jdbcType=DECIMAL} ,
+
+#{yhPrice,jdbcType=DECIMAL} ,
+
+#{tgPrice,jdbcType=DECIMAL} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{classTime,jdbcType=VARCHAR} ,
+
+#{classState,jdbcType=VARCHAR} ,
+
+#{registrationStartTime,jdbcType=VARCHAR} ,
+
+#{expectTime,jdbcType=VARCHAR} ,
+
+#{acceptTime,jdbcType=VARCHAR} ,
+
+#{curSum,jdbcType=INTEGER} ,
+
+#{expectSum,jdbcType=INTEGER} ,
+
+#{acceptSum,jdbcType=INTEGER} ,
+
+#{remark,jdbcType=VARCHAR} ,
+
+#{teachingAssistant,jdbcType=VARCHAR} ,
+
+#{type,jdbcType=VARCHAR} ,
+
+#{teacherId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchClass">
+		UPDATE T_EVGL_TCH_CLASS 
+		<set>
+		<if test="type == null">
+		type = #{type},
+		</if>
+		<if test="type != null">
+		type = #{type,jdbcType=VARCHAR},
+		</if>
+		<if test="majorId != null">
+		major_id = #{majorId,jdbcType=VARCHAR},
+		</if>
+		<if test="orgId != null">
+		ORG_ID = #{orgId,jdbcType=VARCHAR},
+		</if>
+		<if test="classNo != null">
+		class_no = #{classNo,jdbcType=VARCHAR},
+		</if>
+		<if test="className != null">
+		class_name = #{className,jdbcType=VARCHAR},
+		</if>
+		<if test="classPic != null">
+		class_pic = #{classPic,jdbcType=VARCHAR},
+		</if>
+		<if test="classImg != null">
+		class_img = #{classImg,jdbcType=VARCHAR},
+		</if>
+		<if test="yprice != null">
+		y_price = #{yprice,jdbcType=DECIMAL},
+		</if>
+		<if test="yhPrice != null">
+		yh_price = #{yhPrice,jdbcType=DECIMAL},
+		</if>
+		<if test="tgPrice != null">
+		tg_price = #{tgPrice,jdbcType=DECIMAL},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="classTime != null">
+		class_time = #{classTime,jdbcType=VARCHAR},
+		</if>
+		<if test="classState != null">
+		class_state = #{classState,jdbcType=VARCHAR},
+		</if>
+		<if test="registrationStartTime != null">
+		registration_start_time = #{registrationStartTime,jdbcType=VARCHAR},
+		</if>
+		<if test="expectTime != null">
+		expect_time = #{expectTime,jdbcType=VARCHAR},
+		</if>
+		<if test="acceptTime != null">
+		accept_time = #{acceptTime,jdbcType=VARCHAR},
+		</if>
+		<if test="curSum != null">
+		cur_sum = #{curSum,jdbcType=INTEGER},
+		</if>
+		<if test="expectSum != null">
+		expect_sum = #{expectSum,jdbcType=INTEGER},
+		</if>
+		<if test="acceptSum != null">
+		accept_sum = #{acceptSum,jdbcType=INTEGER},
+		</if>
+		<if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="teachingAssistant != null">
+		teaching_assistant = #{teachingAssistant,jdbcType=VARCHAR},
+		</if>
+		<if test="teacherId != null">
+		teacher_id = #{teacherId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		class_id = #{classId,jdbcType=VARCHAR} 
+	</update>
+	<update id="updateClassImg" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchClass">
+		UPDATE T_EVGL_TCH_CLASS 
+		<set>
+			class_img = #{classImg,jdbcType=VARCHAR}
+		</set>
+		WHERE
+		class_id = #{classId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_TCH_CLASS WHERE
+		class_id =
+		#{classId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_TCH_CLASS WHERE
+		class_id in
+		<foreach item="classId" collection="array" open="("
+			separator="," close=")">
+#{classId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select t1.*, 
+		t2.teacher_name as teachingAssistantName, t2.teacher_pic as teachingAssistantPic,
+		t3.teacher_name as teacherName, t3.teacher_pic as teacherPic
+		from T_EVGL_TCH_CLASS t1 
+		left join t_evgl_tch_teacher t2 on t1.teaching_assistant=t2.teacher_id 
+		left join t_evgl_tch_teacher t3 on t1.teacher_id = t3.trainee_id
+		WHERE t1.class_id = #{classId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select t1.*, t2.major_name as majorName,
+        t4.teacher_name as teacherName,
+        t3.teacher_name as teachingAssistantName 
+        from T_EVGL_TCH_CLASS t1
+        left join t_evgl_book_major t2 on t1.major_id = t2.major_id
+        left join t_evgl_tch_teacher t3 on t1.teaching_assistant = t3.teacher_id
+        left join t_evgl_tch_teacher t4 on t1.teacher_id = t4.trainee_id
+        <where>
+                <if test="majorId != null and majorId.trim() != ''">
+				and t1.major_id =#{majorId,jdbcType=VARCHAR}
+				</if>
+				<if test="orgId != null and orgId.trim() != ''">
+					and t1.ORG_ID =#{orgId,jdbcType=VARCHAR}
+				</if>
+				<if test="classNo != null and classNo.trim() != ''">
+					and t1.class_no like
+					concat('%',#{classNo,jdbcType=VARCHAR},'%')			</if>
+				<if test="className != null and className.trim() != ''">
+					and t1.class_name like
+					concat('%',#{className,jdbcType=VARCHAR},'%')			</if>
+				<if test="classPic != null and classPic.trim() != ''">
+					and t1.class_pic =#{classPic,jdbcType=VARCHAR}
+				</if>
+				<if test="yhPrice != null and yhPrice != ''">
+					and t1.yh_price =#{yhPrice,jdbcType=DECIMAL}
+				</if>
+				<if test="tgPrice != null and tgPrice != ''">
+					and t1.tg_price =#{tgPrice,jdbcType=DECIMAL}
+				</if>
+				<if test="createUserId != null and createUserId.trim() != ''">
+					and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}
+				</if>
+				<if test="createTime != null and createTime.trim() != ''">
+					and t1.create_time =#{createTime,jdbcType=VARCHAR}
+				</if>
+				<if test="updateUserId != null and updateUserId.trim() != ''">
+					and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+				</if>
+				<if test="updateTime != null and updateTime.trim() != ''">
+					and t1.update_time =#{updateTime,jdbcType=VARCHAR}
+				</if>
+				<if test="classTime != null and classTime.trim() != ''">
+					and t1.class_time like
+					concat('%',#{classTime,jdbcType=VARCHAR},'%')			</if>
+				<if test="classState != null and classState.trim() != ''">
+					and t1.class_state =#{classState,jdbcType=VARCHAR}
+				</if>
+				<if test="expectTime != null and expectTime.trim() != ''">
+					and t1.expect_time =#{expectTime,jdbcType=VARCHAR}
+				</if>
+				<if test="sacceptTime != null and sacceptTime.trim() != ''">
+					and t1.accept_time &gt;=#{sacceptTime,jdbcType=VARCHAR}
+				</if>
+				<if test="eacceptTime != null and eacceptTime.trim() != ''">
+					and t1.accept_time &lt;=#{eacceptTime,jdbcType=VARCHAR}
+				</if>
+				<if test="acceptTime != null and acceptTime.trim() != ''">
+					and t1.accept_time =#{acceptTime,jdbcType=VARCHAR}
+				</if>
+				<if test="curSum != null and curSum != ''">
+					and t1.cur_sum =#{curSum,jdbcType=INTEGER}
+				</if>
+				<if test="expectSum != null and expectSum != ''">
+					and t1.expect_sum =#{expectSum,jdbcType=INTEGER}
+				</if>
+                <if test="acceptSum != null and acceptSum != ''">
+                and accept_sum =#{acceptSum,jdbcType=INTEGER}            </if>
+                
+                <if test="remark != null and remark.trim() != ''">
+                and remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="teachingAssistant != null and teachingAssistant.trim() != ''">
+                and teaching_assistant =#{teachingAssistant,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="teacherId != null and teacherId.trim() != ''">
+                and t1.teacher_id =#{teacherId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.create_time  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_TCH_CLASS t1
+        <where>
+                <if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.ORG_ID =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="classNo != null and classNo.trim() != ''">
+                and t1.class_no =#{classNo,jdbcType=VARCHAR}            </if>
+                <if test="className != null and className.trim() != ''">
+                and t1.class_name =#{className,jdbcType=VARCHAR}            </if>
+                <if test="classPic != null and classPic.trim() != ''">
+                and t1.class_pic =#{classPic,jdbcType=VARCHAR}            </if>
+                <if test="yprice != null and yprice != ''">
+                and t1.y_price =#{yprice,jdbcType=DECIMAL}            </if>
+                <if test="yhPrice != null and yhPrice != ''">
+                and t1.yh_price =#{yhPrice,jdbcType=DECIMAL}            </if>
+                <if test="tgPrice != null and tgPrice != ''">
+                and t1.tg_price =#{tgPrice,jdbcType=DECIMAL}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="classTime != null and classTime.trim() != ''">
+                and t1.class_time =#{classTime,jdbcType=VARCHAR}            </if>
+                <if test="classState != null and classState.trim() != ''">
+                and t1.class_state =#{classState,jdbcType=VARCHAR}            </if>
+                <if test="expectTime != null and expectTime.trim() != ''">
+                and t1.expect_time =#{expectTime,jdbcType=VARCHAR}            </if>
+                <if test="acceptTime != null and acceptTime.trim() != ''">
+                and t1.accept_time =#{acceptTime,jdbcType=VARCHAR}            </if>
+                <if test="curSum != null and curSum != ''">
+                and t1.cur_sum =#{curSum,jdbcType=INTEGER}            </if>
+                <if test="expectSum != null and expectSum != ''">
+                and t1.expect_sum =#{expectSum,jdbcType=INTEGER}            </if>
+                <if test="acceptSum != null and acceptSum != ''">
+                and t1.accept_sum =#{acceptSum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="teachingAssistant != null and teachingAssistant.trim() != ''">
+                and t1.teaching_assistant =#{teachingAssistant,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="teacherId != null and teacherId.trim() != ''">
+                and t1.teacher_id =#{teacherId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.class_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListMap" parameterType="map" resultType="map">
+        select t1.class_id as classId, t1.major_id as majorId, t1.ORG_ID as orgId, 
+        t1.class_name as className, t1.class_pic as classPic, t1.remark,
+        (select count(t2.trainee_id) from t_evgl_tch_classtrainee t2 where t1.class_id = t2.class_id) as classTraineeNum,
+        t2.PARENT_ID as parentId, t3.ORG_NAME as orgParentName, t2.ORG_SHOWNAME as orgName
+        from T_EVGL_TCH_CLASS t1
+		left join t_sys_org t2 on t1.org_id = t2.org_id
+		left join t_sys_org t3 on t2.PARENT_ID = t3.org_id
+        <where>
+                <if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.ORG_ID =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="classNo != null and classNo.trim() != ''">
+                and t1.class_no =#{classNo,jdbcType=VARCHAR}            </if>
+                <if test="className != null and className.trim() != ''">
+                and t1.class_name =#{className,jdbcType=VARCHAR}            </if>
+                <if test="classPic != null and classPic.trim() != ''">
+                and t1.class_pic =#{classPic,jdbcType=VARCHAR}            </if>
+                <if test="yprice != null and yprice != ''">
+                and t1.y_price =#{yprice,jdbcType=DECIMAL}            </if>
+                <if test="yhPrice != null and yhPrice != ''">
+                and t1.yh_price =#{yhPrice,jdbcType=DECIMAL}            </if>
+                <if test="tgPrice != null and tgPrice != ''">
+                and t1.tg_price =#{tgPrice,jdbcType=DECIMAL}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="classTime != null and classTime.trim() != ''">
+                and t1.class_time =#{classTime,jdbcType=VARCHAR}            </if>
+                <if test="classState != null and classState.trim() != ''">
+                and t1.class_state =#{classState,jdbcType=VARCHAR}            </if>
+                <if test="expectTime != null and expectTime.trim() != ''">
+                and t1.expect_time =#{expectTime,jdbcType=VARCHAR}            </if>
+                <if test="acceptTime != null and acceptTime.trim() != ''">
+                and t1.accept_time =#{acceptTime,jdbcType=VARCHAR}            </if>
+                <if test="curSum != null and curSum != ''">
+                and t1.cur_sum =#{curSum,jdbcType=INTEGER}            </if>
+                <if test="expectSum != null and expectSum != ''">
+                and t1.expect_sum =#{expectSum,jdbcType=INTEGER}            </if>
+                <if test="acceptSum != null and acceptSum != ''">
+                and t1.accept_sum =#{acceptSum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="teachingAssistant != null and teachingAssistant.trim() != ''">
+                and t1.teaching_assistant =#{teachingAssistant,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="teacherId != null and teacherId.trim() != ''">
+                and t1.teacher_id =#{teacherId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.create_time desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="findClassListByMap" parameterType="map" resultMap="BaseResultMap">
+        select t1.class_id, t1.major_id, t1.ORG_ID, 
+        t1.class_name, t1.class_pic, t1.class_img, t1.accept_sum, t1.remark, t1.registration_start_time, t1.expect_time,
+        t2.teacher_id as teacherId, t2.teacher_name as teacherName, t2.teacher_pic as teacherPic,
+        t3.teacher_id as teachingAssistant, t3.teacher_name as teachingAssistantName,
+        t3.teacher_pic as teachingAssistantPic
+        from T_EVGL_TCH_CLASS t1
+        left join t_evgl_tch_teacher t2 on t1.teacher_id = t2.teacher_id
+        left join t_evgl_tch_teacher t3 on t1.teaching_assistant = t3.teacher_id
+        <where>
+        		<if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="majorId != null and majorId.trim() != ''">
+                and t1.major_id =#{majorId,jdbcType=VARCHAR}            </if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.ORG_ID =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="classNo != null and classNo.trim() != ''">
+                and t1.class_no =#{classNo,jdbcType=VARCHAR}            </if>
+                <if test="className != null and className.trim() != ''">
+                and t1.class_name like concat ('%', #{className,jdbcType=VARCHAR}, '%')            </if>
+                <if test="classPic != null and classPic.trim() != ''">
+                and t1.class_pic =#{classPic,jdbcType=VARCHAR}            </if>
+                <if test="yprice != null and yprice != ''">
+                and t1.y_price =#{yprice,jdbcType=DECIMAL}            </if>
+                <if test="yhPrice != null and yhPrice != ''">
+                and t1.yh_price =#{yhPrice,jdbcType=DECIMAL}            </if>
+                <if test="tgPrice != null and tgPrice != ''">
+                and t1.tg_price =#{tgPrice,jdbcType=DECIMAL}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="classTime != null and classTime.trim() != ''">
+                and t1.class_time =#{classTime,jdbcType=VARCHAR}            </if>
+                <if test="classState != null and classState.trim() != ''">
+                and t1.class_state =#{classState,jdbcType=VARCHAR}            </if>
+                <if test="expectTime != null and expectTime.trim() != ''">
+                and t1.expect_time =#{expectTime,jdbcType=VARCHAR}            </if>
+                <if test="acceptTime != null and acceptTime.trim() != ''">
+                and t1.accept_time =#{acceptTime,jdbcType=VARCHAR}            </if>
+                <if test="curSum != null and curSum != ''">
+                and t1.cur_sum =#{curSum,jdbcType=INTEGER}            </if>
+                <if test="expectSum != null and expectSum != ''">
+                and t1.expect_sum =#{expectSum,jdbcType=INTEGER}            </if>
+                <if test="acceptSum != null and acceptSum != ''">
+                and t1.accept_sum =#{acceptSum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="teachingAssistant != null and teachingAssistant.trim() != ''">
+                and t1.teaching_assistant =#{teachingAssistant,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="teacherId != null and teacherId.trim() != ''">
+                and t1.teacher_id =#{teacherId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.create_time desc
+            </otherwise>
+        </choose>
+    </select>
+    
+	<select id="countClassNumByType" parameterType="object" resultType="integer">
+		select count(*) from t_evgl_tch_class where class_state = '1' and `type` = #{type}
+	</select>
+	
+</mapper>
+

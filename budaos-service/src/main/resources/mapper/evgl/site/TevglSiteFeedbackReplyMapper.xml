@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.site.persistence.TevglSiteFeedbackReplyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.site.domain.TevglSiteFeedbackReply">
+		<result column="reply_id" jdbcType="VARCHAR"
+			property="replyId" />
+		<result column="feedback_id" jdbcType="VARCHAR"
+			property="feedbackId" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		reply_id,feedback_id,content,create_time,create_user_id,update_time,update_user_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteFeedbackReply">
+		INSERT INTO T_EVGL_SITE_FEEDBACK_REPLY (
+		reply_id ,
+		feedback_id ,
+		content ,
+		create_time ,
+		create_user_id ,
+		update_time ,
+		update_user_id 
+		) VALUES (
+
+#{replyId,jdbcType=VARCHAR} ,
+
+#{feedbackId,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteFeedbackReply">
+		UPDATE T_EVGL_SITE_FEEDBACK_REPLY 
+		<set>
+		<if test="feedbackId != null">
+		feedback_id = #{feedbackId,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		reply_id = #{replyId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_FEEDBACK_REPLY WHERE
+		reply_id =
+		#{replyId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_FEEDBACK_REPLY WHERE
+		reply_id in
+		<foreach item="replyId" collection="array" open="("
+			separator="," close=")">
+#{replyId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_SITE_FEEDBACK_REPLY WHERE
+		reply_id = #{replyId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_SITE_FEEDBACK_REPLY
+        <where>
+        		
+        		<if test="feedbackIds != null and feedbackIds.size() > 0">
+        		and feedback_id in 
+        			<foreach collection="feedbackIds" item="feedbackId" open="(" separator="," close=")">
+        				#{feedbackId,jdbcType=VARCHAR}
+        			</foreach>
+        		</if>
+        
+                <if test="feedbackId != null and feedbackId.trim() != ''">
+                and feedback_id =#{feedbackId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by reply_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_SITE_FEEDBACK_REPLY t1
+        <where>
+                <if test="feedbackId != null and feedbackId.trim() != ''">
+                and t1.feedback_id =#{feedbackId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.reply_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

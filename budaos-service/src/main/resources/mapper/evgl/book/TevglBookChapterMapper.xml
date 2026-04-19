@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.book.persistence.TevglBookChapterMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.book.domain.TevglBookChapter">
+		<result column="chapter_id" jdbcType="VARCHAR"
+			property="chapterId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="chapter_no" jdbcType="VARCHAR"
+			property="chapterNo" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
+		<result column="level" jdbcType="INTEGER"
+			property="level" />
+		<result column="chapter_name" jdbcType="VARCHAR"
+			property="chapterName" />
+		<result column="chapter_icon" jdbcType="VARCHAR"
+			property="chapterIcon" />
+		<result column="chapter_desc" jdbcType="VARCHAR"
+			property="chapterDesc" />
+		<result column="chapter_content" jdbcType="LONGVARCHAR"
+			property="chapterContent" />
+		<result column="class_hour" jdbcType="DECIMAL"
+			property="classHour" />
+		<result column="order_num" jdbcType="INTEGER"
+			property="orderNum" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="is_trainees_visible" jdbcType="VARCHAR"
+			property="isTraineesVisible" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		chapter_id,subject_id,chapter_no,parent_id,level,chapter_name,chapter_icon,chapter_desc,chapter_content,class_hour,order_num,create_user_id,create_time,update_user_id,update_time,state
+		,is_trainees_visible
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.book.domain.TevglBookChapter">
+		INSERT INTO T_EVGL_BOOK_CHAPTER (
+		chapter_id ,
+		subject_id ,
+		chapter_no ,
+		parent_id ,
+		level ,
+		chapter_name ,
+		chapter_icon ,
+		chapter_desc ,
+		chapter_content ,
+		class_hour ,
+		order_num ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state ,
+		is_trainees_visible
+		) VALUES (
+
+#{chapterId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{chapterNo,jdbcType=VARCHAR} ,
+
+#{parentId,jdbcType=VARCHAR} ,
+
+#{level,jdbcType=INTEGER} ,
+
+#{chapterName,jdbcType=VARCHAR} ,
+
+#{chapterIcon,jdbcType=VARCHAR} ,
+
+#{chapterDesc,jdbcType=VARCHAR} ,
+
+#{chapterContent,jdbcType=LONGVARCHAR} ,
+
+#{classHour,jdbcType=DECIMAL} ,
+
+#{orderNum,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{isTraineesVisible,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.book.domain.TevglBookChapter">
+		UPDATE T_EVGL_BOOK_CHAPTER 
+		<set>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterNo != null">
+		chapter_no = #{chapterNo,jdbcType=VARCHAR},
+		</if>
+		<if test="parentId != null">
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		</if>
+		<if test="level != null">
+		level = #{level,jdbcType=INTEGER},
+		</if>
+		<if test="chapterName != null">
+		chapter_name = #{chapterName,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterIcon != null">
+		chapter_icon = #{chapterIcon,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterDesc != null">
+		chapter_desc = #{chapterDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterContent != null">
+		chapter_content = #{chapterContent,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="classHour != null">
+		class_hour = #{classHour,jdbcType=DECIMAL},
+		</if>
+		<if test="orderNum != null">
+		order_num = #{orderNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="isTraineesVisible != null">
+		is_trainees_visible = #{isTraineesVisible,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		chapter_id = #{chapterId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_BOOK_CHAPTER WHERE
+		chapter_id =
+		#{chapterId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_BOOK_CHAPTER WHERE
+		chapter_id in
+		<foreach item="chapterId" collection="array" open="("
+			separator="," close=")">
+#{chapterId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_BOOK_CHAPTER WHERE
+		chapter_id = #{chapterId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_BOOK_CHAPTER
+        <where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterNo != null and chapterNo.trim() != ''">
+                and chapter_no =#{chapterNo,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="level != null and level != ''">
+                and level =#{level,jdbcType=INTEGER}            </if>
+                <if test="chapterName != null and chapterName.trim() != ''">
+                
+                and chapter_name like concat ('%', #{chapterName,jdbcType=VARCHAR}, '%')            </if>
+                <!-- and chapter_name =#{chapterName,jdbcType=VARCHAR}            </if> -->
+                
+                <if test="chapterIcon != null and chapterIcon.trim() != ''">
+                and chapter_icon =#{chapterIcon,jdbcType=VARCHAR}            </if>
+                <if test="chapterDesc != null and chapterDesc.trim() != ''">
+                and chapter_desc =#{chapterDesc,jdbcType=VARCHAR}            </if>
+                <if test="chapterContent != null and chapterContent.trim() != ''">
+                and chapter_content =#{chapterContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="classHour != null and classHour != ''">
+                and class_hour =#{classHour,jdbcType=DECIMAL}            </if>
+                <if test="orderNum != null and orderNum != ''">
+                and order_num =#{orderNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="isTraineesVisible != null and isTraineesVisible.trim() != ''">
+                and is_trainees_visible =#{isTraineesVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by chapter_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_BOOK_CHAPTER t1
+        <where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterNo != null and chapterNo.trim() != ''">
+                and t1.chapter_no =#{chapterNo,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="level != null and level != ''">
+                and t1.level =#{level,jdbcType=INTEGER}            </if>
+                <if test="chapterName != null and chapterName.trim() != ''">
+                and t1.chapter_name =#{chapterName,jdbcType=VARCHAR}            </if>
+                <if test="chapterIcon != null and chapterIcon.trim() != ''">
+                and t1.chapter_icon =#{chapterIcon,jdbcType=VARCHAR}            </if>
+                <if test="chapterDesc != null and chapterDesc.trim() != ''">
+                and t1.chapter_desc =#{chapterDesc,jdbcType=VARCHAR}            </if>
+                <if test="chapterContent != null and chapterContent.trim() != ''">
+                and t1.chapter_content =#{chapterContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="classHour != null and classHour != ''">
+                and t1.class_hour =#{classHour,jdbcType=DECIMAL}            </if>
+                <if test="orderNum != null and orderNum != ''">
+                and t1.order_num =#{orderNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="isTraineesVisible != null and isTraineesVisible.trim() != ''">
+                and t1.is_trainees_visible =#{isTraineesVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.chapter_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+	<!-- 查询某课程下直系章节 -->
+    <select id="selectListByParentId" resultMap="BaseResultMap" parameterType="map">
+        select * from t_evgl_book_chapter where parent_id is null or parent_id = "" or parent_id = '-1' and state = "Y"
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by chapter_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 简单的查询某几个字段 -->
+    <select id="selectListByMapForSimple" resultMap="BaseResultMap"
+        parameterType="map">
+        select chapter_id, subject_id, chapter_no, parent_id, level, chapter_name, chapter_icon, class_hour, order_num, state from T_EVGL_BOOK_CHAPTER
+        <where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterNo != null and chapterNo.trim() != ''">
+                and chapter_no =#{chapterNo,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="level != null and level != ''">
+                and level =#{level,jdbcType=INTEGER}            </if>
+                <if test="chapterName != null and chapterName.trim() != ''">
+                and chapter_name =#{chapterName,jdbcType=VARCHAR}            </if>
+                <if test="chapterIcon != null and chapterIcon.trim() != ''">
+                and chapter_icon =#{chapterIcon,jdbcType=VARCHAR}            </if>
+                <if test="chapterDesc != null and chapterDesc.trim() != ''">
+                and chapter_desc =#{chapterDesc,jdbcType=VARCHAR}            </if>
+                <if test="chapterContent != null and chapterContent.trim() != ''">
+                and chapter_content =#{chapterContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="classHour != null and classHour != ''">
+                and class_hour =#{classHour,jdbcType=DECIMAL}            </if>
+                <if test="orderNum != null and orderNum != ''">
+                and order_num =#{orderNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="isTraineesVisible != null and isTraineesVisible.trim() != ''">
+                and is_trainees_visible =#{isTraineesVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by chapter_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 最大排序号 -->
+    <select id="selectMaxSortByMap" resultType="Integer"
+		parameterType="map">
+		select IFNULL(max(order_num),0) from t_evgl_book_chapter
+		<where>
+				<if test="parentId != null and parentId.trim() != ''">
+				and parent_id =#{parentId,jdbcType=VARCHAR}			</if>
+		</where>
+	</select>
+	
+	<select id="selectSimpleListMap" resultType="map" parameterType="map">
+        select t1.chapter_id as id, t1.chapter_name as name, t1.chapter_id as chapterId, t1.subject_id as subjectId, t1.chapter_no as chapterNo, 
+        t1.parent_id as parentId, t1.level, t1.chapter_name as chapterName, t1.chapter_icon as chapterIcon,
+        t1.order_num as orderNum, t1.chapter_desc as chapterDesc,
+        if(
+        	t1.parent_id = t1.subject_id ,
+        	(select subject_name from t_evgl_book_subject where subject_id = t1.parent_id) ,
+        	(select chapter_name from t_evgl_book_chapter where chapter_id = t1.parent_id)
+       	) as parentName,
+       	ifnull(t2.is_trainees_visible, 'Y') as isTraineesVisible
+        from T_EVGL_BOOK_CHAPTER t1
+        left join t_evgl_book_chapter_visible t2 on t1.chapter_id = t2.chapter_id and t2.pkg_id =#{pkgId}
+        left join t_evgl_pkg_info t3 on t3.subject_id = t1.subject_id
+        <where>
+        		<!-- <if test="pkgId != null and pkgId.trim() != ''">
+                and t2.pkg_id =#{pkgId,jdbcType=VARCHAR}            
+                </if> -->
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterNo != null and chapterNo.trim() != ''">
+                and t1.chapter_no =#{chapterNo,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="level != null and level != ''">
+                and t1.level =#{level,jdbcType=INTEGER}            </if>
+                <if test="chapterName != null and chapterName.trim() != ''">
+                and t1.chapter_name =#{chapterName,jdbcType=VARCHAR}            </if>
+                <if test="chapterIcon != null and chapterIcon.trim() != ''">
+                and t1.chapter_icon =#{chapterIcon,jdbcType=VARCHAR}            </if>
+                <if test="chapterDesc != null and chapterDesc.trim() != ''">
+                and t1.chapter_desc =#{chapterDesc,jdbcType=VARCHAR}            </if>
+                <if test="chapterContent != null and chapterContent.trim() != ''">
+                and t1.chapter_content =#{chapterContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="classHour != null and classHour != ''">
+                and t1.class_hour =#{classHour,jdbcType=DECIMAL}            </if>
+                <if test="orderNum != null and orderNum != ''">
+                and t1.order_num =#{orderNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="isTraineesVisible != null and isTraineesVisible.trim() != ''">
+                and t1.is_trainees_visible =#{isTraineesVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        group by t1.chapter_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.chapter_id  desc
+            </otherwise>
+        </choose>
+    </select>
+	
+	<select id="countChapterNum" resultType="Integer" parameterType="map">
+		select count(chapter_id) from t_evgl_book_chapter
+		<where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+        </where>
+	</select>
+	
+	<select id="selectChapterIdList" resultType="java.lang.String" parameterType="java.lang.String">
+		select chapter_id from t_evgl_book_chapter where subject_id = #{subjectId} order by order_num asc
+	</select>
+	
+	<select id="findChapterIdListByParentId" resultType="java.lang.String" parameterType="java.lang.String">
+		select chapter_id from t_evgl_book_chapter where parent_id = #{parentId} order by order_num asc
+	</select>
+	
+	<select id="getMaxSortNum" resultType="Integer" parameterType="map">
+		select ifnull(max(order_num), 0) + 1 from t_evgl_book_chapter t1
+		<where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterNo != null and chapterNo.trim() != ''">
+                and t1.chapter_no =#{chapterNo,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="level != null and level != ''">
+                and t1.level =#{level,jdbcType=INTEGER}            </if>
+                <if test="chapterName != null and chapterName.trim() != ''">
+                and t1.chapter_name =#{chapterName,jdbcType=VARCHAR}            </if>
+                <if test="chapterIcon != null and chapterIcon.trim() != ''">
+                and t1.chapter_icon =#{chapterIcon,jdbcType=VARCHAR}            </if>
+                <if test="chapterDesc != null and chapterDesc.trim() != ''">
+                and t1.chapter_desc =#{chapterDesc,jdbcType=VARCHAR}            </if>
+                <if test="chapterContent != null and chapterContent.trim() != ''">
+                and t1.chapter_content =#{chapterContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="classHour != null and classHour != ''">
+                and t1.class_hour =#{classHour,jdbcType=DECIMAL}            </if>
+                <if test="orderNum != null and orderNum != ''">
+                and t1.order_num =#{orderNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="isTraineesVisible != null and isTraineesVisible.trim() != ''">
+                and t1.is_trainees_visible =#{isTraineesVisible,jdbcType=VARCHAR}            </if>
+        </where>
+	</select>
+	
+	<!-- 根据课程ID拿章节ID -->
+	<select id="selectListByMapForChapter" resultMap="BaseResultMap"
+        parameterType="map">
+		select t2.chapter_name,t2.chapter_id from t_evgl_book_subject t1
+		left join t_evgl_book_chapter t2 on t1.subject_id = t2.subject_id
+		<where>
+			<if test="parentId != null and parentId.trim() != ''">
+               and t2.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+            <if test="state != null and state.trim() != ''">
+               and t2.state =#{state,jdbcType=VARCHAR}            		  </if> 
+       		<if test="subjectId != null and subjectId.trim() != ''">
+               and t2.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+               
+            <if test="subjectIds != null and subjectIds.size() > 0">
+                and t2.subject_id in
+                <foreach collection="subjectIds" item="subjectId" open="("
+					separator="," close=")">
+					#{subjectId}
+				</foreach>
+            </if> 
+             
+            <if test="chapterIds != null and chapterIds.size() > 0">
+              and t2.chapter_id in
+              <foreach collection="chapterIds" item="chapterId" open="("
+					separator="," close=")">
+					#{chapterId}
+			  </foreach>
+            </if>
+		</where>
+		<choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t2.order_num  asc
+            </otherwise>
+        </choose>
+		
+	</select>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+        insert into t_evgl_book_chapter
+        (
+            chapter_id, subject_id, chapter_no, parent_id, level,
+            chapter_name, chapter_icon, chapter_desc, chapter_content, class_hour,
+            order_num, create_user_id, create_time, update_user_id, update_time,
+            state
+        )
+        values
+        <foreach collection="list" item="obj" separator="," >
+            (
+            #{obj.chapterId}, #{obj.subjectId}, #{obj.chapterNo}, #{obj.parentId}, #{obj.level},
+            #{obj.chapterName}, #{obj.chapterIcon}, #{obj.chapterDesc}, #{obj.chapterContent}, #{obj.classHour},
+            #{obj.orderNum}, #{obj.createUserId}, #{obj.createTime}, #{obj.updateUserId}, #{obj.updateTime},
+            #{obj.state}
+            )
+        </foreach>
+    </insert>
+    
+    <select id="selectSimpleListByMapForRelease" resultType="map"
+        parameterType="map">
+        select chapter_id as chapterId, subject_id as subjectId, 
+        parent_id as parentId, level, chapter_name as chapterName, 
+        chapter_icon as chapterIcon
+        from T_EVGL_BOOK_CHAPTER
+        <where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="chapterNo != null and chapterNo.trim() != ''">
+                and chapter_no =#{chapterNo,jdbcType=VARCHAR}            </if>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="level != null and level != ''">
+                and level =#{level,jdbcType=INTEGER}            </if>
+                <if test="chapterName != null and chapterName.trim() != ''">
+                and chapter_name =#{chapterName,jdbcType=VARCHAR}            </if>
+                <if test="chapterIcon != null and chapterIcon.trim() != ''">
+                and chapter_icon =#{chapterIcon,jdbcType=VARCHAR}            </if>
+                <if test="chapterDesc != null and chapterDesc.trim() != ''">
+                and chapter_desc =#{chapterDesc,jdbcType=VARCHAR}            </if>
+                <if test="chapterContent != null and chapterContent.trim() != ''">
+                and chapter_content =#{chapterContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="classHour != null and classHour != ''">
+                and class_hour =#{classHour,jdbcType=DECIMAL}            </if>
+                <if test="orderNum != null and orderNum != ''">
+                and order_num =#{orderNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="isTraineesVisible != null and isTraineesVisible.trim() != ''">
+                and is_trainees_visible =#{isTraineesVisible,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by order_num asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="findAllChapterList" parameterType="java.lang.String" resultType="com.budaos.modules.evgl.book.vo.BookTreeVo">
+        select chapter_id as id, subject_id as subjectId, parent_id as parentId, level, chapter_name as name from T_EVGL_BOOK_CHAPTER where subject_id = #{subjectId}
+    </select>
+    
+    <select id="findChapterListByParentId" parameterType="java.lang.String" resultType="com.budaos.modules.evgl.book.vo.BookTreeVo">
+        select chapter_id as id, subject_id as subjectId, parent_id as parentId, `level`, chapter_name as name, order_num
+        from T_EVGL_BOOK_CHAPTER
+        where parent_id = #{parentId}
+        order by order_num asc
+    </select>
+    
+    <update id="updateBatchByCaseWhen" parameterType="java.util.List">
+        UPDATE T_EVGL_BOOK_CHAPTER
+        set order_num = case chapter_id
+        <foreach collection="list" item="item" open="" separator="" close="">
+            when #{item.chapterId} then #{item.orderNum}
+        </foreach>
+        end
+        where chapter_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.chapterId}
+        </foreach>
+    </update>
+</mapper>
+

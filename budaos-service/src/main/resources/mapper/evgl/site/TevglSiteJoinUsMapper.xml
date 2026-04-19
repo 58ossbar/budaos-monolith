@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.site.persistence.TevglSiteJoinUsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.site.domain.TevglSiteJoinUs">
+		<result column="id" jdbcType="VARCHAR"
+			property="id" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="company_name" jdbcType="VARCHAR"
+			property="companyName" />
+		<result column="post_name" jdbcType="VARCHAR"
+			property="postName" />
+		<result column="email" jdbcType="VARCHAR"
+			property="email" />
+		<result column="mobile" jdbcType="VARCHAR"
+			property="mobile" />
+		<result column="type" jdbcType="VARCHAR"
+			property="type" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="has_touch" jdbcType="VARCHAR"
+			property="hasTouch" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		id,user_name,company_name,post_name,email,mobile,type,create_time,create_user_id,has_touch
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteJoinUs">
+		INSERT INTO T_EVGL_SITE_JOIN_US (
+		id ,
+		user_name ,
+		company_name ,
+		post_name ,
+		email ,
+		mobile ,
+		type ,
+		create_time ,
+		create_user_id ,
+		has_touch 
+		) VALUES (
+
+#{id,jdbcType=VARCHAR} ,
+
+#{userName,jdbcType=VARCHAR} ,
+
+#{companyName,jdbcType=VARCHAR} ,
+
+#{postName,jdbcType=VARCHAR} ,
+
+#{email,jdbcType=VARCHAR} ,
+
+#{mobile,jdbcType=VARCHAR} ,
+
+#{type,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{hasTouch,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteJoinUs">
+		UPDATE T_EVGL_SITE_JOIN_US 
+		<set>
+		<if test="userName != null">
+		user_name = #{userName,jdbcType=VARCHAR},
+		</if>
+		<if test="companyName != null">
+		company_name = #{companyName,jdbcType=VARCHAR},
+		</if>
+		<if test="postName != null">
+		post_name = #{postName,jdbcType=VARCHAR},
+		</if>
+		<if test="email != null">
+		email = #{email,jdbcType=VARCHAR},
+		</if>
+		<if test="mobile != null">
+		mobile = #{mobile,jdbcType=VARCHAR},
+		</if>
+		<if test="type != null">
+		type = #{type,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="hasTouch != null">
+		has_touch = #{hasTouch,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		id = #{id,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_JOIN_US WHERE
+		id =
+		#{id,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_JOIN_US WHERE
+		id in
+		<foreach item="id" collection="array" open="("
+			separator="," close=")">
+#{id,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_SITE_JOIN_US WHERE
+		id = #{id,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_SITE_JOIN_US
+        <where>
+                <if test="userName != null and userName.trim() != ''">
+                and user_name like concat ('%', #{userName,jdbcType=VARCHAR}, '%')            </if>
+                <if test="companyName != null and companyName.trim() != ''">
+                and company_name like concat ('%', #{companyName,jdbcType=VARCHAR}, '%')            </if>
+                <if test="postName != null and postName.trim() != ''">
+                and post_name like concat ('%', #{postName,jdbcType=VARCHAR}, '%')            </if>
+                <if test="email != null and email.trim() != ''">
+                and email like concat ('%', #{email,jdbcType=VARCHAR}, '%')             </if>
+                <if test="mobile != null and mobile.trim() != ''">
+                and mobile like concat ('%', #{mobile,jdbcType=VARCHAR}, '%')            </if>
+                <if test="type != null and type.trim() != ''">
+                and type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="hasTouch != null and hasTouch.trim() != ''">
+                and has_touch =#{hasTouch,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_SITE_JOIN_US t1
+        <where>
+                <if test="userName != null and userName.trim() != ''">
+                and t1.user_name =#{userName,jdbcType=VARCHAR}            </if>
+                <if test="companyName != null and companyName.trim() != ''">
+                and t1.company_name =#{companyName,jdbcType=VARCHAR}            </if>
+                <if test="postName != null and postName.trim() != ''">
+                and t1.post_name =#{postName,jdbcType=VARCHAR}            </if>
+                <if test="email != null and email.trim() != ''">
+                and t1.email =#{email,jdbcType=VARCHAR}            </if>
+                <if test="mobile != null and mobile.trim() != ''">
+                and t1.mobile =#{mobile,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="hasTouch != null and hasTouch.trim() != ''">
+                and t1.has_touch =#{hasTouch,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TuserGroupMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TuserGroup">
+		<result column="USERGROUP_ID" jdbcType="VARCHAR"
+			property="usergroupId" />
+		<result column="GROUP_ID" jdbcType="VARCHAR"
+			property="groupId" />
+		<result column="USER_ID" jdbcType="VARCHAR"
+			property="userId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		USERGROUP_ID,GROUP_ID,USER_ID
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TuserGroup">
+		INSERT INTO T_USER_GROUP (
+		USERGROUP_ID ,
+		GROUP_ID ,
+		USER_ID 
+		) VALUES (
+
+		#{usergroupId,jdbcType=VARCHAR} ,
+
+		#{groupId,jdbcType=VARCHAR} ,
+
+		#{userId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TuserGroup">
+		UPDATE T_USER_GROUP SET
+		GROUP_ID = #{groupId,jdbcType=VARCHAR}
+		,
+		USER_ID = #{userId,jdbcType=VARCHAR}
+		
+		WHERE
+		USERGROUP_ID = #{usergroupId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_USER_GROUP WHERE
+		USERGROUP_ID = #{usergroupId,jdbcType=VARCHAR} 
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_USER_GROUP WHERE
+		USERGROUP_ID = #{usergroupId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+
+</mapper>
+

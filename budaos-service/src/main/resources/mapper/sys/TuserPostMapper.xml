@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TuserPostMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TuserPost">
+		<result column="USER_JOBID" jdbcType="VARCHAR"
+			property="userJobid" />
+		<result column="USER_ID" jdbcType="VARCHAR"
+			property="userId" />
+		<result column="POST_ID" jdbcType="VARCHAR"
+			property="postId" />
+		<result column="IS_MAIN" jdbcType="VARCHAR"
+			property="isMain" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		USER_JOBID,USER_ID,POST_ID,IS_MAIN
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TuserPost">
+		INSERT INTO T_USER_POST (
+		USER_JOBID ,
+		USER_ID ,
+		POST_ID ,
+		IS_MAIN 
+		) VALUES (
+
+		#{userJobid,jdbcType=VARCHAR} ,
+
+		#{userId,jdbcType=VARCHAR} ,
+
+		#{postId,jdbcType=VARCHAR} ,
+
+		#{isMain,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TuserPost">
+		UPDATE T_USER_POST SET
+		USER_ID = #{userId,jdbcType=VARCHAR}
+		,
+		POST_ID = #{postId,jdbcType=VARCHAR}
+		,
+		IS_MAIN = #{isMain,jdbcType=VARCHAR}
+		
+		WHERE
+		USER_JOBID = #{userJobid,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_USER_POST WHERE
+		user_id = #{userId,jdbcType=VARCHAR} 
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_USER_POST WHERE
+		USER_JOBID = #{userJobid,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<delete id="deleteBatch">
+			DELETE FROM T_USER_POST WHERE user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+	<select id="selectListMapByMap" resultMap="BaseResultMap" parameterType="map">
+		select t1.*, t2.post_name as postName from t_user_post t1 
+		inner join t_sys_post t2 on t1.post_id = t2.post_id
+		<where>
+			and t1.post_id in
+			<foreach collection="array" item="postId" open="("
+				separator="," close=")">
+				#{postId}
+			</foreach>
+		</where>
+	</select>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into T_USER_POST
+		(
+		USER_JOBID ,
+		USER_ID ,
+		POST_ID ,
+		IS_MAIN
+		)
+		values
+		<foreach collection="list" item="obj" separator="," >
+			(
+			#{obj.userJobid,jdbcType=VARCHAR},
+			#{obj.userId,jdbcType=VARCHAR},
+			#{obj.postId,jdbcType=VARCHAR},
+			#{obj.isMain,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<select id="selectPostIdListByUserId" resultType="string">
+		select post_id from t_user_post where user_id = #{userId} order by IS_MAIN desc
+	</select>
+</mapper>
+

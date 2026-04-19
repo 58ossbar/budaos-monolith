@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityLiveMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivityLive">
+		<result column="activity_id" jdbcType="VARCHAR"
+			property="activityId" />
+		<result column="activity_title" jdbcType="VARCHAR"
+			property="activityTitle" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="activity_begin_time" jdbcType="VARCHAR"
+			property="activityBeginTime" />
+		<result column="activity_end_time" jdbcType="VARCHAR"
+			property="activityEndTime" />
+		<result column="activity_state" jdbcType="VARCHAR"
+			property="activityState" />
+		<result column="empirical_value" jdbcType="INTEGER"
+			property="empiricalValue" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="resgroup_id" jdbcType="VARCHAR"
+			property="resgroupId" />
+		<result column="chapter_id" jdbcType="INTEGER"
+			property="chapterId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		activity_id,activity_title,content,activity_begin_time,activity_end_time,activity_state,empirical_value,create_user_id,create_time,update_user_id,update_time,sort_num,resgroup_id,chapter_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityLive">
+		INSERT INTO T_EVGL_ACTIVITY_LIVE (
+		activity_id ,
+		activity_title ,
+		content ,
+		activity_begin_time ,
+		activity_end_time ,
+		activity_state ,
+		empirical_value ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		sort_num ,
+		resgroup_id ,
+		chapter_id 
+		) VALUES (
+
+#{activityId,jdbcType=VARCHAR} ,
+
+#{activityTitle,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{activityBeginTime,jdbcType=VARCHAR} ,
+
+#{activityEndTime,jdbcType=VARCHAR} ,
+
+#{activityState,jdbcType=VARCHAR} ,
+
+#{empiricalValue,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{resgroupId,jdbcType=VARCHAR} ,
+
+#{chapterId,jdbcType=INTEGER} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityLive">
+		UPDATE T_EVGL_ACTIVITY_LIVE 
+		<set>
+		<if test="activityTitle != null">
+		activity_title = #{activityTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="activityBeginTime != null">
+		activity_begin_time = #{activityBeginTime,jdbcType=VARCHAR},
+		</if>
+		<if test="activityEndTime != null">
+		activity_end_time = #{activityEndTime,jdbcType=VARCHAR},
+		</if>
+		<if test="activityState != null">
+		activity_state = #{activityState,jdbcType=VARCHAR},
+		</if>
+		<if test="empiricalValue != null">
+		empirical_value = #{empiricalValue,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="resgroupId != null">
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterId != null">
+		chapter_id = #{chapterId,jdbcType=INTEGER},
+		</if>
+		</set>
+		WHERE
+		activity_id = #{activityId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_LIVE WHERE
+		activity_id =
+		#{activityId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_LIVE WHERE
+		activity_id in
+		<foreach item="activityId" collection="array" open="("
+			separator="," close=")">
+#{activityId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_LIVE WHERE
+		activity_id = #{activityId,jdbcType=VARCHAR} 
+	</select>
+	<select id="selectObjectByIdAndPkgId" parameterType="map" resultMap="BaseResultMap">
+		select relation.activity_state as activityStateActual,
+		relation.activity_begin_time, relation.activity_end_time,
+		t1.*
+		from T_EVGL_ACTIVITY_LIVE t1
+		inner join t_evgl_pkg_activity_relation relation on t1.activity_id = relation.activity_id
+		WHERE relation.activity_id = #{activityId,jdbcType=VARCHAR} and relation.pkg_id = #{pkgId}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_LIVE
+        <where>
+                <if test="activityTitle != null and activityTitle.trim() != ''">
+                and activity_title =#{activityTitle,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="activityBeginTime != null and activityBeginTime.trim() != ''">
+                and activity_begin_time =#{activityBeginTime,jdbcType=VARCHAR}            </if>
+                <if test="activityEndTime != null and activityEndTime.trim() != ''">
+                and activity_end_time =#{activityEndTime,jdbcType=VARCHAR}            </if>
+                <if test="activityState != null and activityState.trim() != ''">
+                and activity_state =#{activityState,jdbcType=VARCHAR}            </if>
+                <if test="empiricalValue != null and empiricalValue != ''">
+                and empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId != ''">
+                and chapter_id =#{chapterId,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by activity_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_LIVE t1
+        <where>
+                <if test="activityTitle != null and activityTitle.trim() != ''">
+                and t1.activity_title =#{activityTitle,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="activityBeginTime != null and activityBeginTime.trim() != ''">
+                and t1.activity_begin_time =#{activityBeginTime,jdbcType=VARCHAR}            </if>
+                <if test="activityEndTime != null and activityEndTime.trim() != ''">
+                and t1.activity_end_time =#{activityEndTime,jdbcType=VARCHAR}            </if>
+                <if test="activityState != null and activityState.trim() != ''">
+                and t1.activity_state =#{activityState,jdbcType=VARCHAR}            </if>
+                <if test="empiricalValue != null and empiricalValue != ''">
+                and t1.empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.activity_id  desc
+            </otherwise>
+        </choose>
+    </select>
+
+	<select id="getMaxSortNum" resultType="integer" parameterType="map">
+		select ifnull(max(sort_num), 0) + 1 from T_EVGL_ACTIVITY_LIVE t1
+		<where>
+			<if test="activityTitle != null and activityTitle.trim() != ''">
+				and t1.activity_title =#{activityTitle,jdbcType=VARCHAR}            </if>
+			<if test="content != null and content.trim() != ''">
+				and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+			<if test="activityBeginTime != null and activityBeginTime.trim() != ''">
+				and t1.activity_begin_time =#{activityBeginTime,jdbcType=VARCHAR}            </if>
+			<if test="activityEndTime != null and activityEndTime.trim() != ''">
+				and t1.activity_end_time =#{activityEndTime,jdbcType=VARCHAR}            </if>
+			<if test="activityState != null and activityState.trim() != ''">
+				and t1.activity_state =#{activityState,jdbcType=VARCHAR}            </if>
+			<if test="empiricalValue != null and empiricalValue != ''">
+				and t1.empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+			<if test="updateTime != null and updateTime.trim() != ''">
+				and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.activity_id  desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+

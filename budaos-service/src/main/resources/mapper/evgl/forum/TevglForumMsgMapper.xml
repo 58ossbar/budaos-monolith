@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.forum.persistence.TevglForumMsgMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.forum.domain.TevglForumMsg">
+		<result column="msg_id" jdbcType="VARCHAR"
+			property="msgId" />
+		<result column="to_trainee_id" jdbcType="VARCHAR"
+			property="toTraineeId" />
+		<result column="from_trainee_id" jdbcType="VARCHAR"
+			property="fromTraineeId" />
+		<result column="third_trainee_id" jdbcType="VARCHAR"
+			property="thirdTraineeId" />
+		<result column="msg_type" jdbcType="VARCHAR"
+			property="msgType" />
+		<result column="msg_title" jdbcType="VARCHAR"
+			property="msgTitle" />
+		<result column="msg_content" jdbcType="LONGVARCHAR"
+			property="msgContent" />
+		<result column="msg_target_id" jdbcType="VARCHAR"
+			property="msgTargetId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="msg_is_read" jdbcType="VARCHAR"
+			property="msgIsRead" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		msg_id,to_trainee_id,from_trainee_id,third_trainee_id,msg_type,msg_title,msg_content,msg_target_id,create_time,msg_is_read,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumMsg">
+		INSERT INTO T_EVGL_FORUM_MSG (
+		msg_id ,
+		to_trainee_id ,
+		from_trainee_id ,
+		third_trainee_id ,
+		msg_type ,
+		msg_title ,
+		msg_content ,
+		msg_target_id ,
+		create_time ,
+		msg_is_read ,
+		state 
+		) VALUES (
+
+#{msgId,jdbcType=VARCHAR} ,
+
+#{toTraineeId,jdbcType=VARCHAR} ,
+
+#{fromTraineeId,jdbcType=VARCHAR} ,
+
+#{thirdTraineeId,jdbcType=VARCHAR} ,
+
+#{msgType,jdbcType=VARCHAR} ,
+
+#{msgTitle,jdbcType=VARCHAR} ,
+
+#{msgContent,jdbcType=LONGVARCHAR} ,
+
+#{msgTargetId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{msgIsRead,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumMsg">
+		UPDATE T_EVGL_FORUM_MSG 
+		<set>
+		<if test="toTraineeId != null">
+		to_trainee_id = #{toTraineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="fromTraineeId != null">
+		from_trainee_id = #{fromTraineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="thirdTraineeId != null">
+		third_trainee_id = #{thirdTraineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="msgType != null">
+		msg_type = #{msgType,jdbcType=VARCHAR},
+		</if>
+		<if test="msgTitle != null">
+		msg_title = #{msgTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="msgContent != null">
+		msg_content = #{msgContent,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="msgTargetId != null">
+		msg_target_id = #{msgTargetId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="msgIsRead != null">
+		msg_is_read = #{msgIsRead,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		msg_id = #{msgId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_MSG WHERE
+		msg_id =
+		#{msgId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_MSG WHERE
+		msg_id in
+		<foreach item="msgId" collection="array" open="("
+			separator="," close=")">
+#{msgId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_FORUM_MSG WHERE
+		msg_id = #{msgId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_FORUM_MSG
+        <where>
+                <if test="toTraineeId != null and toTraineeId.trim() != ''">
+                and to_trainee_id =#{toTraineeId,jdbcType=VARCHAR}            </if>
+                <if test="fromTraineeId != null and fromTraineeId.trim() != ''">
+                and from_trainee_id =#{fromTraineeId,jdbcType=VARCHAR}            </if>
+                <if test="thirdTraineeId != null and thirdTraineeId.trim() != ''">
+                and third_trainee_id =#{thirdTraineeId,jdbcType=VARCHAR}            </if>
+                <if test="msgType != null and msgType.trim() != ''">
+                and msg_type =#{msgType,jdbcType=VARCHAR}            </if>
+                <if test="msgTitle != null and msgTitle.trim() != ''">
+                and msg_title =#{msgTitle,jdbcType=VARCHAR}            </if>
+                <if test="msgContent != null and msgContent.trim() != ''">
+                and msg_content =#{msgContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="msgTargetId != null and msgTargetId.trim() != ''">
+                and msg_target_id =#{msgTargetId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="msgIsRead != null and msgIsRead.trim() != ''">
+                and msg_is_read =#{msgIsRead,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by msg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_FORUM_MSG t1
+        <where>
+                <if test="toTraineeId != null and toTraineeId.trim() != ''">
+                and t1.to_trainee_id =#{toTraineeId,jdbcType=VARCHAR}            </if>
+                <if test="fromTraineeId != null and fromTraineeId.trim() != ''">
+                and t1.from_trainee_id =#{fromTraineeId,jdbcType=VARCHAR}            </if>
+                <if test="thirdTraineeId != null and thirdTraineeId.trim() != ''">
+                and t1.third_trainee_id =#{thirdTraineeId,jdbcType=VARCHAR}            </if>
+                <if test="msgType != null and msgType.trim() != ''">
+                and t1.msg_type =#{msgType,jdbcType=VARCHAR}            </if>
+                <if test="msgTitle != null and msgTitle.trim() != ''">
+                and t1.msg_title =#{msgTitle,jdbcType=VARCHAR}            </if>
+                <if test="msgContent != null and msgContent.trim() != ''">
+                and t1.msg_content =#{msgContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="msgTargetId != null and msgTargetId.trim() != ''">
+                and t1.msg_target_id =#{msgTargetId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="msgIsRead != null and msgIsRead.trim() != ''">
+                and t1.msg_is_read =#{msgIsRead,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.msg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

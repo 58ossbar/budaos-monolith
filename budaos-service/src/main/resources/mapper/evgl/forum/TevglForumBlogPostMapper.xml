@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.forum.persistence.TevglForumBlogPostMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.forum.domain.TevglForumBlogPost">
+		<result column="post_id" jdbcType="VARCHAR"
+			property="postId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="post_title" jdbcType="VARCHAR"
+			property="postTitle" />
+		<result column="post_content" jdbcType="LONGVARCHAR"
+			property="postContent" />
+		<result column="post_lable" jdbcType="VARCHAR"
+			property="postLable" />
+		<result column="post_time" jdbcType="VARCHAR"
+			property="postTime" />
+		<result column="post_is_reply" jdbcType="VARCHAR"
+			property="postIsReply" />
+		<result column="post_is_recommend" jdbcType="VARCHAR"
+			property="postIsRecommend" />
+		<result column="post_is_choice" jdbcType="VARCHAR"
+			property="postIsChoice" />
+		<result column="post_is_stick" jdbcType="VARCHAR"
+			property="postIsStick" />
+		<result column="post_stick_sort" jdbcType="INTEGER"
+			property="postStickSort" />
+		<result column="post_is_resolve" jdbcType="VARCHAR"
+			property="postIsResolve" />
+		<result column="view_num" jdbcType="INTEGER"
+			property="viewNum" />
+		<result column="store_num" jdbcType="INTEGER"
+			property="storeNum" />
+		<result column="reply_num" jdbcType="INTEGER"
+			property="replyNum" />
+		<result column="like_num" jdbcType="INTEGER"
+			property="likeNum" />
+		<result column="report_num" jdbcType="INTEGER"
+			property="reportNum" />
+		<result column="last_reply_trainee" jdbcType="VARCHAR"
+			property="lastReplyTrainee" />
+		<result column="last_reply_time" jdbcType="VARCHAR"
+			property="lastReplyTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="blog_id" jdbcType="VARCHAR"
+			property="blogId" />
+		<result column="blog_type" jdbcType="VARCHAR"
+			property="blogType" />
+		<result column="dict_code" jdbcType="VARCHAR"
+			property="dictCode" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		post_id,trainee_id,subject_id,post_title,post_content,post_lable,post_time,post_is_reply,post_is_recommend,post_is_choice,post_is_stick,post_stick_sort,post_is_resolve,view_num,store_num,reply_num,like_num,report_num,last_reply_trainee,last_reply_time,state,blog_id,blog_type
+		,dict_code,update_time
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumBlogPost">
+		INSERT INTO T_EVGL_FORUM_BLOG_POST (
+		post_id ,
+		trainee_id ,
+		subject_id ,
+		post_title ,
+		post_content ,
+		post_lable ,
+		post_time ,
+		post_is_reply ,
+		post_is_recommend ,
+		post_is_choice ,
+		post_is_stick ,
+		post_stick_sort ,
+		post_is_resolve ,
+		view_num ,
+		store_num ,
+		reply_num ,
+		like_num ,
+		report_num ,
+		last_reply_trainee ,
+		last_reply_time ,
+		state ,
+		blog_id ,
+		blog_type ,
+		dict_code ,
+		update_time
+		) VALUES (
+
+#{postId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{postTitle,jdbcType=VARCHAR} ,
+
+#{postContent,jdbcType=LONGVARCHAR} ,
+
+#{postLable,jdbcType=VARCHAR} ,
+
+#{postTime,jdbcType=VARCHAR} ,
+
+#{postIsReply,jdbcType=VARCHAR} ,
+
+#{postIsRecommend,jdbcType=VARCHAR} ,
+
+#{postIsChoice,jdbcType=VARCHAR} ,
+
+#{postIsStick,jdbcType=VARCHAR} ,
+
+#{postStickSort,jdbcType=INTEGER} ,
+
+#{postIsResolve,jdbcType=VARCHAR} ,
+
+#{viewNum,jdbcType=INTEGER} ,
+
+#{storeNum,jdbcType=INTEGER} ,
+
+#{replyNum,jdbcType=INTEGER} ,
+
+#{likeNum,jdbcType=INTEGER} ,
+
+#{reportNum,jdbcType=INTEGER} ,
+
+#{lastReplyTrainee,jdbcType=VARCHAR} ,
+
+#{lastReplyTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{blogId,jdbcType=VARCHAR} ,
+
+#{blogType,jdbcType=VARCHAR} ,
+
+#{dictCode,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumBlogPost">
+		UPDATE T_EVGL_FORUM_BLOG_POST 
+		<set>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="postTitle != null">
+		post_title = #{postTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="postContent != null">
+		post_content = #{postContent,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="postLable != null">
+		post_lable = #{postLable,jdbcType=VARCHAR},
+		</if>
+		<if test="postTime != null">
+		post_time = #{postTime,jdbcType=VARCHAR},
+		</if>
+		<if test="postIsReply != null">
+		post_is_reply = #{postIsReply,jdbcType=VARCHAR},
+		</if>
+		<if test="postIsRecommend != null">
+		post_is_recommend = #{postIsRecommend,jdbcType=VARCHAR},
+		</if>
+		<if test="postIsChoice != null">
+		post_is_choice = #{postIsChoice,jdbcType=VARCHAR},
+		</if>
+		<if test="postIsStick != null">
+		post_is_stick = #{postIsStick,jdbcType=VARCHAR},
+		</if>
+		<if test="postStickSort != null">
+		post_stick_sort = #{postStickSort,jdbcType=INTEGER},
+		</if>
+		<if test="postIsResolve != null">
+		post_is_resolve = #{postIsResolve,jdbcType=VARCHAR},
+		</if>
+		<if test="viewNum != null">
+		view_num = #{viewNum,jdbcType=INTEGER},
+		</if>
+		<if test="storeNum != null">
+		store_num = #{storeNum,jdbcType=INTEGER},
+		</if>
+		<if test="replyNum != null">
+		reply_num = #{replyNum,jdbcType=INTEGER},
+		</if>
+		<if test="likeNum != null">
+		like_num = #{likeNum,jdbcType=INTEGER},
+		</if>
+		<if test="reportNum != null">
+		report_num = #{reportNum,jdbcType=INTEGER},
+		</if>
+		<if test="lastReplyTrainee != null">
+		last_reply_trainee = #{lastReplyTrainee,jdbcType=VARCHAR},
+		</if>
+		<if test="lastReplyTime != null">
+		last_reply_time = #{lastReplyTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="blogId != null">
+		blog_id = #{blogId,jdbcType=VARCHAR},
+		</if>
+		<if test="blogType != null">
+		blog_type = #{blogType,jdbcType=VARCHAR},
+		</if>
+		<if test="dictCode != null">
+		dict_code = #{dictCode,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		post_id = #{postId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_BLOG_POST WHERE
+		post_id =
+		#{postId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_BLOG_POST WHERE
+		post_id in
+		<foreach item="postId" collection="array" open="("
+			separator="," close=")">
+#{postId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_FORUM_BLOG_POST WHERE
+		post_id = #{postId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_FORUM_BLOG_POST
+        <where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="postTitle != null and postTitle.trim() != ''">
+                and post_title =#{postTitle,jdbcType=VARCHAR}            </if>
+                <if test="postContent != null and postContent.trim() != ''">
+                and post_content =#{postContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="postLable != null and postLable.trim() != ''">
+                and post_lable =#{postLable,jdbcType=VARCHAR}            </if>
+                <if test="postTime != null and postTime.trim() != ''">
+                and post_time =#{postTime,jdbcType=VARCHAR}            </if>
+                <if test="postIsReply != null and postIsReply.trim() != ''">
+                and post_is_reply =#{postIsReply,jdbcType=VARCHAR}            </if>
+                <if test="postIsRecommend != null and postIsRecommend.trim() != ''">
+                and post_is_recommend =#{postIsRecommend,jdbcType=VARCHAR}            </if>
+                <if test="postIsChoice != null and postIsChoice.trim() != ''">
+                and post_is_choice =#{postIsChoice,jdbcType=VARCHAR}            </if>
+                <if test="postIsStick != null and postIsStick.trim() != ''">
+                and post_is_stick =#{postIsStick,jdbcType=VARCHAR}            </if>
+                <if test="postStickSort != null and postStickSort != ''">
+                and post_stick_sort =#{postStickSort,jdbcType=INTEGER}            </if>
+                <if test="postIsResolve != null and postIsResolve.trim() != ''">
+                and post_is_resolve =#{postIsResolve,jdbcType=VARCHAR}            </if>
+                <if test="viewNum != null and viewNum != ''">
+                and view_num =#{viewNum,jdbcType=INTEGER}            </if>
+                <if test="storeNum != null and storeNum != ''">
+                and store_num =#{storeNum,jdbcType=INTEGER}            </if>
+                <if test="replyNum != null and replyNum != ''">
+                and reply_num =#{replyNum,jdbcType=INTEGER}            </if>
+                <if test="likeNum != null and likeNum != ''">
+                and like_num =#{likeNum,jdbcType=INTEGER}            </if>
+                <if test="reportNum != null and reportNum != ''">
+                and report_num =#{reportNum,jdbcType=INTEGER}            </if>
+                <if test="lastReplyTrainee != null and lastReplyTrainee.trim() != ''">
+                and last_reply_trainee =#{lastReplyTrainee,jdbcType=VARCHAR}            </if>
+                <if test="lastReplyTime != null and lastReplyTime.trim() != ''">
+                and last_reply_time =#{lastReplyTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="blogId != null and blogId.trim() != ''">
+                and blog_id =#{blogId,jdbcType=VARCHAR}            </if>
+                <if test="blogType != null and blogType.trim() != ''">
+                and blog_type =#{blogType,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by post_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_FORUM_BLOG_POST t1
+        <where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="postTitle != null and postTitle.trim() != ''">
+                and t1.post_title =#{postTitle,jdbcType=VARCHAR}            </if>
+                <if test="postContent != null and postContent.trim() != ''">
+                and t1.post_content =#{postContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="postLable != null and postLable.trim() != ''">
+                and t1.post_lable =#{postLable,jdbcType=VARCHAR}            </if>
+                <if test="postTime != null and postTime.trim() != ''">
+                and t1.post_time =#{postTime,jdbcType=VARCHAR}            </if>
+                <if test="postIsReply != null and postIsReply.trim() != ''">
+                and t1.post_is_reply =#{postIsReply,jdbcType=VARCHAR}            </if>
+                <if test="postIsRecommend != null and postIsRecommend.trim() != ''">
+                and t1.post_is_recommend =#{postIsRecommend,jdbcType=VARCHAR}            </if>
+                <if test="postIsChoice != null and postIsChoice.trim() != ''">
+                and t1.post_is_choice =#{postIsChoice,jdbcType=VARCHAR}            </if>
+                <if test="postIsStick != null and postIsStick.trim() != ''">
+                and t1.post_is_stick =#{postIsStick,jdbcType=VARCHAR}            </if>
+                <if test="postStickSort != null and postStickSort != ''">
+                and t1.post_stick_sort =#{postStickSort,jdbcType=INTEGER}            </if>
+                <if test="postIsResolve != null and postIsResolve.trim() != ''">
+                and t1.post_is_resolve =#{postIsResolve,jdbcType=VARCHAR}            </if>
+                <if test="viewNum != null and viewNum != ''">
+                and t1.view_num =#{viewNum,jdbcType=INTEGER}            </if>
+                <if test="storeNum != null and storeNum != ''">
+                and t1.store_num =#{storeNum,jdbcType=INTEGER}            </if>
+                <if test="replyNum != null and replyNum != ''">
+                and t1.reply_num =#{replyNum,jdbcType=INTEGER}            </if>
+                <if test="likeNum != null and likeNum != ''">
+                and t1.like_num =#{likeNum,jdbcType=INTEGER}            </if>
+                <if test="reportNum != null and reportNum != ''">
+                and t1.report_num =#{reportNum,jdbcType=INTEGER}            </if>
+                <if test="lastReplyTrainee != null and lastReplyTrainee.trim() != ''">
+                and t1.last_reply_trainee =#{lastReplyTrainee,jdbcType=VARCHAR}            </if>
+                <if test="lastReplyTime != null and lastReplyTime.trim() != ''">
+                and t1.last_reply_time =#{lastReplyTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="blogId != null and blogId.trim() != ''">
+                and t1.blog_id =#{blogId,jdbcType=VARCHAR}            </if>
+                <if test="blogType != null and blogType.trim() != ''">
+                and t1.blog_type =#{blogType,jdbcType=VARCHAR}            </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.post_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 查看收藏博客的记录 -->
+    <select id="collectBlog" resultType="map" parameterType="map">
+    	SELECT
+			t1.post_id AS postId,
+			t1.trainee_id AS traineeId,
+			t3.nick_name as traineeName,
+			t3.trainee_head as blogHead,
+			t1.post_title as title,
+			t1.post_lable as label,
+			t1.post_time as postTime,
+			IFNULL(t1.view_num,0) as viewNum,
+			IFNULL(t1.store_num,0) as storeNum,
+			IFNULL(t1.reply_num,0) as replyNum,
+			IFNULL(t1.like_num,0) as likeNum,
+			IFNULL(t1.report_num,0) as reportNum,
+			t1.last_reply_trainee as replyTrainee,
+			t1.last_reply_time as replyTime,
+			t1.state as state
+		FROM
+			t_evgl_forum_blog_post t1
+			INNER JOIN t_medu_me_favority t2 ON t1.post_id = t2.target_id
+			INNER JOIN t_evgl_trainee_info t3 on t1.trainee_id = t3.trainee_id
+		<where>
+			<if test="traineeId != null and traineeId.trim() != ''">
+                and t2.trainee_id =#{traineeId,jdbcType=VARCHAR}            
+            </if>
+            <if test="postTitle != null and postTitle.trim() != ''">
+            and ( t1.post_title like concat('%', #{postTitle,jdbcType=VARCHAR}, '%')
+            or t1.post_lable like concat('%', #{postTitle,jdbcType=VARCHAR}, '%') )
+            </if>
+            <if test="favorityType != null and favorityType.trim() != ''">
+                and t2.favority_type =#{favorityType,jdbcType=VARCHAR}            
+            </if>
+            <!-- 时间筛选 -->
+            <if test="pubdate == 1">  <!-- 时间不限 -->
+			AND t1.post_time in (select post_time from t_evgl_forum_blog_post)
+			</if>
+            <if test="pubdate == 2">  <!-- 最近一周内的记录 -->
+			AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+			<if test="pubdate == 3">  <!-- 最近一月内的记录 -->
+			AND DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+			<if test="pubdate == 4">  <!-- 最近三月内的记录 -->
+			AND DATE_SUB(CURDATE(), INTERVAL 3 MONTH) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+			<if test="pubdate == 5">  <!-- 最近一年内的记录 -->
+			AND DATE_SUB(CURDATE(), INTERVAL 1 YEAR) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+		</where>
+		<choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.post_time  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListMap" resultType="map" parameterType="map">
+    	SELECT
+			t1.post_id as postId,
+			t1.trainee_id as traineeId,
+			t2.nick_name as traineeName,
+			t2.trainee_head as blogHead,
+			t1.post_title as title,
+			t1.post_lable as label,
+			t1.post_time as postTime,
+			IFNULL(t1.view_num,0) as viewNum,
+			IFNULL(t1.store_num,0) as storeNum,
+			IFNULL(t1.reply_num,0) as replyNum,
+			IFNULL(t1.like_num,0) as likeNum,
+			IFNULL(t1.report_num,0) as reportNum,
+			t1.last_reply_trainee as replyTrainee,
+			t1.last_reply_time as replyTime,
+			t1.state
+		FROM
+			t_evgl_forum_blog_post t1
+			INNER JOIN t_evgl_trainee_info t2 on t1.trainee_id = t2.trainee_id
+		<where>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            
+                </if>
+                <if test="traineeIds != null and traineeIds.size() > 0">
+                and t1.trainee_id in
+                	<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+                		#{traineeId,jdbcType=VARCHAR}
+                	</foreach>            
+                </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            
+                </if>
+                <if test="postTitle != null and postTitle.trim() != ''">
+                and ( t1.post_title like concat('%', #{postTitle,jdbcType=VARCHAR}, '%')
+                or t1.post_lable like concat('%', #{postTitle,jdbcType=VARCHAR}, '%') )
+                </if>
+                <if test="postContent != null and postContent.trim() != ''">
+                and t1.post_content =#{postContent,jdbcType=LONGVARCHAR}            
+                </if>
+                <if test="postTime != null and postTime.trim() != ''">
+                and t1.post_time =#{postTime,jdbcType=VARCHAR}            
+                </if>
+                <if test="postIsReply != null and postIsReply.trim() != ''">
+                and t1.post_is_reply =#{postIsReply,jdbcType=VARCHAR}            
+                </if>
+                <if test="postIsRecommend != null and postIsRecommend.trim() != ''">
+                and t1.post_is_recommend =#{postIsRecommend,jdbcType=VARCHAR}            
+                </if>
+                <if test="postIsChoice != null and postIsChoice.trim() != ''">
+                and t1.post_is_choice =#{postIsChoice,jdbcType=VARCHAR}            
+                </if>
+                <if test="postIsStick != null and postIsStick.trim() != ''">
+                and t1.post_is_stick =#{postIsStick,jdbcType=VARCHAR}            
+                </if>
+                <if test="postStickSort != null and postStickSort != ''">
+                and t1.post_stick_sort =#{postStickSort,jdbcType=INTEGER}            
+                </if>
+                <if test="postIsResolve != null and postIsResolve.trim() != ''">
+                and t1.post_is_resolve =#{postIsResolve,jdbcType=VARCHAR}            
+                </if>
+                <if test="viewNum != null and viewNum != ''">
+                and t1.view_num =#{viewNum,jdbcType=INTEGER}            
+                </if>
+                <if test="storeNum != null and storeNum != ''">
+                and t1.store_num =#{storeNum,jdbcType=INTEGER}            
+                </if>
+                <if test="replyNum != null and replyNum != ''">
+                and t1.reply_num =#{replyNum,jdbcType=INTEGER}            
+                </if>
+                <if test="likeNum != null and likeNum != ''">
+                and t1.like_num =#{likeNum,jdbcType=INTEGER}            
+                </if>
+                <if test="reportNum != null and reportNum != ''">
+                and t1.report_num =#{reportNum,jdbcType=INTEGER}            
+                </if>
+                <if test="lastReplyTrainee != null and lastReplyTrainee.trim() != ''">
+                and t1.last_reply_trainee =#{lastReplyTrainee,jdbcType=VARCHAR}            
+                </if>
+                <if test="lastReplyTime != null and lastReplyTime.trim() != ''">
+                and t1.last_reply_time =#{lastReplyTime,jdbcType=VARCHAR}            
+                </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            
+                </if>
+                <if test="blogId != null and blogId.trim() != ''">
+                and t1.blog_id =#{blogId,jdbcType=VARCHAR}            
+                </if>
+                <if test="blogType != null and blogType.trim() != ''">
+                and t1.blog_type =#{blogType,jdbcType=VARCHAR}            
+                </if>
+                <if test="dictCode != null and dictCode.trim() != ''">
+                and t1.dict_code =#{dictCode,jdbcType=VARCHAR}            
+                </if>
+                <!-- 时间筛选 -->
+                <if test="pubdate == 1">  <!-- 时间不限 -->
+				  AND t1.post_time in (select post_time from t_evgl_forum_blog_post)
+				</if>
+                <if test="pubdate == 2">  <!-- 最近一周内的记录 -->
+				  AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) <![CDATA[<= ]]> date(t1.post_time)
+				</if>
+				<if test="pubdate == 3">  <!-- 最近一月内的记录 -->
+				  AND DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(t1.post_time)
+				</if>
+				<if test="pubdate == 4">  <!-- 最近三月内的记录 -->
+				  AND DATE_SUB(CURDATE(), INTERVAL 3 MONTH) <![CDATA[<= ]]> date(t1.post_time)
+				</if>
+				<if test="pubdate == 5">  <!-- 最近一年内的记录 -->
+				  AND DATE_SUB(CURDATE(), INTERVAL 1 YEAR) <![CDATA[<= ]]> date(t1.post_time)
+				</if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                ORDER BY t1.post_time desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 查询关注过的博主 -->
+   	<select id="followBloggers" resultType="map" parameterType="map">
+    	SELECT
+			t3.trainee_id as traineeId,
+			t2.nick_name as traineeName,
+			t2.trainee_head as blogHead,
+			t3.follow_id as followId,
+			t3.attention_type as attentionType,
+			t3.state,
+			t2.blogs_num as blogsNum,
+			t1.post_id as postId,
+			t1.post_title as title,
+			t1.post_lable as label,
+			t1.post_time as postTime,
+			IFNULL(t1.view_num,0) as viewNum,
+			IFNULL(t1.store_num,0) as storeNum,
+			IFNULL(t1.reply_num,0) as replyNum,
+			IFNULL(t1.like_num,0) as likeNum,
+			IFNULL(t1.report_num,0) as reportNum
+		FROM
+			t_evgl_forum_blog_post t1
+			INNER JOIN t_evgl_trainee_info t2 ON t1.trainee_id = t2.trainee_id
+			INNER JOIN t_evgl_forum_attention t3 on t1.trainee_id = t3.follow_id
+		<where>
+			<if test="traineeId != null and traineeId.trim() != ''">
+            and t2.trainee_id =#{traineeId,jdbcType=VARCHAR}            
+            </if>
+            <if test="postTitle != null and postTitle.trim() != ''">
+            and t1.post_title like concat('%', #{postTitle,jdbcType=VARCHAR}, '%')
+            </if>
+            <!-- 时间筛选 -->
+            <if test="pubdate == 1">  <!-- 时间不限 -->
+			  AND t1.post_time in (select post_time from t_evgl_forum_blog_post)
+			</if>
+            <if test="pubdate == 2">  <!-- 最近一周内的记录 -->
+			  AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+			<if test="pubdate == 3">  <!-- 最近一月内的记录 -->
+			  AND DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+			<if test="pubdate == 4">  <!-- 最近三月内的记录 -->
+			  AND DATE_SUB(CURDATE(), INTERVAL 3 MONTH) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+			<if test="pubdate == 5">  <!-- 最近一年内的记录 -->
+			  AND DATE_SUB(CURDATE(), INTERVAL 1 YEAR) <![CDATA[<= ]]> date(t1.post_time)
+			</if>
+		</where>
+		<choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.post_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 更新查阅数、收藏数、回复数、点赞数、举报数 -->
+    <update id="plusNum" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumBlogPost">
+    	update t_evgl_forum_blog_post
+    	<set>
+    		<if test="viewNum != null">
+				view_num = IFNULL(view_num, 0) + #{viewNum,jdbcType=INTEGER},
+			</if>
+			<if test="storeNum != null">
+				store_num = IFNULL(store_num, 0) + #{storeNum,jdbcType=INTEGER},
+			</if>
+			<if test="replyNum != null">
+				reply_num = IFNULL(reply_num, 0) + #{replyNum,jdbcType=INTEGER},
+			</if>
+			<if test="likeNum != null">
+				like_num = IFNULL(like_num, 0) + #{likeNum,jdbcType=INTEGER},
+			</if>
+			<if test="reportNum != null">
+				report_num = IFNULL(report_num, 0) + #{reportNum,jdbcType=INTEGER}
+			</if>
+    	</set>
+    	WHERE post_id = #{postId,jdbcType=VARCHAR}
+    </update>
+    
+    <!-- 查找推荐标签 -->
+    <select id="recommendedLabel" resultType="map" parameterType="map">
+    	select
+			post_lable as postLable
+			from t_evgl_forum_blog_post
+		where DATE_SUB(CURDATE(), INTERVAL 3 MONTH) <![CDATA[<= ]]> date(post_time)
+    </select>
+    
+    <select id="getTotalBlogLikes" resultType="INTEGER" parameterType="String">
+        select sum(like_num) from  t_evgl_forum_blog_post where trainee_id = #{traineeId}
+    </select>
+    
+    <!-- 获取博客详情 -->
+    <select id="getBlogDetails" resultType="map" parameterType="map">
+    	SELECT DISTINCT
+			t2.trainee_id AS traineeId,
+			ifnull( t2.trainee_name, t2.nick_name ) AS blogName,
+			t2.trainee_head AS blogHead, t2.blog_remark as blogRemark,
+			( CASE ifnull( t2.trainee_sex, 0 ) WHEN '0' THEN '保密' WHEN '1' THEN '男' WHEN '2' THEN '女' END ) AS sex,
+			t1.post_title AS title,
+			t1.post_content AS content,
+			t1.post_time AS postTime,
+			t1.post_lable AS label,
+			ifnull( t2.blogs_num, 0 ) AS blogsNum,
+			ifnull( t2.fans_num, 0 ) AS fansNum,
+			ifnull( t2.follow_num, 0 ) AS followNum,
+			ifnull( t1.store_num, 0 ) AS storeNum,
+			ifnull( t1.view_num, 0 ) AS viewNum,
+			ifnull( t1.reply_num, 0 ) AS replyNum,
+			ifnull( t1.like_num, 0 ) AS likeNum 
+		FROM
+			t_evgl_forum_blog_post t1
+			INNER JOIN t_evgl_trainee_info t2 ON t1.trainee_id = t2.trainee_id
+		<where>
+			<if test="postId != null and postId.trim() != ''">
+            and t1.post_id = #{postId,jdbcType=VARCHAR}            
+            </if>
+		</where>
+    </select>
+    
+    <select id="getDictCodeList" resultType="map" parameterType="map">
+    	select dict_code from t_evgl_forum_blog_post
+    	ORDER BY view_num, like_num desc
+    </select>
+    
+    <select id="selectIdListByMap" parameterType="map" resultType="java.lang.String">
+    	select post_id from t_evgl_forum_blog_post
+    	<where>
+			<if test="state != null and state.trim() != ''">
+				and state =#{state,jdbcType=VARCHAR}
+			</if>
+		</where>
+    </select>
+    
+    <update id="plusNumBatch" parameterType="map">
+    	update t_evgl_forum_blog_post
+    	<set>
+	        <if test="viewNum != null">
+	            view_num = IFNULL(view_num, 0) + #{viewNum,jdbcType=INTEGER},
+	        </if>
+	    </set>
+    	where post_id in 
+    	<foreach collection="postIdList" item="postId" open="(" separator="," close=")">
+	        #{postId,jdbcType=VARCHAR}
+	    </foreach>
+    </update>
+    
+    <select id="selectVoListByMapForMgr" parameterType="map" resultType="com.budaos.modules.evgl.forum.vo.TevglForumBlogPostVo">
+		select t1.post_id, t1.trainee_id, t1.post_title, t1.post_lable, t1.view_num, t1.dict_code, t1.post_time,
+		ifnull(t2.nick_name, t2.trainee_name) as traineeName, ifnull(t2.trainee_pic, t2.trainee_head) as traineePic
+		from T_EVGL_FORUM_BLOG_POST t1
+		left join t_evgl_trainee_info t2 on t1.trainee_id = t2.trainee_id
+		<where>
+			<if test="beginTime != null and beginTime.trim() != ''">
+                and t1.post_time &gt;=#{beginTime,jdbcType=VARCHAR}           
+            </if>
+            <if test="endTime != null and endTime.trim() != ''">
+                and t1.post_time &lt;=#{endTime,jdbcType=VARCHAR}           
+            </if>
+			<if test="traineeName != null and traineeName.trim() != ''">
+				and (
+					t2.trainee_name like concat ('%', #{traineeName,jdbcType=VARCHAR}, '%')
+					or
+					t2.nick_name like concat ('%', #{traineeName,jdbcType=VARCHAR}, '%')
+				)
+			</if>
+			<if test="traineeId != null and traineeId.trim() != ''">
+				and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+			<if test="postTitle != null and postTitle.trim() != ''">
+				and t1.post_title like concat ('%', #{postTitle,jdbcType=VARCHAR}, '%')            </if>
+			<if test="postContent != null and postContent.trim() != ''">
+				and t1.post_content =#{postContent,jdbcType=LONGVARCHAR}            </if>
+			<if test="postLable != null and postLable.trim() != ''">
+				and find_in_set(#{postLable,jdbcType=VARCHAR}, t1.post_lable)              </if>
+			<if test="postTime != null and postTime.trim() != ''">
+				and t1.post_time =#{postTime,jdbcType=VARCHAR}            </if>
+			<if test="postIsReply != null and postIsReply.trim() != ''">
+				and t1.post_is_reply =#{postIsReply,jdbcType=VARCHAR}            </if>
+			<if test="postIsRecommend != null and postIsRecommend.trim() != ''">
+				and t1.post_is_recommend =#{postIsRecommend,jdbcType=VARCHAR}            </if>
+			<if test="postIsChoice != null and postIsChoice.trim() != ''">
+				and t1.post_is_choice =#{postIsChoice,jdbcType=VARCHAR}            </if>
+			<if test="postIsStick != null and postIsStick.trim() != ''">
+				and t1.post_is_stick =#{postIsStick,jdbcType=VARCHAR}            </if>
+			<if test="postStickSort != null and postStickSort != ''">
+				and t1.post_stick_sort =#{postStickSort,jdbcType=INTEGER}            </if>
+			<if test="postIsResolve != null and postIsResolve.trim() != ''">
+				and t1.post_is_resolve =#{postIsResolve,jdbcType=VARCHAR}            </if>
+			<if test="viewNum != null and viewNum != ''">
+				and t1.view_num =#{viewNum,jdbcType=INTEGER}            </if>
+			<if test="storeNum != null and storeNum != ''">
+				and t1.store_num =#{storeNum,jdbcType=INTEGER}            </if>
+			<if test="replyNum != null and replyNum != ''">
+				and t1.reply_num =#{replyNum,jdbcType=INTEGER}            </if>
+			<if test="likeNum != null and likeNum != ''">
+				and t1.like_num =#{likeNum,jdbcType=INTEGER}            </if>
+			<if test="reportNum != null and reportNum != ''">
+				and t1.report_num =#{reportNum,jdbcType=INTEGER}            </if>
+			<if test="lastReplyTrainee != null and lastReplyTrainee.trim() != ''">
+				and t1.last_reply_trainee =#{lastReplyTrainee,jdbcType=VARCHAR}            </if>
+			<if test="lastReplyTime != null and lastReplyTime.trim() != ''">
+				and t1.last_reply_time =#{lastReplyTime,jdbcType=VARCHAR}            </if>
+			<if test="state != null and state.trim() != ''">
+				and t1.state =#{state,jdbcType=VARCHAR}            </if>
+			<if test="blogId != null and blogId.trim() != ''">
+				and t1.blog_id =#{blogId,jdbcType=VARCHAR}            </if>
+			<if test="blogType != null and blogType.trim() != ''">
+				and t1.blog_type =#{blogType,jdbcType=VARCHAR}            </if>
+			<if test="dictCode != null and dictCode.trim() != ''">
+				and find_in_set (#{dictCode,jdbcType=VARCHAR}, t1.dict_code)            </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.post_time desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+

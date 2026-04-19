@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.budaos.modules.evgl.question.persistence.TepExaminePaperQuestionsDetailMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TepExaminePaperQuestionsDetail">
+		<result column="detail_id" jdbcType="VARCHAR" property="detailId" />
+		<result column="paper_id" jdbcType="VARCHAR" property="paperId" />
+		<result column="questions_id" jdbcType="VARCHAR" property="questionsId" />
+		<result column="questions_score" jdbcType="VARCHAR" property="questionsScore" />
+		<result column="questions_number" jdbcType="INTEGER" property="questionsNumber" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		detail_id,paper_id,questions_id,questions_score,questions_number,parent_id
+	</sql>
+	<insert id="insert"
+		parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperQuestionsDetail">
+		INSERT INTO T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL (
+		detail_id ,
+		paper_id ,
+		questions_id ,
+		questions_score ,
+		questions_number ,
+		parent_id 
+		)
+		VALUES (
+
+		#{detailId,jdbcType=VARCHAR} ,
+
+		#{paperId,jdbcType=VARCHAR} ,
+
+		#{questionsId,jdbcType=VARCHAR} ,
+
+		#{questionsScore,jdbcType=VARCHAR} ,
+
+		#{questionsNumber,jdbcType=INTEGER} ,
+
+		#{parentId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.budaos.modules.evgl.question.domain.TepExaminePaperQuestionsDetail">
+		UPDATE T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL
+		<set>
+			<if test="paperId != null">
+				paper_id = #{paperId,jdbcType=VARCHAR},
+			</if>
+			<if test="questionsId != null">
+				questions_id = #{questionsId,jdbcType=VARCHAR},
+			</if>
+			<if test="questionsScore != null">
+				questions_score = #{questionsScore,jdbcType=VARCHAR},
+			</if>
+			<if test="questionsNumber != null">
+				questions_number = #{questionsNumber,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE
+		detail_id = #{detailId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM
+		T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL WHERE
+		detail_id =
+		#{detailId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL WHERE
+		detail_id in
+		<foreach item="detailId" collection="array" open="("
+			separator="," close=")">
+			#{detailId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL WHERE
+		detail_id =
+		#{detailId,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL
+		<where>
+			<if test="paperId != null and paperId.trim() != ''">
+				and paper_id =#{paperId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsId != null and questionsId.trim() != ''">
+				and questions_id =#{questionsId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsScore != null and questionsScore.trim() != ''">
+				and questions_score =#{questionsScore,jdbcType=VARCHAR}
+			</if>
+			<if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by detail_id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectListMapByMap" resultType="map" parameterType="map">
+		select * from T_EP_EXAMINE_PAPER_QUESTIONS_DETAIL t1
+		<where>
+			<if test="paperId != null and paperId.trim() != ''">
+				and t1.paper_id =#{paperId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsId != null and questionsId.trim() != ''">
+				and t1.questions_id =#{questionsId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsScore != null and questionsScore.trim() != ''">
+				and t1.questions_score
+				=#{questionsScore,jdbcType=VARCHAR}
+			</if>
+			<if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.detail_id desc
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectSimpleListByMap" parameterType="map"
+		resultType="map">
+		select t1.detail_id as detailId, t1.paper_id as paperId, t1.paper_id as activityId, t1.questions_id as questionsId, ifnull(t1.questions_score, '0') as questionsScore,
+		t2.reply_ids as replyIds, t2.questions_parse as questionsParse, t1.parent_id as parentId, t2.from_type as fromType, t2.show_type as showType,
+		t3.questions_num  as questionsNumber, t2.questions_name as questionsName, t2.questions_type as questionsType, t2.questions_type as questionsTypeName,
+		t2.questions_complexity as questionsComplexity, t2.questions_complexity as questionsComplexityName, t2.tag, t2.create_user_id as createUserId,
+		t2.major_id as majorId, t2.subject_id as subjectId
+		from t_ep_examine_paper_questions_detail t1
+		join t_evgl_questions_info t2 on t1.questions_id = t2.questions_id
+		left join t_ep_examine_paper_questions_random t3 on t1.detail_id = t3.detail_id 
+		<where>
+			<if test="noChildrenQuestion != null and noChildrenQuestion.trim() != ''">
+				and (t2.parent_id is null or t2.parent_id = '')
+			</if>
+			<if test="paperIds != null and paperIds.size() > 0">
+				and t1.paper_id in
+				<foreach collection="paperIds" item="paperId" open="(" separator="," close=")">
+					#{paperId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="parentIds != null and parentIds.size() > 0">
+			and t1.parent_id in
+				<foreach collection="parentIds" item="parentId" open="(" separator="," close=")">
+					#{parentId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="traineeId != null and traineeId.trim() != ''">
+				and t3.trainee_id =#{traineeId,jdbcType=VARCHAR}
+			</if>
+			<if test="dyId != null and dyId.trim() != ''">
+				and t3.dy_id =#{dyId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperId != null and paperId.trim() != ''">
+				and t1.paper_id =#{paperId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsId != null and questionsId.trim() != ''">
+				and t1.questions_id =#{questionsId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsType != null and questionsType.trim() != ''">
+				and t2.questions_type =#{questionsType,jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by t1.detail_id
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.questions_number asc
+			</otherwise>
+		</choose>
+	</select>
+
+	
+	<select id="selectListMapLinkQuestionByMap" parameterType="map"
+		resultType="map">
+		select t1.*,t2.* from t_ep_examine_paper_questions_detail
+		t1 join
+		t_evgl_questions_info t2 on t1.questions_id =
+		t2.questions_id
+		<where>
+			<if test="paperId != null and paperId.trim() != ''">
+				and t1.paper_id =#{paperId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsId != null and questionsId.trim() != ''">
+				and t1.questions_id =#{questionsId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsType != null and questionsType.trim() != ''">
+				and t2.questions_type =#{questionsType,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by t1.questions_number+"0" asc
+	</select>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_ep_examine_paper_questions_detail
+			(detail_id, paper_id, questions_id, questions_score, questions_number, parent_id)
+		values
+	    <foreach collection="list" item="obj" separator="," >
+	    	(#{obj.detailId}, #{obj.paperId}, #{obj.questionsId}, #{obj.questionsScore}, #{obj.questionsNumber}, #{obj.parentId})
+	    </foreach>
+	</insert>
+	
+	<select id="getPaperIdList" resultType="string" parameterType="map">
+		select DISTINCT(paper_id) from t_ep_examine_paper_questions_detail t1
+		<where>
+			<if test="questionIdList != null and questionIdList.size() > 0">
+			and t1.questions_id in
+				<foreach collection="questionIdList" item="questionId" open="(" separator="," close=")">
+					#{questionId,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="paperId != null and paperId.trim() != ''">
+				and t1.paper_id =#{paperId,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsId != null and questionsId.trim() != ''">
+				and t1.questions_id =#{questionsId,jdbcType=VARCHAR}
+			</if>
+			<if test="paperName != null and paperName.trim() != ''">
+				and t1.paper_name =#{paperName,jdbcType=VARCHAR}
+			</if>
+			<if test="questionsScore != null and questionsScore.trim() != ''">
+				and t1.questions_score
+				=#{questionsScore,jdbcType=VARCHAR}
+			</if>
+			<if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.detail_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findPaperIdListByQuestionId" parameterType="string" resultType="string">
+		select DISTINCT(paper_id) from t_ep_examine_paper_questions_detail t1 where t1.questions_id = #{quuestionId}
+	</select>
+	<select id="findQuestionIdListByTraineeId" parameterType="string" resultType="string">
+		select distinct questions_id from t_ep_examine_paper_questions_detail where paper_id in (
+			select paper_id from t_ep_examine_dynamic_paper where paper_is_finished = 'N' and trainee_id = #{traineeId}
+		)
+	</select>
+</mapper>
+

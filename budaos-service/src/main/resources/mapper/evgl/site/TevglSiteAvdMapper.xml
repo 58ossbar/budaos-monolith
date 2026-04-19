@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.site.persistence.TevglSiteAvdMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.site.domain.TevglSiteAvd">
+		<result column="avd_id" jdbcType="VARCHAR"
+			property="avdId" />
+		<result column="menu_id" jdbcType="VARCHAR"
+			property="menuId" />
+		<result column="avd_title" jdbcType="VARCHAR"
+			property="avdTitle" />
+		<result column="avd_num" jdbcType="INTEGER"
+			property="avdNum" />
+		<result column="avd_state" jdbcType="VARCHAR"
+			property="avdState" />
+		<result column="avd_begintime" jdbcType="VARCHAR"
+			property="avdBegintime" />
+		<result column="avd_endtime" jdbcType="VARCHAR"
+			property="avdEndtime" />
+		<result column="avd_linkhref" jdbcType="VARCHAR"
+			property="avdLinkhref" />
+		<result column="avd_picurl_pc" jdbcType="VARCHAR"
+			property="avdPicurlPc" />
+		<result column="avd_picurl_mobile" jdbcType="VARCHAR"
+			property="avdPicurlMobile" />
+		<result column="avd_position" jdbcType="VARCHAR"
+			property="avdPosition" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="deploy_user_id" jdbcType="VARCHAR"
+			property="deployUserId" />
+		<result column="deploy_time" jdbcType="VARCHAR"
+			property="deployTime" />
+		<result column="remark" jdbcType="VARCHAR"
+			property="remark" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		avd_id,menu_id,avd_title,avd_num,avd_state,avd_begintime,avd_endtime,avd_linkhref,avd_picurl_pc,avd_picurl_mobile,avd_position,content,create_user_id,create_time,update_user_id,update_time,deploy_user_id,deploy_time,remark
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteAvd">
+		INSERT INTO T_EVGL_SITE_AVD (
+		avd_id ,
+		menu_id ,
+		avd_title ,
+		avd_num ,
+		avd_state ,
+		avd_begintime ,
+		avd_endtime ,
+		avd_linkhref ,
+		avd_picurl_pc ,
+		avd_picurl_mobile ,
+		avd_position ,
+		content ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		deploy_user_id ,
+		deploy_time ,
+		remark 
+		) VALUES (
+
+#{avdId,jdbcType=VARCHAR} ,
+
+#{menuId,jdbcType=VARCHAR} ,
+
+#{avdTitle,jdbcType=VARCHAR} ,
+
+#{avdNum,jdbcType=INTEGER} ,
+
+#{avdState,jdbcType=VARCHAR} ,
+
+#{avdBegintime,jdbcType=VARCHAR} ,
+
+#{avdEndtime,jdbcType=VARCHAR} ,
+
+#{avdLinkhref,jdbcType=VARCHAR} ,
+
+#{avdPicurlPc,jdbcType=VARCHAR} ,
+
+#{avdPicurlMobile,jdbcType=VARCHAR} ,
+
+#{avdPosition,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{deployUserId,jdbcType=VARCHAR} ,
+
+#{deployTime,jdbcType=VARCHAR} ,
+
+#{remark,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteAvd">
+		UPDATE T_EVGL_SITE_AVD 
+		<set>
+		<if test="menuId != null">
+		menu_id = #{menuId,jdbcType=VARCHAR},
+		</if>
+		<if test="avdTitle != null">
+		avd_title = #{avdTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="avdNum != null">
+		avd_num = #{avdNum,jdbcType=INTEGER},
+		</if>
+		<if test="avdState != null">
+		avd_state = #{avdState,jdbcType=VARCHAR},
+		</if>
+		<if test="avdBegintime != null">
+		avd_begintime = #{avdBegintime,jdbcType=VARCHAR},
+		</if>
+		<if test="avdEndtime != null">
+		avd_endtime = #{avdEndtime,jdbcType=VARCHAR},
+		</if>
+		<if test="avdLinkhref != null">
+		avd_linkhref = #{avdLinkhref,jdbcType=VARCHAR},
+		</if>
+		<if test="avdPicurlPc != null">
+		avd_picurl_pc = #{avdPicurlPc,jdbcType=VARCHAR},
+		</if>
+		<if test="avdPicurlMobile != null">
+		avd_picurl_mobile = #{avdPicurlMobile,jdbcType=VARCHAR},
+		</if>
+		<if test="avdPosition != null">
+		avd_position = #{avdPosition,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="deployUserId != null">
+		deploy_user_id = #{deployUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="deployTime != null">
+		deploy_time = #{deployTime,jdbcType=VARCHAR},
+		</if>
+		<if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		avd_id = #{avdId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_AVD WHERE
+		avd_id =
+		#{avdId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_AVD WHERE
+		avd_id in
+		<foreach item="avdId" collection="array" open="("
+			separator="," close=")">
+#{avdId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		, (select r.name from t_sys_resource r where r.menu_id=n.menu_id) as menu_name
+		from T_EVGL_SITE_AVD n WHERE
+		avd_id = #{avdId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select t1.*, t2.name as menuName from T_EVGL_SITE_AVD t1
+        left join t_sys_resource t2 on t1.menu_id = t2.menu_id
+        <where>
+                <if test="menuId != null and menuId.trim() != ''">
+                and t1.menu_id =#{menuId,jdbcType=VARCHAR}            </if>
+                <if test="avdTitle != null and avdTitle.trim() != ''">
+				and t1.avd_title  like concat('%',#{avdTitle,jdbcType=VARCHAR},'%')	 		</if>
+                <if test="avdNum != null and avdNum != ''">
+                and t1.avd_num =#{avdNum,jdbcType=INTEGER}            </if>
+                <if test="avdState != null and avdState.trim() != ''">
+                and t1.avd_state =#{avdState,jdbcType=VARCHAR}            </if>
+                
+                <if test="avdBegintime != null and avdBegintime.trim() != ''">
+				and t1.avd_begintime &lt;=#{avdBegintime,jdbcType=VARCHAR}			</if>
+				<if test="avdEndtime != null and avdEndtime.trim() != ''">
+				and t1.avd_endtime &gt;=#{avdEndtime,jdbcType=VARCHAR}			</if>
+                
+                <if test="avdLinkhref != null and avdLinkhref.trim() != ''">
+                and t1.avd_linkhref =#{avdLinkhref,jdbcType=VARCHAR}            </if>
+                <if test="avdPicurlPc != null and avdPicurlPc.trim() != ''">
+                and t1.avd_picurl_pc =#{avdPicurlPc,jdbcType=VARCHAR}            </if>
+                <if test="avdPicurlMobile != null and avdPicurlMobile.trim() != ''">
+                and t1.avd_picurl_mobile =#{avdPicurlMobile,jdbcType=VARCHAR}            </if>
+                <if test="avdPosition != null and avdPosition.trim() != ''">
+                and t1.avd_position =#{avdPosition,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="deployUserId != null and deployUserId.trim() != ''">
+                and t1.deploy_user_id =#{deployUserId,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by avd_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_SITE_AVD t1
+        <where>
+                <if test="menuId != null and menuId.trim() != ''">
+                and t1.menu_id =#{menuId,jdbcType=VARCHAR}            </if>
+                <if test="avdTitle != null and avdTitle.trim() != ''">
+				and t1.avd_title  like concat('%',#{avdTitle,jdbcType=VARCHAR},'%')	 		</if>
+                <if test="avdNum != null and avdNum != ''">
+                and t1.avd_num =#{avdNum,jdbcType=INTEGER}            </if>
+                <if test="avdState != null and avdState.trim() != ''">
+                and t1.avd_state =#{avdState,jdbcType=VARCHAR}            </if>
+                <if test="avdBegintime != null and avdBegintime.trim() != ''">
+                and t1.avd_begintime =#{avdBegintime,jdbcType=VARCHAR}            </if>
+                <if test="avdEndtime != null and avdEndtime.trim() != ''">
+                and t1.avd_endtime =#{avdEndtime,jdbcType=VARCHAR}            </if>
+                <if test="avdLinkhref != null and avdLinkhref.trim() != ''">
+                and t1.avd_linkhref =#{avdLinkhref,jdbcType=VARCHAR}            </if>
+                <if test="avdPicurlPc != null and avdPicurlPc.trim() != ''">
+                and t1.avd_picurl_pc =#{avdPicurlPc,jdbcType=VARCHAR}            </if>
+                <if test="avdPicurlMobile != null and avdPicurlMobile.trim() != ''">
+                and t1.avd_picurl_mobile =#{avdPicurlMobile,jdbcType=VARCHAR}            </if>
+                <if test="avdPosition != null and avdPosition.trim() != ''">
+                and t1.avd_position =#{avdPosition,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="deployUserId != null and deployUserId.trim() != ''">
+                and t1.deploy_user_id =#{deployUserId,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.avd_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

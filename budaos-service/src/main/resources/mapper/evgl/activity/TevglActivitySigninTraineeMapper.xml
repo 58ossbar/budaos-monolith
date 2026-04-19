@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivitySigninTraineeMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivitySigninTrainee">
+		<result column="st_id" jdbcType="VARCHAR"
+			property="stId" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="activity_id" jdbcType="VARCHAR"
+			property="activityId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="sign_time" jdbcType="VARCHAR"
+			property="signTime" />
+		<result column="sign_type" jdbcType="VARCHAR"
+			property="signType" />
+		<result column="file" jdbcType="VARCHAR"
+			property="file" />
+		<result column="number" jdbcType="VARCHAR"
+			property="number" />
+		<result column="sign_state" jdbcType="VARCHAR"
+			property="signState" />
+		<result column="area" jdbcType="VARCHAR"
+			property="area" />
+		<result column="area_title" jdbcType="VARCHAR"
+			property="areaTitle" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		st_id,ct_id,activity_id,trainee_id,sign_time,sign_type,file,number,sign_state,area,area_title
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivitySigninTrainee">
+		INSERT INTO T_EVGL_ACTIVITY_SIGNIN_TRAINEE (
+		st_id ,
+		ct_id ,
+		activity_id ,
+		trainee_id ,
+		sign_time ,
+		sign_type ,
+		file ,
+		number ,
+		sign_state ,
+		area ,
+		area_title
+		) VALUES (
+
+#{stId,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{activityId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{signTime,jdbcType=VARCHAR} ,
+
+#{signType,jdbcType=VARCHAR} ,
+
+#{file,jdbcType=VARCHAR} ,
+
+#{number,jdbcType=VARCHAR} ,
+
+#{signState,jdbcType=VARCHAR} ,
+
+#{area,jdbcType=VARCHAR} ,
+
+#{areaTitle,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivitySigninTrainee">
+		UPDATE T_EVGL_ACTIVITY_SIGNIN_TRAINEE 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="activityId != null">
+		activity_id = #{activityId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="signTime != null">
+		sign_time = #{signTime,jdbcType=VARCHAR},
+		</if>
+		<if test="signType != null">
+		sign_type = #{signType,jdbcType=VARCHAR},
+		</if>
+		<if test="file != null">
+		file = #{file,jdbcType=VARCHAR},
+		</if>
+		<if test="number != null">
+		number = #{number,jdbcType=VARCHAR},
+		</if>
+		<if test="signState != null">
+		sign_state = #{signState,jdbcType=VARCHAR},
+		</if>
+		<if test="area != null">
+		area = #{area,jdbcType=VARCHAR},
+		</if>
+		<if test="areaTitle != null">
+		area_title = #{areaTitle,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		st_id = #{stId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_SIGNIN_TRAINEE WHERE
+		st_id =
+		#{stId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_SIGNIN_TRAINEE WHERE
+		st_id in
+		<foreach item="stId" collection="array" open="("
+			separator="," close=")">
+#{stId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_SIGNIN_TRAINEE WHERE
+		st_id = #{stId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_SIGNIN_TRAINEE
+        <where>
+        		
+        		<if test="traineeIds != null and traineeIds.size() > 0">
+        		and trainee_id in 
+        			<foreach collection="traineeIds" item="traineeId" open="(" separator="," close=")">
+        				#{traineeId}
+        			</foreach>
+        		</if>
+        		<if test="signStates != null and signStates.size() > 0">
+					and sign_state in
+					<foreach collection="signStates" item="signState" open="(" separator="," close=")">
+						#{signState}
+					</foreach>
+				</if>
+        		
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="signTime != null and signTime.trim() != ''">
+                and sign_time =#{signTime,jdbcType=VARCHAR}            </if>
+                <if test="signType != null and signType.trim() != ''">
+                and sign_type =#{signType,jdbcType=VARCHAR}            </if>
+                <if test="file != null and file.trim() != ''">
+                and file =#{file,jdbcType=VARCHAR}            </if>
+                <if test="number != null and number.trim() != ''">
+                and number =#{number,jdbcType=VARCHAR}            </if>
+                <if test="signState != null and signState.trim() != ''">
+                and sign_state =#{signState,jdbcType=VARCHAR}            </if>
+                <if test="area != null and area.trim() != ''">
+                and area =#{area,jdbcType=VARCHAR}            </if>
+                <if test="areaTitle != null and areaTitle.trim() != ''">
+                and area_title =#{areaTitle,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by st_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_SIGNIN_TRAINEE t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and t1.activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="signTime != null and signTime.trim() != ''">
+                and t1.sign_time =#{signTime,jdbcType=VARCHAR}            </if>
+                <if test="signType != null and signType.trim() != ''">
+                and t1.sign_type =#{signType,jdbcType=VARCHAR}            </if>
+                <if test="file != null and file.trim() != ''">
+                and t1.file =#{file,jdbcType=VARCHAR}            </if>
+                <if test="number != null and number.trim() != ''">
+                and t1.number =#{number,jdbcType=VARCHAR}            </if>
+                <if test="signState != null and signState.trim() != ''">
+                and t1.sign_state =#{signState,jdbcType=VARCHAR}            </if>
+                <if test="area != null and area.trim() != ''">
+                and t1.area =#{area,jdbcType=VARCHAR}            </if>
+                <if test="areaTitle != null and areaTitle.trim() != ''">
+                and t1.area_title =#{areaTitle,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.st_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    <!-- 根据课堂id和活动id等其它条件查询签到人员 -->
+    <select id="selectListMapForCommon" resultType="map"
+        parameterType="map">
+        select t1.st_id as stId, t1.ct_id as ctId, t1.activity_id as activityId, t1.trainee_id as traineeId, t1.sign_time as signTime, t1.sign_type as signType,
+        t1.sign_state as signState, if(t1.sign_state = 0, '未签到成员', dict.dict_value) as signStateName, t1.area, t1.area_title as areaTitle,
+        t2.name as classroomName, ifnull(t2.pic, '') as classroomPic,
+        ifnull(t3.trainee_name, t3.nick_name) as traineeName, ifnull(t3.trainee_pic, t3.trainee_head) as traineePic, t3.trainee_sex as traineeSex
+        from T_EVGL_ACTIVITY_SIGNIN_TRAINEE t1
+        inner join t_evgl_tch_classroom t2 on t1.ct_id = t2.ct_id
+        inner join t_evgl_trainee_info t3 on t1.trainee_id = t3.trainee_id
+        left join t_sys_dict dict on dict.dict_code = t1.sign_state and dict.DICT_TYPE = 'signType'
+        <where>
+        		<if test="traineeName != null and traineeName.trim() != ''">
+                and t3.trainee_name or t3.nick_name like concat('%', #{traineeName,jdbcType=VARCHAR}, '%')             
+                </if>
+                <if test="traineeSex != null and traineeSex.trim() != ''">
+                and t3.trainee_sex like =#{traineeSex,jdbcType=VARCHAR}           </if>
+                
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and t1.activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="signTime != null and signTime.trim() != ''">
+                and t1.sign_time =#{signTime,jdbcType=VARCHAR}            </if>
+                <if test="signType != null and signType.trim() != ''">
+                and t1.sign_type =#{signType,jdbcType=VARCHAR}            </if>
+                <if test="file != null and file.trim() != ''">
+                and t1.file =#{file,jdbcType=VARCHAR}            </if>
+                <if test="area != null and area.trim() != ''">
+                and t1.area =#{area,jdbcType=VARCHAR}            </if>
+                <if test="areaTitle != null and areaTitle.trim() != ''">
+                and t1.area_title =#{areaTitle,jdbcType=VARCHAR}            </if>
+        </where>
+        group by t1.st_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.st_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <update id="updateBatchSignState" parameterType="map">
+    	update T_EVGL_ACTIVITY_SIGNIN_TRAINEE
+    	<set>
+			<if test="signState != null">
+				sign_state = #{signState},
+			</if>
+			<if test="signTime != null">
+				sign_time = #{signTime},
+			</if>
+		</set>
+    	where st_id in 
+    	<foreach collection="stIds" item="stId" open="(" separator="," close=")">
+    		#{stId}
+    	</foreach>
+    </update>
+    
+    <delete id="deleteByActivityId" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_SIGNIN_TRAINEE WHERE
+		activity_id =
+		#{activityId,jdbcType=VARCHAR} 
+	</delete>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_evgl_activity_signin_trainee
+		(st_id, ct_id, activity_id, trainee_id, sign_time, sign_type, sign_state)
+		values
+		<foreach collection="list" item="obj" separator=",">
+			(
+			#{obj.stId}, #{obj.ctId}, #{obj.activityId}, #{obj.traineeId}, #{obj.signTime},
+			#{obj.signType}, #{obj.signState}
+			)
+		</foreach>
+	</insert>
+    
+</mapper>
+

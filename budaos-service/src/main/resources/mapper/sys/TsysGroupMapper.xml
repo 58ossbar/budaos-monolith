@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TsysGroupMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TsysGroup">
+		<result column="GROUP_ID" jdbcType="VARCHAR"
+			property="groupId" />
+		<result column="GROUP_NAME" jdbcType="VARCHAR"
+			property="groupName" />
+		<result column="REMARK" jdbcType="VARCHAR"
+			property="remark" />
+		<result column="GROUP_TYPE" jdbcType="VARCHAR"
+			property="groupType" />
+		<result column="PARENT_GROUPID" jdbcType="VARCHAR"
+			property="parentGroupid" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		GROUP_ID,GROUP_NAME,REMARK,GROUP_TYPE,PARENT_GROUPID
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TsysGroup">
+		INSERT INTO T_SYS_GROUP (
+		GROUP_ID ,
+		GROUP_NAME ,
+		REMARK ,
+		GROUP_TYPE ,
+		PARENT_GROUPID,
+		create_user_id,
+		create_time,
+		update_user_id,
+		update_time
+		) VALUES (
+
+		#{groupId,jdbcType=VARCHAR} ,
+
+		#{groupName,jdbcType=VARCHAR} ,
+
+		#{remark,jdbcType=VARCHAR} ,
+
+		#{groupType,jdbcType=VARCHAR} ,
+
+		#{parentGroupid,jdbcType=VARCHAR},
+		#{createUserId},
+		#{createTime},
+		#{updateUserId},
+		#{updateTime}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TsysGroup">
+		UPDATE T_SYS_GROUP SET
+		GROUP_NAME = #{groupName,jdbcType=VARCHAR}
+		,
+		REMARK = #{remark,jdbcType=VARCHAR}
+		,
+		GROUP_TYPE = #{groupType,jdbcType=VARCHAR}
+		,
+		<if test="createUserId != null and createUserId.trim() != ''">
+			create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null and createTime.trim() != ''">
+			create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null and updateUserId.trim() != ''">
+			update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null and updateTime.trim() != ''">
+			update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		PARENT_GROUPID = #{parentGroupid,jdbcType=VARCHAR}
+		
+		WHERE
+		GROUP_ID = #{groupId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_GROUP WHERE
+		GROUP_ID = #{groupId,jdbcType=VARCHAR} 
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_SYS_GROUP WHERE
+		GROUP_ID = #{groupId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+
+</mapper>
+

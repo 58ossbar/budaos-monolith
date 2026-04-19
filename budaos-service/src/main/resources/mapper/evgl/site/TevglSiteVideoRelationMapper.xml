@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.site.persistence.TevglSiteVideoRelationMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.site.domain.TevglSiteVideoRelation">
+		<result column="vr_id" jdbcType="VARCHAR"
+			property="vrId" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="video_id" jdbcType="VARCHAR"
+			property="videoId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		vr_id,ct_id,video_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteVideoRelation">
+		INSERT INTO T_EVGL_SITE_VIDEO_RELATION (
+		vr_id ,
+		ct_id ,
+		video_id 
+		) VALUES (
+
+#{vrId,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{videoId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.site.domain.TevglSiteVideoRelation">
+		UPDATE T_EVGL_SITE_VIDEO_RELATION 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="videoId != null">
+		video_id = #{videoId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		vr_id = #{vrId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_VIDEO_RELATION WHERE
+		vr_id =
+		#{vrId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_SITE_VIDEO_RELATION WHERE
+		vr_id in
+		<foreach item="vrId" collection="array" open="("
+			separator="," close=")">
+#{vrId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_SITE_VIDEO_RELATION WHERE
+		vr_id = #{vrId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_SITE_VIDEO_RELATION
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="videoId != null and videoId.trim() != ''">
+                and video_id =#{videoId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by vr_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_SITE_VIDEO_RELATION t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="videoId != null and videoId.trim() != ''">
+                and t1.video_id =#{videoId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.vr_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into t_evgl_site_video_relation
+		(
+		vr_id, ct_id, video_id
+		)
+		values
+		<foreach collection="list" item="obj" separator="," >
+			(
+			#{obj.vrId}, #{obj.ctId}, #{obj.videoId}
+			)
+		</foreach>
+	</insert>
+</mapper>
+

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.pkg.persistence.TevglBookpkgTeamMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.pkg.domain.TevglBookpkgTeam">
+		<result column="team_id" jdbcType="VARCHAR"
+			property="teamId" />
+		<result column="res_type" jdbcType="VARCHAR"
+			property="resType" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="pgk_id" jdbcType="VARCHAR"
+			property="pgkId" />
+		<result column="user_id" jdbcType="VARCHAR"
+			property="userId" />
+		<result column="is_subeditor" jdbcType="VARCHAR"
+			property="isSubeditor" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		team_id,res_type,subject_id,pgk_id,user_id,is_subeditor
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.pkg.domain.TevglBookpkgTeam">
+		INSERT INTO T_EVGL_BOOKPKG_TEAM (
+		team_id ,
+		res_type ,
+		subject_id ,
+		pgk_id ,
+		user_id ,
+		is_subeditor
+		) VALUES (
+
+#{teamId,jdbcType=VARCHAR} ,
+
+#{resType,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{pgkId,jdbcType=VARCHAR} ,
+
+#{userId,jdbcType=VARCHAR} ,
+
+#{isSubeditor,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.pkg.domain.TevglBookpkgTeam">
+		UPDATE T_EVGL_BOOKPKG_TEAM 
+		<set>
+		<if test="resType != null">
+		res_type = #{resType,jdbcType=VARCHAR},
+		</if>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="pgkId != null">
+		pgk_id = #{pgkId,jdbcType=VARCHAR},
+		</if>
+		<if test="userId != null">
+		user_id = #{userId,jdbcType=VARCHAR},
+		</if>
+		<if test="isSubeditor != null">
+		is_subeditor = #{isSubeditor,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		team_id = #{teamId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_BOOKPKG_TEAM WHERE
+		team_id =
+		#{teamId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_BOOKPKG_TEAM WHERE
+		team_id in
+		<foreach item="teamId" collection="array" open="("
+			separator="," close=")">
+#{teamId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_BOOKPKG_TEAM WHERE
+		team_id = #{teamId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_BOOKPKG_TEAM
+        <where>
+        		<if test="activityId != null and activityId.trim() != ''">
+                and pgk_id = (select t1.pkg_id from t_evgl_pkg_activity_relation t1 where t1.activity_id = #{activityId})
+                </if>
+        		<if test="userIds != null and userIds.size() > 0">
+                and user_id in 
+	                <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+	                	#{userId,jdbcType=VARCHAR}
+	                </foreach>
+                </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pgk_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                
+                <if test="resType != null and resType.trim() != ''">
+                and res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pgkId != null and pgkId.trim() != ''">
+                and pgk_id =#{pgkId,jdbcType=VARCHAR}            </if>
+                <if test="userId != null and userId.trim() != ''">
+                and user_id =#{userId,jdbcType=VARCHAR}            </if>
+                <if test="isSubeditor != null and isSubeditor.trim() != ''">
+                and is_subeditor =#{isSubeditor,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by team_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_BOOKPKG_TEAM t1
+        <where>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pgkId != null and pgkId.trim() != ''">
+                and t1.pgk_id =#{pgkId,jdbcType=VARCHAR}            </if>
+                <if test="userId != null and userId.trim() != ''">
+                and user_id =#{userId,jdbcType=VARCHAR}            </if>
+                <if test="isSubeditor != null and isSubeditor.trim() != ''">
+                and t1.is_subeditor =#{isSubeditor,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.team_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    <!-- 批量新增 -->
+    <insert id="insertBatch" parameterType="java.util.List">
+    	insert into t_evgl_bookpkg_team
+    		(team_id, res_type, subject_id, pgk_id, user_id)
+    	values
+    	<foreach collection="list" item="obj" separator="," >
+    		(#{obj.teamId}, #{obj.resType}, #{obj.subjectId}, #{obj.pgkId}, #{obj.userId})
+    	</foreach>
+    </insert>
+    
+    <!-- 查询未授权的记录 -->
+    <select id="selectUnauthorized" resultMap="BaseResultMap"
+        parameterType="map">
+    	SELECT
+			* 
+		FROM
+			t_evgl_bookpkg_team 
+		WHERE
+			user_id = ""
+    </select>
+    
+    <!-- 查询已授权的记录 -->
+    <select id="selectAuthorized" resultMap="BaseResultMap"
+        parameterType="map">
+    	SELECT
+			* 
+		FROM
+			t_evgl_bookpkg_team 
+		WHERE
+			user_id != ""
+    </select>
+    
+    <select id="selectSimplePackageList" resultType="map"
+        parameterType="map">
+        select t1.pkg_id as pkgId, t1.ref_pkg_id as refPkgId, t1.pkg_name as pkgName, ifnull(t1.pkg_no, '-1') as pkgNo, t1.display,
+		t1.pkg_desc as pkgDesc, ifnull(t1.pkg_level, '-1') as pkgLevel, ifnull(t1.pkg_limit, '-1') as pkgLimit,
+		ifnull(t1.pkg_ref_count, 0) as pkgRefCount, ifnull(t1.pkg_act_count, 0) as pkgActCount, t1.subject_id as subjectId,
+		t1.create_user_id as createUserId, t1.pkg_version as pkgVersion, ifnull(t1.pkg_logo, '') as pkgLogo, 
+		t1.create_user_id as createUserId, t1.create_time as createTime, t1.update_time as updateTime,
+		t3.teacher_name as createUserName
+		from t_evgl_pkg_info t1
+		inner join t_evgl_book_subject t2 on t1.subject_id = t2.subject_id
+		left join t_evgl_tch_teacher t3 on t1.create_user_id = t3.trainee_id
+		inner join t_evgl_bookpkg_team t4 on t1.pkg_id = t4.pgk_id
+        <where>
+        		<if test="userId != null and userId.trim() != ''">
+                and t4.user_id =#{userId,jdbcType=VARCHAR}            
+                </if>
+        		<if test="refPkgIds != null and refPkgIds.size() > 0">
+        		and t1.ref_pkg_id in 
+        			<foreach collection="refPkgIds" item="refPkgId" open="(" separator="," close=")">
+       					#{refPkgId}
+        			</foreach>
+        		</if>
+        		<if test="refPkgId != null and refPkgId.trim() != ''">
+                and t1.ref_pkg_id =#{refPkgId,jdbcType=VARCHAR}
+					<if test="selfPkgId != null and selfPkgId.trim() != ''">
+						or t1.pkg_id = #{selfPkgId}
+					</if>
+                </if>
+        		<if test="createUserIdAndFree != null and createUserIdAndFree.trim() != ''">
+                	and (t1.create_user_id =#{createUserIdAndFree,jdbcType=VARCHAR} or pkg_limit = "2")         
+                </if>
+        		<if test="subjectRef != null and subjectRef.trim() != ''">
+                	and t2.subject_ref =#{subjectRef,jdbcType=VARCHAR}            
+                </if>
+        		<if test="displayNo != null and displayNo.trim() != ''">
+                	and (t1.display is null or t1.display = '')
+                </if>
+        		<if test="pkgIds != null and pkgIds.size() > 0">
+        			and t1.pkg_id in 
+        			<foreach collection="pkgIds" item="pkgId" open="(" separator="," close=")">
+       					#{pkgId}
+        			</foreach>
+        		</if>
+                <if test="orgId != null and orgId.trim() != ''">
+                and t1.org_id =#{orgId,jdbcType=VARCHAR}            </if>
+                <if test="pkgName != null and pkgName.trim() != ''">
+                and t1.pkg_name =#{pkgName,jdbcType=VARCHAR}            </if>
+                <if test="pkgNo != null and pkgNo.trim() != ''">
+                and t1.pkg_no =#{pkgNo,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pkgKey != null and pkgKey.trim() != ''">
+                and t1.pkg_key =#{pkgKey,jdbcType=VARCHAR}            </if>
+                <if test="pkgDesc != null and pkgDesc.trim() != ''">
+                and t1.pkg_desc =#{pkgDesc,jdbcType=VARCHAR}            </if>
+                <if test="pkgRemark != null and pkgRemark.trim() != ''">
+                and t1.pkg_remark =#{pkgRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="pkgLevel != null and pkgLevel.trim() != ''">
+                and t1.pkg_level =#{pkgLevel,jdbcType=VARCHAR}            </if>
+                <if test="pkgLimit != null and pkgLimit.trim() != ''">
+                and t1.pkg_limit =#{pkgLimit,jdbcType=VARCHAR}            </if>
+                <if test="deployMainType != null and deployMainType.trim() != ''">
+                and t1.deploy_main_type =#{deployMainType,jdbcType=VARCHAR}            </if>
+                <if test="deploySubType != null and deploySubType.trim() != ''">
+                and t1.deploy_sub_type =#{deploySubType,jdbcType=VARCHAR}            </if>
+                <if test="deployTime != null and deployTime.trim() != ''">
+                and t1.deploy_time =#{deployTime,jdbcType=VARCHAR}            </if>
+                <if test="display != null and display.trim() != ''">
+                and t1.display =#{display,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="showIndex != null and showIndex.trim() != ''">
+                and t1.show_index =#{showIndex,jdbcType=VARCHAR}            </if>
+                <if test="pkgRefCount != null and pkgRefCount != ''">
+                and t1.pkg_ref_count =#{pkgRefCount,jdbcType=INTEGER}            </if>
+                <if test="pkgResCount != null and pkgResCount != ''">
+                and t1.pkg_res_count =#{pkgResCount,jdbcType=INTEGER}            </if>
+                <if test="pkgActCount != null and pkgActCount != ''">
+                and t1.pkg_act_count =#{pkgActCount,jdbcType=INTEGER}            </if>
+                <if test="pkgVersion != null and pkgVersion.trim() != ''">
+                and t1.pkg_version =#{pkgVersion,jdbcType=VARCHAR}            </if>
+                <if test="lastVersionPkg != null and lastVersionPkg.trim() != ''">
+                and t1.last_version_pkg =#{lastVersionPkg,jdbcType=VARCHAR}            </if>
+                <if test="versionRemark != null and versionRemark.trim() != ''">
+                and t1.version_remark =#{versionRemark,jdbcType=LONGVARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="pkgTraineeName != null and pkgTraineeName.trim() != ''">
+				and t1.pkg_trainee_name = #{pkgTraineeName,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeQq != null and pkgTraineeQq.trim() != ''">
+				and t1.pkg_trainee_qq = #{pkgTraineeQq,jdbcType=VARCHAR} </if>
+				<if test="pkgTraineeMobile != null and pkgTraineeMobile.trim() != ''">
+				and t1.pkg_trainee_mobile = #{pkgTraineeMobile,jdbcType=VARCHAR}   </if>
+				<if test="pkgTraineeWx != null and pkgTraineeWx.trim() != ''">
+				and t1.pkg_trainee_wx = #{pkgTraineeWx,jdbcType=VARCHAR}  </if>
+				<if test="pkgTraineeEmail != null and pkgTraineeEmail.trim() != ''">
+				and t1.pkg_trainee_email = #{pkgTraineeEmail,jdbcType=VARCHAR}  </if>
+				<if test="releaseStatus != null and releaseStatus.trim() != ''">
+                and t1.release_status =#{releaseStatus,jdbcType=VARCHAR}            </if>
+                <if test="privateUse != null and privateUse.trim() != ''">
+                and t1.private_use =#{privateUse,jdbcType=VARCHAR}            </if>
+        </where>
+        GROUP BY t1.pkg_id
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.pkg_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 仅查询主键id -->
+    <select id="selectTeamIdListByMap" resultType="string" parameterType="map">
+        select t1.team_id from T_EVGL_BOOKPKG_TEAM t1
+        <where>
+        		<if test="pkgIdArray != null">
+					and t1.pgk_id in
+					<foreach collection="pkgIdArray" item="pkgId" open="(" separator="," close=")">
+						#{pkgId}
+					</foreach>
+				</if>
+        		<if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pgk_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="pgkId != null and pgkId.trim() != ''">
+                and t1.pgk_id =#{pgkId,jdbcType=VARCHAR}            </if>
+                <if test="userId != null and userId.trim() != ''">
+                and user_id =#{userId,jdbcType=VARCHAR}            </if>
+                <if test="isSubeditor != null and isSubeditor.trim() != ''">
+                and t1.is_subeditor =#{isSubeditor,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.team_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

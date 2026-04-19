@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.ScheduleJobMapper">
+	<select id="selectObjectById" resultType="com.budaos.modules.sys.domain.ScheduleJobEntity">
+		select * from t_schedule_job where job_id = #{value}
+	</select>
+
+	<select id="selectListByMap" resultType="com.budaos.modules.sys.domain.ScheduleJobEntity">
+		select * from t_schedule_job
+		<where>
+			<if test="jobId != null and jobId.trim() != ''">
+				and job_id = #{jobId}
+			</if>
+			<if test="beanName != null and beanName.trim() != ''">
+				and bean_name like concat('%', #{beanName}, '%')
+			</if>
+			<if test="methodName != null and methodName.trim() != ''">
+				and method_name like concat('%', #{methodName}, '%')
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectListById" resultType="com.budaos.modules.sys.domain.ScheduleJobEntity">
+		select * from t_schedule_job where job_id in
+		<foreach item="jobId" collection="list" open="(" separator="," close=")">
+			#{jobId}
+		</foreach>
+	</select>
+
+	<select id="selectTotalByMap" resultType="int">
+		select count(*) from t_schedule_job
+		<where>
+			<if test="jobId != null and jobId.trim() != ''">
+				and job_id = #{jobId}
+			</if>
+			<if test="beanName != null and beanName.trim() != ''">
+				and bean_name like concat('%', #{beanName}, '%')
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectTotal" resultType="int">
+		select count(*) from t_schedule_job
+	</select>
+
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.ScheduleJobEntity">
+		insert into t_schedule_job
+		(
+			job_id,
+			bean_name,
+			method_name,
+			params,
+			cron_expression,
+			status,
+			remark,
+			create_time,
+			update_time
+		)
+		values
+		(
+			#{jobId},
+			#{beanName},
+			#{methodName},
+			#{params},
+			#{cronExpression},
+			#{status},
+			#{remark},
+			#{createTime},
+			#{updateTime}
+		)
+	</insert>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_schedule_job
+		(
+			job_id,
+			bean_name,
+			method_name,
+			params,
+			cron_expression,
+			status,
+			remark,
+			create_time,
+			update_time
+		)
+		values
+		<foreach item="item" collection="list" separator=",">
+			(
+				#{item.jobId},
+				#{item.beanName},
+				#{item.methodName},
+				#{item.params},
+				#{item.cronExpression},
+				#{item.status},
+				#{item.remark},
+				#{item.createTime},
+				#{item.updateTime}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.budaos.modules.sys.domain.ScheduleJobEntity">
+		update t_schedule_job
+		<set>
+			<if test="beanName != null">bean_name = #{beanName},</if>
+			<if test="methodName != null">method_name = #{methodName},</if>
+			<if test="params != null">params = #{params},</if>
+			<if test="cronExpression != null">cron_expression = #{cronExpression},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+		</set>
+		where job_id = #{jobId}
+	</update>
+
+	<update id="updateBatch" parameterType="map">
+		update t_schedule_job set status = #{status}
+		where job_id in
+		<foreach item="jobId" collection="list" open="(" separator="," close=")">
+			#{jobId}
+		</foreach>
+	</update>
+
+	<delete id="delete">
+		delete from t_schedule_job where job_id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from t_schedule_job where job_id in
+		<foreach item="jobId" collection="array" open="(" separator="," close=")">
+			#{jobId}
+		</foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.tch.persistence.TevglTchClassroomGroupMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.tch.domain.TevglTchClassroomGroup">
+		<result column="gp_id" jdbcType="VARCHAR"
+			property="gpId" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="group_name" jdbcType="VARCHAR"
+			property="groupName" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="number" jdbcType="INTEGER"
+			property="number" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		gp_id,ct_id,group_name,sort_num,state,create_time,create_user_id,number
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchClassroomGroup">
+		INSERT INTO T_EVGL_TCH_CLASSROOM_GROUP (
+		gp_id ,
+		ct_id ,
+		group_name ,
+		sort_num ,
+		state ,
+		create_time ,
+		create_user_id ,
+		number
+		) VALUES (
+
+#{gpId,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{groupName,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{number,jdbcType=INTEGER} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchClassroomGroup">
+		UPDATE T_EVGL_TCH_CLASSROOM_GROUP 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="groupName != null">
+		group_name = #{groupName,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="number != null">
+		number = #{number,jdbcType=INTEGER},
+		</if>
+		</set>
+		WHERE
+		gp_id = #{gpId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_TCH_CLASSROOM_GROUP WHERE
+		gp_id =
+		#{gpId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_TCH_CLASSROOM_GROUP WHERE
+		gp_id in
+		<foreach item="gpId" collection="array" open="("
+			separator="," close=")">
+#{gpId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_TCH_CLASSROOM_GROUP WHERE
+		gp_id = #{gpId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_TCH_CLASSROOM_GROUP
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="groupName != null and groupName.trim() != ''">
+                and group_name =#{groupName,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="number != null and number != ''">
+                and number =#{number,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by gp_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_TCH_CLASSROOM_GROUP t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="groupName != null and groupName.trim() != ''">
+                and t1.group_name =#{groupName,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                 <if test="number != null and number != ''">
+                and t1.number =#{number,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.gp_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getMaxSortNum" parameterType="map" resultType="java.lang.Integer">
+    	select ifnull(max(t1.sort_num), 0) + 1 from T_EVGL_TCH_CLASSROOM_GROUP t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="groupName != null and groupName.trim() != ''">
+                and t1.group_name =#{groupName,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="number != null and number != ''">
+                and t1.number =#{number,jdbcType=INTEGER}            </if>
+        </where>
+    </select>
+    
+    <select id="plusNum" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchClassroomGroup">
+    	update t_evgl_tch_classroom_group
+    	<set>
+    		<if test="number != null">
+    			number = ifnull(number, 0) + #{number,jdbcType=INTEGER}
+    		</if>
+    	</set>
+    	WHERE
+		gp_id = #{gpId,jdbcType=VARCHAR} 
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into T_EVGL_TCH_CLASSROOM_GROUP
+		(
+		gp_id, ct_id, group_name, sort_num, state,
+		create_time, create_user_id, `number`
+		)
+		values
+		<foreach collection="list" item="obj" separator="," >
+			(
+			#{obj.gpId}, #{obj.ctId}, #{obj.groupName}, #{obj.sortNum}, #{obj.state},
+			#{obj.createTime}, #{obj.createUserId}, #{obj.number}
+			)
+		</foreach>
+	</insert>
+	
+	<update id="plusNumBatchByCaseWhen" parameterType="java.util.List">
+		UPDATE T_EVGL_TCH_CLASSROOM_GROUP
+		SET `number` = CASE gp_id
+		<foreach collection="list" item="item" open="" separator="" close="">
+			WHEN #{item.gpId} THEN `number` = ifnull(`number`, 0) + #{item.number,jdbcType=INTEGER}
+		</foreach>
+		END
+		WHERE gp_id IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.gpId}
+		</foreach>
+	</update>
+</mapper>
+

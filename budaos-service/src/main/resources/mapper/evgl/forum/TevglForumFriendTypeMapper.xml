@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.forum.persistence.TevglForumFriendTypeMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.forum.domain.TevglForumFriendType">
+		<result column="type_id" jdbcType="VARCHAR"
+			property="typeId" />
+		<result column="parent_id" jdbcType="VARCHAR"
+			property="parentId" />
+		<result column="name" jdbcType="VARCHAR"
+			property="name" />
+		<result column="icon" jdbcType="VARCHAR"
+			property="icon" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="remark" jdbcType="VARCHAR"
+			property="remark" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		type_id,parent_id,name,icon,sort_num,remark,create_time,create_user_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumFriendType">
+		INSERT INTO T_EVGL_FORUM_FRIEND_TYPE (
+		type_id ,
+		parent_id ,
+		name ,
+		icon ,
+		sort_num ,
+		remark ,
+		create_time ,
+		create_user_id 
+		) VALUES (
+
+#{typeId,jdbcType=VARCHAR} ,
+
+#{parentId,jdbcType=VARCHAR} ,
+
+#{name,jdbcType=VARCHAR} ,
+
+#{icon,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{remark,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.forum.domain.TevglForumFriendType">
+		UPDATE T_EVGL_FORUM_FRIEND_TYPE 
+		<set>
+		<if test="parentId != null">
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		</if>
+		<if test="name != null">
+		name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="icon != null">
+		icon = #{icon,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		type_id = #{typeId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_FRIEND_TYPE WHERE
+		type_id =
+		#{typeId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_FORUM_FRIEND_TYPE WHERE
+		type_id in
+		<foreach item="typeId" collection="array" open="("
+			separator="," close=")">
+#{typeId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_FORUM_FRIEND_TYPE WHERE
+		type_id = #{typeId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_FORUM_FRIEND_TYPE
+        <where>
+                <if test="parentId != null and parentId.trim() != ''">
+                and parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="icon != null and icon.trim() != ''">
+                and icon =#{icon,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by type_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_FORUM_FRIEND_TYPE t1
+        <where>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="icon != null and icon.trim() != ''">
+                and t1.icon =#{icon,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.type_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListMapByMap" resultType="map"
+        parameterType="map">
+        select t1.type_id as typeId, t1.parent_id as parentId, t1.name, t1.icon from T_EVGL_FORUM_FRIEND_TYPE t1
+        <where>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="icon != null and icon.trim() != ''">
+                and t1.icon =#{icon,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.sort_num asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getMaxSortNum" resultType="INTEGER"
+        parameterType="map">
+        select ifnull(max(t1.sort_num), 0) + 1 from T_EVGL_FORUM_FRIEND_TYPE t1
+        <where>
+                <if test="parentId != null and parentId.trim() != ''">
+                and t1.parent_id =#{parentId,jdbcType=VARCHAR}            </if>
+                <if test="name != null and name.trim() != ''">
+                and t1.name =#{name,jdbcType=VARCHAR}            </if>
+                <if test="icon != null and icon.trim() != ''">
+                and t1.icon =#{icon,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.sort_num asc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TsysLogMapper">
+
+	<select id="selectObjectById" resultType="com.budaos.modules.sys.domain.TsysLog">
+		select * from t_sys_log
+		where id = #{id}
+	</select>
+
+	<select id="selectListByMap" resultType="com.budaos.modules.sys.domain.TsysLog">
+		select * from t_sys_log
+		<where>
+			<if test="username != null  and username.trim() != ''">
+				and username like concat('%',#{username},'%')
+			</if>
+			<if test="operation != null and operation.trim() != ''">
+				and operation like concat('%',#{operation},'%')
+			</if>
+			<if test="ip != null and ip.trim() != ''">
+				and ip like concat('%',#{ip},'%')
+			</if>
+			<if test="timeConsuming != null and timeConsuming.trim() != ''">
+				and time_consuming &gt;= #{timeConsuming}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+	</select>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TsysLog">
+		insert into t_sys_log
+		(
+		id,
+		username,
+		operation,
+		method,
+		params,
+		returns,
+		ip,
+		create_date,
+		log_type,
+		request_uri,
+		exception_code,
+		exception_detail,
+		time_consuming,
+		user_agent,
+		app_id
+		)
+		values
+		(
+		#{id},
+		#{username},
+		#{operation},
+		#{method},
+		#{params},
+		#{returns},
+		#{ip},
+		#{createDate},
+		#{logType},
+		#{requestUri},
+		#{exceptionCode},
+		#{exceptionDetail},
+		#{timeConsuming},
+		#{userAgent},
+		#{appid}
+		
+		)
+	</insert>
+
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TsysLog">
+		update t_sys_log
+		<set>
+			<if test="username != null">username = #{username}, </if>
+			<if test="operation != null">operation = #{operation}, </if>
+			<if test="method != null">method = #{method}, </if>
+			<if test="params != null">params = #{params}, </if>
+			<if test="returns != null">returns = #{returns}, </if>
+			<if test="ip != null">ip = #{ip} </if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from t_sys_log where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from t_sys_log where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

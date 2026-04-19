@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.tch.persistence.TevglTchRoomPereAnswerMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.tch.domain.TevglTchRoomPereAnswer">
+		<result column="answer_id" jdbcType="VARCHAR"
+			property="answerId" />
+		<result column="answer_title" jdbcType="VARCHAR"
+			property="answerTitle" />
+		<result column="answer_num" jdbcType="INTEGER"
+			property="answerNum" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="empirical_value" jdbcType="INTEGER"
+			property="empiricalValue" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+		<result column="resgroup_id" jdbcType="VARCHAR"
+			property="resgroupId" />
+		<result column="type" jdbcType="INTEGER"
+			property="type" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		answer_id,answer_title,answer_num,ct_id,empirical_value,state,create_user_id,create_time,update_user_id,update_time,pkg_id,resgroup_id,type
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchRoomPereAnswer">
+		INSERT INTO T_EVGL_TCH_ROOM_PERE_ANSWER (
+		answer_id ,
+		answer_title ,
+		answer_num ,
+		ct_id ,
+		empirical_value ,
+		state ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		pkg_id ,
+		resgroup_id ,
+		type
+		) VALUES (
+
+#{answerId,jdbcType=VARCHAR} ,
+
+#{answerTitle,jdbcType=VARCHAR} ,
+
+#{answerNum,jdbcType=INTEGER} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{empiricalValue,jdbcType=INTEGER} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} ,
+
+#{resgroupId,jdbcType=VARCHAR} ,
+
+#{type,jdbcType=INTEGER}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.tch.domain.TevglTchRoomPereAnswer">
+		UPDATE T_EVGL_TCH_ROOM_PERE_ANSWER 
+		<set>
+		<if test="answerTitle != null">
+		answer_title = #{answerTitle,jdbcType=INTEGER},
+		</if>
+		<if test="answerNum != null">
+		answer_num = #{answerNum,jdbcType=INTEGER},
+		</if>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="empiricalValue != null">
+		empirical_value = #{empiricalValue,jdbcType=INTEGER},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="resgroupId != null">
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR},
+		</if>
+		<if test="type != null">
+		type = #{type,jdbcType=INTEGER},
+		</if>
+		</set>
+		WHERE
+		answer_id = #{answerId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_TCH_ROOM_PERE_ANSWER WHERE
+		answer_id =
+		#{answerId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_TCH_ROOM_PERE_ANSWER WHERE
+		answer_id in
+		<foreach item="answerId" collection="array" open="("
+			separator="," close=")">
+#{answerId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select relation.activity_state as activityStateActual, t1.*
+		from T_EVGL_TCH_ROOM_PERE_ANSWER t1
+		inner join t_evgl_pkg_activity_relation relation on t1.answer_id = relation.activity_id
+		WHERE t1.answer_id = #{answerId,jdbcType=VARCHAR}
+	</select>
+	<!-- 根据抢答id和教学包id查询抢答信息 -->
+	<select id="selectObjectByIdAndPkgId" parameterType="map"
+		resultMap="BaseResultMap">
+		SELECT
+			relation.activity_state AS activityStateActual,
+			relation.activity_begin_time,
+			relation.activity_end_time,
+			t1.* 
+		FROM
+			t_evgl_tch_room_pere_answer t1
+			INNER JOIN t_evgl_pkg_activity_relation relation ON t1.answer_id = relation.activity_id 
+		WHERE
+			relation.activity_id = #{activityId,jdbcType=VARCHAR} and relation.pkg_id = #{pkgId}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_TCH_ROOM_PERE_ANSWER
+        <where>
+        		<if test="answerTitle != null and answerTitle != ''">
+                and answer_title =#{answerTitle,jdbcType=INTEGER}            </if>
+                <if test="answerNum != null and answerNum != ''">
+                and answer_num =#{answerNum,jdbcType=INTEGER}            </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="empiricalValue != null and empiricalValue != ''">
+                and empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and type =#{type,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by answer_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_TCH_ROOM_PERE_ANSWER t1
+        <where>
+        		<if test="answerTitle != null and answerTitle != ''">
+                and t1.answer_title =#{answerTitle,jdbcType=INTEGER}            </if>
+                <if test="answerNum != null and answerNum != ''">
+                and t1.answer_num =#{answerNum,jdbcType=INTEGER}            </if>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="empiricalValue != null and empiricalValue != ''">
+                and t1.empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="type != null and type.trim() != ''">
+                and t1.type =#{type,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.answer_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityTaskMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivityTask">
+		<result column="activity_id" jdbcType="VARCHAR"
+			property="activityId" />
+		<result column="resgroup_id" jdbcType="VARCHAR"
+			property="resgroupId" />
+		<result column="activity_title" jdbcType="VARCHAR"
+			property="activityTitle" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="activity_pic" jdbcType="VARCHAR"
+			property="activityPic" />
+		<result column="divide_group_type" jdbcType="VARCHAR"
+			property="divideGroupType" />
+		<result column="score_type" jdbcType="VARCHAR"
+			property="scoreType" />
+		<result column="is_set_lastest_submission_time" jdbcType="VARCHAR"
+			property="isSetLastestSubmissionTime" />
+		<result column="lastest_submission_time" jdbcType="VARCHAR"
+			property="lastestSubmissionTime" />
+		<result column="is_allow_exceed_time" jdbcType="VARCHAR"
+			property="isAllowExceedTime" />
+		<result column="reference_answer" jdbcType="LONGVARCHAR"
+			property="referenceAnswer" />
+		<result column="empirical_value" jdbcType="INTEGER"
+			property="empiricalValue" />
+		<result column="activity_begin_time" jdbcType="VARCHAR"
+			property="activityBeginTime" />
+		<result column="activity_end_time" jdbcType="VARCHAR"
+			property="activityEndTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="activity_state" jdbcType="VARCHAR"
+			property="activityState" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="activity_type" jdbcType="VARCHAR"
+			property="activityType" />
+		<result column="purpose" jdbcType="VARCHAR"
+			property="purpose" />
+		<result column="chapter_id" jdbcType="VARCHAR"
+			property="chapterId" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		activity_id,resgroup_id,activity_title,content,activity_pic,divide_group_type,score_type,is_set_lastest_submission_time,lastest_submission_time,is_allow_exceed_time,reference_answer,empirical_value,activity_begin_time,activity_end_time,state,activity_state,sort_num,create_user_id,create_time,update_user_id,update_time,activity_type,purpose,chapter_id
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTask">
+		INSERT INTO T_EVGL_ACTIVITY_TASK (
+		activity_id ,
+		resgroup_id ,
+		activity_title ,
+		content ,
+		activity_pic ,
+		divide_group_type ,
+		score_type ,
+		is_set_lastest_submission_time ,
+		lastest_submission_time ,
+		is_allow_exceed_time ,
+		reference_answer ,
+		empirical_value ,
+		activity_begin_time ,
+		activity_end_time ,
+		state ,
+		activity_state ,
+		sort_num ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		activity_type ,
+		purpose ,
+		chapter_id 
+		) VALUES (
+
+#{activityId,jdbcType=VARCHAR} ,
+
+#{resgroupId,jdbcType=VARCHAR} ,
+
+#{activityTitle,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{activityPic,jdbcType=VARCHAR} ,
+
+#{divideGroupType,jdbcType=VARCHAR} ,
+
+#{scoreType,jdbcType=VARCHAR} ,
+
+#{isSetLastestSubmissionTime,jdbcType=VARCHAR} ,
+
+#{lastestSubmissionTime,jdbcType=VARCHAR} ,
+
+#{isAllowExceedTime,jdbcType=VARCHAR} ,
+
+#{referenceAnswer,jdbcType=LONGVARCHAR} ,
+
+#{empiricalValue,jdbcType=INTEGER} ,
+
+#{activityBeginTime,jdbcType=VARCHAR} ,
+
+#{activityEndTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{activityState,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{activityType,jdbcType=VARCHAR} ,
+
+#{purpose,jdbcType=VARCHAR} ,
+
+#{chapterId,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTask">
+		UPDATE T_EVGL_ACTIVITY_TASK 
+		<set>
+		<if test="resgroupId != null">
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR},
+		</if>
+		<if test="activityTitle != null">
+		activity_title = #{activityTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="activityPic != null">
+		activity_pic = #{activityPic,jdbcType=VARCHAR},
+		</if>
+		<if test="divideGroupType != null">
+		divide_group_type = #{divideGroupType,jdbcType=VARCHAR},
+		</if>
+		<if test="scoreType != null">
+		score_type = #{scoreType,jdbcType=VARCHAR},
+		</if>
+		<if test="isSetLastestSubmissionTime != null">
+		is_set_lastest_submission_time = #{isSetLastestSubmissionTime,jdbcType=VARCHAR},
+		</if>
+		<if test="lastestSubmissionTime != null">
+		lastest_submission_time = #{lastestSubmissionTime,jdbcType=VARCHAR},
+		</if>
+		<if test="isAllowExceedTime != null">
+		is_allow_exceed_time = #{isAllowExceedTime,jdbcType=VARCHAR},
+		</if>
+		<if test="referenceAnswer != null">
+		reference_answer = #{referenceAnswer,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="empiricalValue != null">
+		empirical_value = #{empiricalValue,jdbcType=INTEGER},
+		</if>
+		<if test="activityBeginTime != null">
+		activity_begin_time = #{activityBeginTime,jdbcType=VARCHAR},
+		</if>
+		<if test="activityEndTime != null">
+		activity_end_time = #{activityEndTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="activityState != null">
+		activity_state = #{activityState,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="activityType != null">
+		activity_type = #{activityType,jdbcType=VARCHAR},
+		</if>
+		<if test="purpose != null">
+		purpose = #{purpose,jdbcType=VARCHAR},
+		</if>
+		<if test="chapterId != null">
+		chapter_id = #{chapterId,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		activity_id = #{activityId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_TASK WHERE
+		activity_id =
+		#{activityId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_TASK WHERE
+		activity_id in
+		<foreach item="activityId" collection="array" open="("
+			separator="," close=")">
+#{activityId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_TASK WHERE
+		activity_id = #{activityId,jdbcType=VARCHAR} 
+	</select>
+	<select id="selectObjectByIdAndPkgId" parameterType="map"
+		resultMap="BaseResultMap">
+		select relation.activity_state as activityStateActual, t1.*
+		from t_evgl_activity_task t1
+		inner join t_evgl_pkg_activity_relation relation on t1.activity_id = relation.activity_id
+		WHERE relation.activity_id = #{activityId,jdbcType=VARCHAR} and relation.pkg_id = #{pkgId}
+	</select>
+	<select id="selectObjectMapById" parameterType="java.lang.String"
+		resultType="map">
+		select t1.activity_id as activityId, t1.resgroup_id as resgroupId, t1.activity_title as activityTitle,
+		if(LENGTH(t1.resgroup_id) = 32, t2.resgroup_name, dict.DICT_VALUE) as resgroupName,
+		t1.content, ifnull(t1.activity_pic, '') as activityPic, t1.empirical_value as empiricalValue, t1.sort_num as sortNum,
+		t1.purpose, t1.chapter_id as chapterId, t1.divide_group_type as divideGroupType,
+		t1.score_type as scoreType, t1.is_set_lastest_submission_time as isSetLastestSubmissionTime,
+		t1.lastest_submission_time as lastestSubmissionTime, t1.is_allow_exceed_time as isAllowExceedTime,
+		t1.reference_answer as referenceAnswer
+		from T_EVGL_ACTIVITY_TASK t1
+		left join t_evgl_pkg_resgroup t2 on t1.resgroup_id = t2.resgroup_id
+		left join t_sys_dict dict on t1.resgroup_id = dict.DICT_CODE and dict.DICT_TYPE = 'activityGroup'
+		WHERE activity_id = #{activityId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_TASK
+        <where>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="activityTitle != null and activityTitle.trim() != ''">
+                and activity_title =#{activityTitle,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="activityPic != null and activityPic.trim() != ''">
+                and activity_pic =#{activityPic,jdbcType=VARCHAR}            </if>
+                <if test="divideGroupType != null and divideGroupType.trim() != ''">
+                and divide_group_type =#{divideGroupType,jdbcType=VARCHAR}            </if>
+                <if test="scoreType != null and scoreType.trim() != ''">
+                and score_type =#{scoreType,jdbcType=VARCHAR}            </if>
+                <if test="isSetLastestSubmissionTime != null and isSetLastestSubmissionTime.trim() != ''">
+                and is_set_lastest_submission_time =#{isSetLastestSubmissionTime,jdbcType=VARCHAR}            </if>
+                <if test="lastestSubmissionTime != null and lastestSubmissionTime.trim() != ''">
+                and lastest_submission_time =#{lastestSubmissionTime,jdbcType=VARCHAR}            </if>
+                <if test="isAllowExceedTime != null and isAllowExceedTime.trim() != ''">
+                and is_allow_exceed_time =#{isAllowExceedTime,jdbcType=VARCHAR}            </if>
+                <if test="referenceAnswer != null and referenceAnswer.trim() != ''">
+                and reference_answer =#{referenceAnswer,jdbcType=LONGVARCHAR}            </if>
+                <if test="empiricalValue != null and empiricalValue != ''">
+                and empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+                <if test="activityBeginTime != null and activityBeginTime.trim() != ''">
+                and activity_begin_time =#{activityBeginTime,jdbcType=VARCHAR}            </if>
+                <if test="activityEndTime != null and activityEndTime.trim() != ''">
+                and activity_end_time =#{activityEndTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="activityState != null and activityState.trim() != ''">
+                and activity_state =#{activityState,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="activityType != null and activityType.trim() != ''">
+                and activity_type =#{activityType,jdbcType=VARCHAR}            </if>
+                <if test="purpose != null and purpose.trim() != ''">
+                and purpose =#{purpose,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by activity_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_TASK t1
+        <where>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="activityTitle != null and activityTitle.trim() != ''">
+                and t1.activity_title =#{activityTitle,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="activityPic != null and activityPic.trim() != ''">
+                and t1.activity_pic =#{activityPic,jdbcType=VARCHAR}            </if>
+                <if test="divideGroupType != null and divideGroupType.trim() != ''">
+                and t1.divide_group_type =#{divideGroupType,jdbcType=VARCHAR}            </if>
+                <if test="scoreType != null and scoreType.trim() != ''">
+                and t1.score_type =#{scoreType,jdbcType=VARCHAR}            </if>
+                <if test="isSetLastestSubmissionTime != null and isSetLastestSubmissionTime.trim() != ''">
+                and t1.is_set_lastest_submission_time =#{isSetLastestSubmissionTime,jdbcType=VARCHAR}            </if>
+                <if test="lastestSubmissionTime != null and lastestSubmissionTime.trim() != ''">
+                and t1.lastest_submission_time =#{lastestSubmissionTime,jdbcType=VARCHAR}            </if>
+                <if test="isAllowExceedTime != null and isAllowExceedTime.trim() != ''">
+                and t1.is_allow_exceed_time =#{isAllowExceedTime,jdbcType=VARCHAR}            </if>
+                <if test="referenceAnswer != null and referenceAnswer.trim() != ''">
+                and t1.reference_answer =#{referenceAnswer,jdbcType=LONGVARCHAR}            </if>
+                <if test="empiricalValue != null and empiricalValue != ''">
+                and t1.empirical_value =#{empiricalValue,jdbcType=INTEGER}            </if>
+                <if test="activityBeginTime != null and activityBeginTime.trim() != ''">
+                and t1.activity_begin_time =#{activityBeginTime,jdbcType=VARCHAR}            </if>
+                <if test="activityEndTime != null and activityEndTime.trim() != ''">
+                and t1.activity_end_time =#{activityEndTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="activityState != null and activityState.trim() != ''">
+                and t1.activity_state =#{activityState,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="activityType != null and activityType.trim() != ''">
+                and t1.activity_type =#{activityType,jdbcType=VARCHAR}            </if>
+                <if test="purpose != null and purpose.trim() != ''">
+                and t1.purpose =#{purpose,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.activity_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getMaxSortNum" parameterType="map" resultType="Integer">
+    	select ifnull(MAX(sort_num), 0) + 1 as sortNum 
+    	from T_EVGL_ACTIVITY_TASK t1
+    	inner join t_evgl_pkg_activity_relation t2 on t1.activity_id = t2.activity_id
+    	<where>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t2.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="chapterId != null and chapterId.trim() != ''">
+                and t1.chapter_id =#{chapterId,jdbcType=VARCHAR}            </if>
+        </where>
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.pkg.persistence.TevglPkgResMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.pkg.domain.TevglPkgRes">
+		<result column="res_id" jdbcType="VARCHAR"
+			property="resId" />
+		<result column="pkg_id" jdbcType="VARCHAR"
+			property="pkgId" />
+		<result column="resgroup_id" jdbcType="VARCHAR"
+			property="resgroupId" />
+		<result column="res_type" jdbcType="VARCHAR"
+			property="resType" />
+		<result column="res_content" jdbcType="LONGVARCHAR"
+			property="resContent" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />
+		<result column="res_save_url" jdbcType="VARCHAR"
+			property="resSaveUrl" />
+		<result column="res_down_url" jdbcType="VARCHAR"
+			property="resDownUrl" />
+		<result column="res_name" jdbcType="VARCHAR"
+			property="resName" />
+		<result column="res_size" jdbcType="INTEGER"
+			property="resSize" />
+		<result column="res_suffix" jdbcType="VARCHAR"
+			property="resSuffix" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="view_num" jdbcType="INTEGER"
+			property="viewNum" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		res_id,pkg_id,resgroup_id,res_type,res_content,sort_num,res_save_url,res_down_url,res_name,res_size,res_suffix,create_user_id,create_time,update_user_id,update_time,state,view_num
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgRes">
+		INSERT INTO T_EVGL_PKG_RES (
+		res_id ,
+		pkg_id ,
+		resgroup_id ,
+		res_type ,
+		res_content ,
+		sort_num ,
+		res_save_url ,
+		res_down_url ,
+		res_name ,
+		res_size ,
+		res_suffix ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		state ,
+		view_num
+		) VALUES (
+
+#{resId,jdbcType=VARCHAR} ,
+
+#{pkgId,jdbcType=VARCHAR} ,
+
+#{resgroupId,jdbcType=VARCHAR} ,
+
+#{resType,jdbcType=VARCHAR} ,
+
+#{resContent,jdbcType=LONGVARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} ,
+
+#{resSaveUrl,jdbcType=VARCHAR} ,
+
+#{resDownUrl,jdbcType=VARCHAR} ,
+
+#{resName,jdbcType=VARCHAR} ,
+
+#{resSize,jdbcType=INTEGER} ,
+
+#{resSuffix,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{viewNum,jdbcType=INTEGER} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.pkg.domain.TevglPkgRes">
+		UPDATE T_EVGL_PKG_RES 
+		<set>
+		<if test="pkgId != null">
+		pkg_id = #{pkgId,jdbcType=VARCHAR},
+		</if>
+		<if test="resgroupId != null">
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR},
+		</if>
+		<if test="resType != null">
+		res_type = #{resType,jdbcType=VARCHAR},
+		</if>
+		<if test="resContent != null">
+		res_content = #{resContent,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="resSaveUrl != null">
+		res_save_url = #{resSaveUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="resDownUrl != null">
+		res_down_url = #{resDownUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="resName != null">
+		res_name = #{resName,jdbcType=VARCHAR},
+		</if>
+		<if test="resSize != null">
+		res_size = #{resSize,jdbcType=INTEGER},
+		</if>
+		<if test="resSuffix != null">
+		res_suffix = #{resSuffix,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="viewNum != null">
+		view_num = #{viewNum,jdbcType=INTEGER},
+		</if>
+		</set>
+		WHERE
+		res_id = #{resId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_RES WHERE
+		res_id =
+		#{resId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteResgroupId" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_RES WHERE
+		resgroup_id =
+		#{resgroupId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_PKG_RES WHERE
+		res_id in
+		<foreach item="resId" collection="array" open="("
+			separator="," close=")">
+#{resId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_PKG_RES WHERE
+		res_id = #{resId,jdbcType=VARCHAR} 
+	</select>
+	<select id="selectObjectByResgroupId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_PKG_RES WHERE
+		resgroup_id = #{resgroupId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_PKG_RES
+        <where>
+        
+        		<if test="resgroupIds != null and resgroupIds.size() > 0">
+                and resgroup_id in
+                	<foreach collection="resgroupIds" item="resgroupId" open="(" separator="," close=")">
+                		#{resgroupId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+        
+                <if test="resId != null and resId.trim() != ''">
+                and res_id =#{resId,jdbcType=VARCHAR}            </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="resContent != null and resContent.trim() != ''">
+                and res_content =#{resContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resSaveUrl != null and resSaveUrl.trim() != ''">
+                and res_save_url =#{resSaveUrl,jdbcType=VARCHAR}            </if>
+                <if test="resDownUrl != null and resDownUrl.trim() != ''">
+                and res_down_url =#{resDownUrl,jdbcType=VARCHAR}            </if>
+                <if test="resName != null and resName.trim() != ''">
+                and res_name =#{resName,jdbcType=VARCHAR}            </if>
+                <if test="resSize != null and resSize != ''">
+                and res_size =#{resSize,jdbcType=INTEGER}            </if>
+                <if test="resSuffix != null and resSuffix.trim() != ''">
+                and res_suffix =#{resSuffix,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by res_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_PKG_RES t1
+        <where>
+        		<if test="resgroupIds != null and resgroupIds.size() > 0">
+                and t1.resgroup_id in
+                	<foreach collection="resgroupIds" item="resgroupId" open="(" separator="," close=")">
+                		#{resgroupId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="resContent != null and resContent.trim() != ''">
+                and t1.res_content =#{resContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resSaveUrl != null and resSaveUrl.trim() != ''">
+                and t1.res_save_url =#{resSaveUrl,jdbcType=VARCHAR}            </if>
+                <if test="resDownUrl != null and resDownUrl.trim() != ''">
+                and t1.res_down_url =#{resDownUrl,jdbcType=VARCHAR}            </if>
+                <if test="resName != null and resName.trim() != ''">
+                and t1.res_name =#{resName,jdbcType=VARCHAR}            </if>
+                <if test="resSize != null and resSize != ''">
+                and t1.res_size =#{resSize,jdbcType=INTEGER}            </if>
+                <if test="resSuffix != null and resSuffix.trim() != ''">
+                and t1.res_suffix =#{resSuffix,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.res_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getMaxSortNum" resultType="INTEGER" parameterType="map">
+    	select IFNULL(max(sort_num), 0) + 1 from t_evgl_pkg_res
+    	<where>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+    </select>
+    
+    <!-- 统计资源数 -->
+    <select id="countResNum" resultType="INTEGER" parameterType="map">
+    	SELECT COUNT(*) as num from t_evgl_pkg_res
+    	<where>
+    	
+    			<if test="ids != null and ids.size() > 0">	
+    				and pkg_id in 
+    				<foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+    			</if>
+    				
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+    </select>
+    
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into t_evgl_pkg_res
+		(
+		res_id, pkg_id, resgroup_id, res_type, res_content,
+		sort_num, res_save_url, res_down_url, res_name, res_size,
+		res_suffix, create_user_id, create_time, update_user_id, update_time,
+		state, view_num
+		)
+		values
+		<foreach collection="list" item="obj" separator="," >
+			(
+			#{obj.resId}, #{obj.pkgId}, #{obj.resgroupId}, #{obj.resType}, #{obj.resContent},
+			#{obj.sortNum}, #{obj.resSaveUrl}, #{obj.resDownUrl}, #{obj.resName}, #{obj.resSize},
+			#{obj.resSuffix}, #{obj.createUserId}, #{obj.createTime}, #{obj.updateUserId}, #{obj.updateTime},
+			#{obj.state}, #{obj.viewNum}
+			)
+		</foreach>
+	</insert>
+	
+	<!-- 根据条件仅查询主键id -->
+	<select id="selectResIdListByMap" resultType="string"
+        parameterType="map">
+        select res_id from T_EVGL_PKG_RES t1
+        <where>
+        		<if test="resgroupIds != null and resgroupIds.size() > 0">
+                and resgroup_id in
+                	<foreach collection="resgroupIds" item="resgroupId" open="(" separator="," close=")">
+                		#{resgroupId,jdbcType=VARCHAR}
+                	</foreach>
+                </if>
+                <if test="pkgId != null and pkgId.trim() != ''">
+                and t1.pkg_id =#{pkgId,jdbcType=VARCHAR}            </if>
+                <if test="resgroupId != null and resgroupId.trim() != ''">
+                and t1.resgroup_id =#{resgroupId,jdbcType=VARCHAR}            </if>
+                <if test="resType != null and resType.trim() != ''">
+                and t1.res_type =#{resType,jdbcType=VARCHAR}            </if>
+                <if test="resContent != null and resContent.trim() != ''">
+                and t1.res_content =#{resContent,jdbcType=LONGVARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+                <if test="resSaveUrl != null and resSaveUrl.trim() != ''">
+                and t1.res_save_url =#{resSaveUrl,jdbcType=VARCHAR}            </if>
+                <if test="resDownUrl != null and resDownUrl.trim() != ''">
+                and t1.res_down_url =#{resDownUrl,jdbcType=VARCHAR}            </if>
+                <if test="resName != null and resName.trim() != ''">
+                and t1.res_name =#{resName,jdbcType=VARCHAR}            </if>
+                <if test="resSize != null and resSize != ''">
+                and t1.res_size =#{resSize,jdbcType=INTEGER}            </if>
+                <if test="resSuffix != null and resSuffix.trim() != ''">
+                and t1.res_suffix =#{resSuffix,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.res_id  desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+

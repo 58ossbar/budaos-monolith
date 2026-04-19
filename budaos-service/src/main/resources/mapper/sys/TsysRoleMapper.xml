@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.job.persistence.TsysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.budaos.modules.sys.domain.TsysRole">
+		<result column="role_id" jdbcType="VARCHAR" property="roleId" />
+		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR" property="createTime" />
+		<result column="role_type" jdbcType="VARCHAR" property="roleType" />
+		<result column="org_id" jdbcType="VARCHAR" property="orgId" />
+		<result column="data_scope" jdbcType="VARCHAR" property="dataScope" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+	</resultMap>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		role_id,role_name,remark,create_user_id,create_time,role_type,org_id,data_scope,status,create_user_id,
+		create_time,
+		update_user_id,
+		update_time
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.sys.domain.TsysRole">
+		INSERT INTO T_SYS_ROLE (
+		role_id ,
+		role_name ,
+		remark ,
+		role_type ,
+		org_id ,
+		data_scope ,
+		status,
+		create_user_id,
+		create_time,
+		update_user_id,
+		update_time
+		) VALUES (
+
+		#{roleId,jdbcType=VARCHAR} ,
+
+		#{roleName,jdbcType=VARCHAR} ,
+
+		#{remark,jdbcType=VARCHAR} ,
+		#{roleType,jdbcType=VARCHAR} ,
+
+		#{orgId,jdbcType=VARCHAR} ,
+
+		#{dataScope,jdbcType=VARCHAR} ,
+
+		#{status,jdbcType=VARCHAR},
+		#{createUserId,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{updateUserId,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.sys.domain.TsysRole">
+		UPDATE T_SYS_ROLE SET
+		role_name = #{roleName,jdbcType=VARCHAR},
+		remark
+		=#{remark,jdbcType=VARCHAR},
+		role_type
+		=#{roleType,jdbcType=VARCHAR},
+		org_id = #{orgId,jdbcType=VARCHAR},
+		data_scope = #{dataScope,jdbcType=VARCHAR},
+		status
+		=#{status,jdbcType=VARCHAR},
+		<if test="createUserId != null and createUserId.trim() != ''">
+			create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null and createTime.trim() != ''">
+			create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null and updateUserId.trim() != ''">
+			update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null and updateTime.trim() != ''">
+			update_time = #{updateTime,jdbcType=VARCHAR}
+		</if>
+		WHERE
+		role_id = #{roleId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateStatus" parameterType="com.budaos.modules.sys.domain.TsysRole">
+		UPDATE T_SYS_ROLE SET status =#{status,jdbcType=VARCHAR}
+		<if test="createUserId != null and createUserId.trim() != ''">
+			create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null and createTime.trim() != ''">
+			create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null and updateUserId.trim() != ''">
+			update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null and updateTime.trim() != ''">
+			update_time = #{updateTime,jdbcType=VARCHAR}
+		</if>
+		WHERE
+		role_id = #{roleId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_ROLE WHERE
+		role_id = #{roleId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch">
+		delete from t_sys_role where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from t_sys_roleprivilege where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from t_user_role where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+	<delete id="deleteBatchRole">
+		delete from t_sys_role where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+	<delete id="deleteBatchUserRole">
+		delete from t_user_role where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+	<delete id="deleteBatchRolePrivilege">
+		delete from t_sys_roleprivilege where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+	<delete id="deleteBatchRoleDataPrivilege">
+		delete from T_SYS_DATAPRIVILEGE where role_id in
+		<foreach item="roleId" collection="array" open="(" separator=","
+			close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_SYS_ROLE WHERE
+		role_id = #{roleId,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" resultType="com.budaos.modules.sys.domain.TsysRole">
+		select o.* from t_sys_role o
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and o.role_name like concat('%',#{roleName},'%')
+			</if>
+			<if test="orgId != null and orgId.trim() != ''">
+				and o.org_id like concat('%',#{orgId},'%')
+			</if>
+			<if test="createUserId != null">
+				and o.create_user_id = #{createUserId}
+			</if>
+			<if test="userId != null and userId.trim() != ''">
+				and o.role_id in (select role_id from t_user_role where user_id = #{userId})
+			</if>
+			<if test="status != null">
+				and o.status = #{status}
+			</if>
+			
+			<if test="orgIds != null and orgIds.size() > 0">
+				and o.org_id in
+				<foreach collection="orgIds" item="orgId" open="("
+					separator="," close=")">
+					#{orgId}
+				</foreach>
+			</if>
+			
+			<if test="filterSql != null and filterSql.trim() != ''">
+				and ${filterSql}
+			</if>
+			
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+		order by o.update_time desc, o.create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 查询用户创建的角色ID列表 -->
+	<select id="selectRoleListByCreatorUserId" resultType="string">
+		select
+		role_id from t_sys_role where create_user_id = #{createUserId}
+	</select>
+	<select id="checkRoleNameUnique" resultType="string" resultMap="BaseResultMap">
+		select role_id from t_sys_role where role_name = #{roleName} limit 1
+	</select>
+</mapper>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.question.persistence.TevglQuestionChoseMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.question.domain.TevglQuestionChose">
+		<result column="option_id" jdbcType="VARCHAR"
+			property="optionId" />
+		<result column="questions_id" jdbcType="VARCHAR"
+			property="questionsId" />
+		<result column="code" jdbcType="VARCHAR"
+			property="code" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="sort_num" jdbcType="INTEGER"
+			property="sortNum" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		option_id,questions_id,code,content,state,sort_num
+	</sql>
+	<!-- keyProperty="optionId" -->
+	<insert id="insert" parameterType="com.budaos.modules.evgl.question.domain.TevglQuestionChose">
+		INSERT INTO T_EVGL_QUESTION_CHOSE (
+		option_id ,
+		questions_id ,
+		code ,
+		content ,
+		state ,
+		sort_num 
+		) VALUES (
+
+#{optionId,jdbcType=VARCHAR} ,
+
+#{questionsId,jdbcType=VARCHAR} ,
+
+#{code,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{sortNum,jdbcType=INTEGER} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.question.domain.TevglQuestionChose">
+		UPDATE T_EVGL_QUESTION_CHOSE 
+		<set>
+		<if test="questionsId != null">
+		questions_id = #{questionsId,jdbcType=VARCHAR},
+		</if>
+		<if test="code != null">
+		code = #{code,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="sortNum != null">
+		sort_num = #{sortNum,jdbcType=INTEGER},
+		</if>
+		</set>
+		WHERE
+		option_id = #{optionId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_QUESTION_CHOSE WHERE
+		option_id =
+		#{optionId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_QUESTION_CHOSE WHERE
+		option_id in
+		<foreach item="optionId" collection="array" open="("
+			separator="," close=")">
+#{optionId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_QUESTION_CHOSE WHERE
+		option_id = #{optionId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_QUESTION_CHOSE
+        <where>
+        		<if test="questionsIds != null and questionsIds.size() > 0">
+                and questions_id in
+                	<foreach collection="questionsIds" item="questionsId" open="(" separator="," close=")">
+                		#{questionsId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionIds != null and questionIds.size() > 0">
+                and questions_id in
+                	<foreach collection="questionIds" item="questionId" open="(" separator="," close=")">
+                		#{questionId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionsId != null and questionsId.trim() != ''">
+                and questions_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="code != null and code.trim() != ''">
+                and code =#{code,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by code desc, sort_num asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_QUESTION_CHOSE t1
+        <where>
+        		<if test="questionsIds != null and questionsIds.size() > 0">
+                and t1.questions_id in
+                	<foreach collection="questionsIds" item="questionsId" open="(" separator="," close=")">
+                		#{questionsId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionIds != null and questionIds.size() > 0">
+                and t1.questions_id in
+                	<foreach collection="questionIds" item="questionId" open="(" separator="," close=")">
+                		#{questionId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionsId != null and questionsId.trim() != ''">
+                and t1.questions_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="code != null and code.trim() != ''">
+                and t1.code =#{code,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.option_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListByMap" resultType="map"
+        parameterType="map">
+		select t1.option_id as optionId, t1.questions_id as questionsId, t1.content, t1.state, t1.code
+		from T_EVGL_QUESTION_CHOSE t1
+        <where>
+        		<if test="questionsIds != null and questionsIds.size() > 0">
+                and t1.questions_id in
+                	<foreach collection="questionsIds" item="questionsId" open="(" separator="," close=")">
+                		#{questionsId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionIds != null and questionIds.size() > 0">
+                and t1.questions_id in
+                	<foreach collection="questionIds" item="questionId" open="(" separator="," close=")">
+                		#{questionId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionsId != null and questionsId.trim() != ''">
+                and t1.questions_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="code != null and code.trim() != ''">
+                and t1.code =#{code,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by code asc, sort_num asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectSimpleListByMapForRandom" resultType="map"
+        parameterType="map">
+		select t1.option_id as optionId, t1.questions_id as questionsId, t1.content, t1.state, t1.code,
+		t2.option_num
+		from T_EVGL_QUESTION_CHOSE t1
+		left join t_ep_examine_paper_questions_option_random t2 on t1.option_id = t2.option_id
+        <where>
+				<if test="dyId != null and dyId.trim() != ''">
+				and t2.dy_id =#{dyId,jdbcType=VARCHAR}            </if>
+				<if test="traineeId != null and traineeId.trim() != ''">
+				and t2.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+        		<if test="questionsIds != null and questionsIds.size() > 0">
+                and t1.questions_id in
+                	<foreach collection="questionsIds" item="questionsId" open="(" separator="," close=")">
+                		#{questionsId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionIds != null and questionIds.size() > 0">
+                and t1.questions_id in
+                	<foreach collection="questionIds" item="questionId" open="(" separator="," close=")">
+                		#{questionId,jdbcType=VARCHAR}
+                	</foreach> 
+                </if>
+                <if test="questionsId != null and questionsId.trim() != ''">
+                and t1.questions_id =#{questionsId,jdbcType=VARCHAR}            </if>
+                <if test="code != null and code.trim() != ''">
+                and t1.code =#{code,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="sortNum != null and sortNum != ''">
+                and t1.sort_num =#{sortNum,jdbcType=INTEGER}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by code asc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!-- 根据题目正确选项ID批量查询 -->
+    <select id="selectBatchQuestionsChoseByReplyIds" parameterType="string"
+		resultMap="BaseResultMap">
+		select * from T_EVGL_QUESTION_CHOSE where option_id in
+		<foreach item="replyId" collection="array" open="("
+			separator="," close=")">
+			#{replyId,jdbcType=VARCHAR}
+		</foreach>
+		order by code asc
+	</select>
+    
+    <!-- 批量新增 -->
+    <insert id="insertBatch" parameterType="java.util.List">
+    	insert into t_evgl_question_chose
+    		(option_id, questions_id, content, state, code, sort_num)
+    	values
+    	<foreach collection="list" item="obj" separator="," >
+    		(#{obj.optionId}, #{obj.questionsId}, #{obj.content}, #{obj.state}, #{obj.code}, #{obj.sortNum})
+    	</foreach>
+    </insert>
+    
+</mapper>
+

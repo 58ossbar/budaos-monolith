@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.eao.persistence.TeaoTraineeExamroomMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.eao.domain.TeaoTraineeExamroom">
+		<result column="er_id" jdbcType="VARCHAR"
+			property="erId" />
+		<result column="subject_id" jdbcType="VARCHAR"
+			property="subjectId" />
+		<result column="class_ids" jdbcType="VARCHAR"
+			property="classIds" />
+		<result column="er_addr" jdbcType="VARCHAR"
+			property="erAddr" />
+		<result column="er_stime" jdbcType="VARCHAR"
+			property="erStime" />
+		<result column="er_etime" jdbcType="VARCHAR"
+			property="erEtime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="update_user_id" jdbcType="VARCHAR"
+			property="updateUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="remark" jdbcType="VARCHAR"
+			property="remark" />
+		<result column="activity_title" jdbcType="VARCHAR"
+			property="activityTitle" />
+		<result column="empirical_value" jdbcType="INTEGER"
+			property="empiricalValue" />
+		<result column="purpose" jdbcType="VARCHAR"
+			property="purpose" />			
+		<result column="activity_begin_time" jdbcType="VARCHAR"
+			property="activityBeginTime" />
+		<result column="activity_end_time" jdbcType="VARCHAR"
+			property="activityEndTime" />
+		<result column="activity_state" jdbcType="VARCHAR"
+			property="activityState" />	
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		er_id,subject_id,class_ids,er_addr,er_stime,er_etime,state,create_user_id,create_time,update_user_id,update_time,remark,
+		activity_title,empirical_value,purpose
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.eao.domain.TeaoTraineeExamroom">
+		INSERT INTO T_EAO_TRAINEE_EXAMROOM (
+		er_id ,
+		subject_id ,
+		class_ids ,
+		er_addr ,
+		er_stime ,
+		er_etime ,
+		state ,
+		create_user_id ,
+		create_time ,
+		update_user_id ,
+		update_time ,
+		remark ,
+		activity_title ,
+		empirical_value ,
+		purpose 
+		) VALUES (
+
+#{erId,jdbcType=VARCHAR} ,
+
+#{subjectId,jdbcType=VARCHAR} ,
+
+#{classIds,jdbcType=VARCHAR} ,
+
+#{erAddr,jdbcType=VARCHAR} ,
+
+#{erStime,jdbcType=VARCHAR} ,
+
+#{erEtime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{updateUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{remark,jdbcType=VARCHAR} ,
+
+#{activityTitle,jdbcType=VARCHAR} ,
+
+#{empiricalValue,jdbcType=INTEGER} ,
+
+#{purpose,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.eao.domain.TeaoTraineeExamroom">
+		UPDATE T_EAO_TRAINEE_EXAMROOM 
+		<set>
+		<if test="subjectId != null">
+		subject_id = #{subjectId,jdbcType=VARCHAR},
+		</if>
+		<if test="classIds != null">
+		class_ids = #{classIds,jdbcType=VARCHAR},
+		</if>
+		<if test="erAddr != null">
+		er_addr = #{erAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="erStime != null">
+		er_stime = #{erStime,jdbcType=VARCHAR},
+		</if>
+		<if test="erEtime != null">
+		er_etime = #{erEtime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null">
+		update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="remark != null">
+		remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="activityTitle != null">
+		activity_title = #{activityTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="empiricalValue != null">
+		empirical_value = #{empiricalValue,jdbcType=INTEGER},
+		</if>
+		<if test="purpose != null">
+		purpose = #{purpose,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		er_id = #{erId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EAO_TRAINEE_EXAMROOM WHERE
+		er_id =
+		#{erId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EAO_TRAINEE_EXAMROOM WHERE
+		er_id in
+		<foreach item="erId" collection="array" open="("
+			separator="," close=")">
+#{erId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EAO_TRAINEE_EXAMROOM WHERE
+		er_id = #{erId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EAO_TRAINEE_EXAMROOM
+        <where>
+        		<if test="erIdList != null and erIdList.size() > 0">
+					and er_id in
+					<foreach collection="erIdList" item="erId" open="(" separator="," close=")">
+						#{erId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+				<if test="activityIds != null and activityIds.size() > 0">
+					and er_id in
+					<foreach collection="activityIds" item="activityId" open="(" separator="," close=")">
+						#{activityId,jdbcType=VARCHAR}
+					</foreach>
+				</if>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="classIds != null and classIds.trim() != ''">
+                and class_ids =#{classIds,jdbcType=VARCHAR}            </if>
+                <if test="erAddr != null and erAddr.trim() != ''">
+                and er_addr =#{erAddr,jdbcType=VARCHAR}            </if>
+                <if test="erStime != null and erStime.trim() != ''">
+                and er_stime =#{erStime,jdbcType=VARCHAR}            </if>
+                <if test="erEtime != null and erEtime.trim() != ''">
+                and er_etime =#{erEtime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and remark =#{remark,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by er_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EAO_TRAINEE_EXAMROOM t1
+        <where>
+                <if test="subjectId != null and subjectId.trim() != ''">
+                and t1.subject_id =#{subjectId,jdbcType=VARCHAR}            </if>
+                <if test="classIds != null and classIds.trim() != ''">
+                and t1.class_ids =#{classIds,jdbcType=VARCHAR}            </if>
+                <if test="erAddr != null and erAddr.trim() != ''">
+                and t1.er_addr =#{erAddr,jdbcType=VARCHAR}            </if>
+                <if test="erStime != null and erStime.trim() != ''">
+                and t1.er_stime =#{erStime,jdbcType=VARCHAR}            </if>
+                <if test="erEtime != null and erEtime.trim() != ''">
+                and t1.er_etime =#{erEtime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="updateUserId != null and updateUserId.trim() != ''">
+                and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="remark != null and remark.trim() != ''">
+                and t1.remark =#{remark,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.er_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListByMapForSp" resultType="map"
+		parameterType="map">
+		select t1.*,t2.subject_name,t3.org_name as class_name
+		from
+		T_EAO_TRAINEE_EXAMROOM t1
+		inner join t_evgl_book_subject t2 on
+		t1.subject_id=t2.subject_id
+		inner join t_sys_org t3 on
+		t1.er_addr=t3.org_id
+		<where>
+			<if test="subjectId != null and subjectId.trim() != ''">
+				and t1.subject_id =#{subjectId,jdbcType=VARCHAR}
+			</if>
+			<if test="erAddr != null and erAddr.trim() != ''">
+				and t1.er_addr =#{erAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="subjectName != null and subjectName.trim() != ''">
+				and t2.subject_name like
+				concat('%',#{subjectName,jdbcType=VARCHAR},'%')           </if>
+			<if test="className != null and className.trim() != ''">
+				and t3.org_name like
+				concat('%',#{className,jdbcType=VARCHAR},'%')         </if>
+			<if test="erStime != null and erStime.trim() != ''">
+				and t1.er_stime =#{erStime,jdbcType=VARCHAR}
+			</if>
+			<if test="erEtime != null and erEtime.trim() != ''">
+				and t1.er_etime =#{erEtime,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state.trim() != ''">
+				and t1.state =#{state,jdbcType=VARCHAR}
+			</if>
+			<if test="createUserId != null and createUserId.trim() != ''">
+				and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null and createTime.trim() != ''">
+				and t1.create_time =#{createTime,jdbcType=VARCHAR}
+			</if>
+			<if test="updateUserId != null and updateUserId.trim() != ''">
+				and t1.update_user_id =#{updateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="updateTime != null and updateTime.trim() != ''">
+				and t1.update_time =#{updateTime,jdbcType=VARCHAR}
+			</if>
+			<if test="classIds != null and classIds.trim() != ''">
+				and class_ids like
+				concat('%',#{classIds,jdbcType=VARCHAR},'%')         </if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by t1.er_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectObjectByIdAndPkgId" parameterType="map"
+		resultMap="BaseResultMap">
+		select relation.activity_state as activityStateActual, 
+		relation.activity_begin_time, relation.activity_end_time, 
+		t1.*
+		from t_eao_trainee_examroom t1
+		inner join t_evgl_pkg_activity_relation relation on t1.er_id = relation.activity_id
+		WHERE relation.activity_id = #{activityId,jdbcType=VARCHAR} and relation.pkg_id = #{pkgId}
+	</select>
+	
+</mapper>
+

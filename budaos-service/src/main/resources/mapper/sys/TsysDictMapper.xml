@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.budaos.modules.job.persistence.TsysDictMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.sys.domain.TsysDict">
+		<result column="DICT_ID" jdbcType="VARCHAR" property="dictId" />
+		<result column="DICT_TYPE" jdbcType="VARCHAR"
+			property="dictType" />
+		<result column="DICT_NAME" jdbcType="VARCHAR"
+			property="dictName" />
+		<result column="DICT_VALUE" jdbcType="VARCHAR"
+			property="dictValue" />
+		<result column="DICT_CODE" jdbcType="VARCHAR"
+			property="dictCode" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="DICT_SORT" jdbcType="VARCHAR"
+			property="dictSort" />
+		<result column="SORT_NUM" jdbcType="INTEGER" property="sortNum" />
+		<result column="PARENT_TYPE" jdbcType="VARCHAR"
+			property="parentType" />
+		<result column="DISPLAY_SORT" jdbcType="VARCHAR"
+			property="displaySort" />
+		<result column="DICT_CLASS" jdbcType="INTEGER"
+			property="dictClass" />
+		<result column="MULTI_TYPE" jdbcType="VARCHAR"
+			property="multiType" />
+		<result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+		<result column="displaying" jdbcType="VARCHAR"
+			property="displaying" />
+		<result column="isdefault" jdbcType="VARCHAR"
+			property="isdefault" />
+		<result column="dict_url" jdbcType="VARCHAR" property="dictUrl" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		DICT_ID,DICT_TYPE,DICT_NAME,DICT_VALUE,DICT_CODE,REMARK,DICT_SORT,SORT_NUM,PARENT_TYPE,DISPLAY_SORT,DICT_CLASS,MULTI_TYPE,ORG_ID,displaying,dict_url
+	</sql>
+	<insert id="insert"
+		parameterType="com.budaos.modules.sys.domain.TsysDict">
+		INSERT INTO T_SYS_DICT (
+		DICT_ID ,
+		DICT_TYPE ,
+		DICT_NAME ,
+		DICT_VALUE ,
+		DICT_CODE ,
+		REMARK ,
+		DICT_SORT ,
+		SORT_NUM ,
+		PARENT_TYPE ,
+		DISPLAY_SORT ,
+		DICT_CLASS ,
+		MULTI_TYPE ,
+		ORG_ID ,
+		displaying,
+		isdefault,
+		create_user_id,
+		create_time,
+		update_user_id,
+		update_time,
+		dict_url
+		) VALUES
+		(
+
+		#{dictId,jdbcType=VARCHAR} ,
+
+		#{dictType,jdbcType=VARCHAR} ,
+
+		#{dictName,jdbcType=VARCHAR} ,
+
+		#{dictValue,jdbcType=VARCHAR} ,
+
+		#{dictCode,jdbcType=VARCHAR} ,
+
+		#{remark,jdbcType=VARCHAR} ,
+
+		#{dictSort,jdbcType=VARCHAR} ,
+
+		#{sortNum,jdbcType=INTEGER} ,
+
+		#{parentType,jdbcType=VARCHAR} ,
+
+		#{displaySort,jdbcType=VARCHAR} ,
+
+		#{dictClass,jdbcType=INTEGER} ,
+
+		#{multiType,jdbcType=VARCHAR} ,
+
+		#{orgId,jdbcType=VARCHAR} ,
+
+		#{displaying,jdbcType=VARCHAR},
+		#{isdefault,jdbcType=VARCHAR},
+		#{createUserId,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{updateUserId,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=VARCHAR},
+		#{dictUrl,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.budaos.modules.sys.domain.TsysDict">
+		UPDATE T_SYS_DICT 
+		<set>
+		<if test="dictType != null and dictType.trim() != ''">DICT_TYPE = #{dictType,jdbcType=VARCHAR},</if>
+		<if test="dictName != null and dictName.trim() != ''">DICT_NAME =
+			#{dictName,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null and createUserId.trim() != ''">
+			create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null and createTime.trim() != ''">
+			create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUserId != null and updateUserId.trim() != ''">
+			update_user_id = #{updateUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null and updateTime.trim() != ''">
+			update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="dictValue != null and dictValue.trim() != ''">DICT_VALUE =
+			#{dictValue,jdbcType=VARCHAR},
+		</if>
+		<if test="dictCode != null and dictCode.trim() != ''">DICT_CODE =
+			#{dictCode,jdbcType=VARCHAR},
+		</if>
+		<if test="remark != null and remark.trim() != ''">REMARK = #{remark,jdbcType=VARCHAR},</if>
+		<if test="dictSort != null and dictSort.trim() != ''">DICT_SORT = #{dictSort,jdbcType=VARCHAR},</if>
+		<if test="sortNum != null">SORT_NUM =
+			#{sortNum,jdbcType=INTEGER},
+		</if>
+		<if test="parentType != null and parentType.trim() != ''">PARENT_TYPE =
+			#{parentType,jdbcType=VARCHAR},
+		</if>
+		<if test="displaySort != null and displaySort.trim() != ''">DISPLAY_SORT =
+			#{displaySort,jdbcType=VARCHAR},
+		</if>
+		<if test="dictClass != null">DICT_CLASS =
+			#{dictClass,jdbcType=INTEGER},
+		</if>
+		<if test="multiType != null and multiType.trim() != ''">MULTI_TYPE =
+			#{multiType,jdbcType=VARCHAR},
+		</if>
+		<if test="orgId != null and orgId.trim() != ''">ORG_ID = #{orgId,jdbcType=VARCHAR},</if>
+		<if test="displaying != null and displaying.trim() != ''">displaying = #{displaying,jdbcType=VARCHAR},</if>
+		<if test="dictUrl != null and dictUrl.trim() != ''"> dict_url =
+			#{dictUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="isdefault != null and isdefault.trim() != ''"> isdefault = #{isdefault,jdbcType=VARCHAR}</if>
+		</set>
+		WHERE
+		DICT_ID =
+		#{dictId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_SYS_DICT WHERE
+		DICT_ID =
+		#{dictId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_SYS_DICT WHERE
+		DICT_ID in
+		<foreach item="dictId" collection="array" open="("
+			separator="," close=")">
+			#{dictId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_SYS_DICT WHERE
+		DICT_ID = #{dictId,jdbcType=VARCHAR}
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMap" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from T_SYS_DICT
+		<where>
+			<if test="dictType != null and dictType.trim() != ''">
+				and DICT_TYPE =#{dictType,jdbcType=VARCHAR}
+			</if>
+			<if test="dictName != null and dictName.trim() != ''">
+				and DICT_NAME = #{dictName,jdbcType=VARCHAR}
+			</if>
+			<if test="dictValue != null and dictValue.trim() != ''">
+				and DICT_VALUE =#{dictValue,jdbcType=VARCHAR}
+			</if>
+			<if test="dictCode != null and dictCode.trim() != ''">
+				and DICT_CODE =#{dictCode,jdbcType=VARCHAR}
+			</if>
+			<if test="dictSort != null and dictSort.trim() != ''">
+				and DICT_SORT =#{dictSort,jdbcType=VARCHAR}
+			</if>
+			<if test="displaySort != null and displaySort.trim() != ''">
+				and DISPLAY_SORT =#{displaySort,jdbcType=VARCHAR}
+			</if>
+			<if test="parentType != null and parentType.trim() != ''">
+				and PARENT_TYPE =#{parentType,jdbcType=VARCHAR}
+			</if>
+			<if test="displaying != null and displaying.trim() != ''">
+				and displaying =#{displaying,jdbcType=VARCHAR}
+			</if>
+			<!-- ${sqlMap.dsf} -->
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc,update_time desc
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+	<select id="selectListByMapNotZero" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from T_SYS_DICT where PARENT_TYPE!='0'
+		<if test="dictType != null and dictType.trim() != ''">
+			and DICT_TYPE =#{dictType,jdbcType=VARCHAR}
+		</if>
+		<if test="dictName != null and dictName.trim() != ''">
+			and DICT_NAME like
+			concat('%',#{dictName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="dictValue != null and dictValue.trim() != ''">
+			and DICT_VALUE like
+			concat('%',#{dictValue,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="dictCode != null and dictCode.trim() != ''">
+			and DICT_CODE like
+			concat('%',#{dictCode,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="dictSort != null and dictSort.trim() != ''">
+			and DICT_SORT =#{dictSort,jdbcType=VARCHAR}
+		</if>
+		<if test="isdefault != null and isdefault.trim() != ''">
+			and ISDEFAULT =#{isdefault,jdbcType=VARCHAR}
+		</if>
+		<if test="displaySort != null and displaySort.trim() != ''">
+			and DISPLAY_SORT =#{displaySort,jdbcType=VARCHAR}
+		</if>
+		<if test="displaying != null and displaying.trim() != ''">
+			and displaying =#{displaying,jdbcType=VARCHAR}
+		</if>
+		<if test="parentType != null and parentType.trim() != ''">
+			and PARENT_TYPE =#{parentType,jdbcType=VARCHAR}
+		</if>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by DICT_NAME asc
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectListParentId"
+		resultType="com.budaos.modules.sys.domain.TsysDict">
+		select * from
+		T_SYS_DICT where parent_type = #{parentId}
+	</select>
+	<select id="selectAllTsysDict" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM T_SYS_DICT
+		WHERE
+		DICT_VALUE IS NOT NULL and displaying='1' order by SORT_NUM
+	</select>
+</mapper>
+

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.budaos.modules.evgl.activity.persistence.TevglActivityTaskGroupMemberMapper">
+	<resultMap id="BaseResultMap"
+		type="com.budaos.modules.evgl.activity.domain.TevglActivityTaskGroupMember">
+		<result column="member_id" jdbcType="VARCHAR"
+			property="memberId" />
+		<result column="ct_id" jdbcType="VARCHAR"
+			property="ctId" />
+		<result column="activity_id" jdbcType="VARCHAR"
+			property="activityId" />
+		<result column="group_id" jdbcType="VARCHAR"
+			property="groupId" />
+		<result column="trainee_id" jdbcType="VARCHAR"
+			property="traineeId" />
+		<result column="content" jdbcType="LONGVARCHAR"
+			property="content" />
+		<result column="final_score" jdbcType="DECIMAL"
+			property="finalScore" />
+		<result column="create_time" jdbcType="VARCHAR"
+			property="createTime" />
+		<result column="create_user_id" jdbcType="VARCHAR"
+			property="createUserId" />
+		<result column="update_time" jdbcType="VARCHAR"
+			property="updateTime" />
+		<result column="state" jdbcType="VARCHAR"
+			property="state" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		member_id,ct_id,activity_id,group_id,trainee_id,content,final_score,create_time,create_user_id,update_time,state
+	</sql>
+	<insert id="insert" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTaskGroupMember">
+		INSERT INTO T_EVGL_ACTIVITY_TASK_GROUP_MEMBER (
+		member_id ,
+		ct_id ,
+		activity_id ,
+		group_id ,
+		trainee_id ,
+		content ,
+		final_score ,
+		create_time ,
+		create_user_id ,
+		update_time ,
+		state 
+		) VALUES (
+
+#{memberId,jdbcType=VARCHAR} ,
+
+#{ctId,jdbcType=VARCHAR} ,
+
+#{activityId,jdbcType=VARCHAR} ,
+
+#{groupId,jdbcType=VARCHAR} ,
+
+#{traineeId,jdbcType=VARCHAR} ,
+
+#{content,jdbcType=LONGVARCHAR} ,
+
+#{finalScore,jdbcType=DECIMAL} ,
+
+#{createTime,jdbcType=VARCHAR} ,
+
+#{createUserId,jdbcType=VARCHAR} ,
+
+#{updateTime,jdbcType=VARCHAR} ,
+
+#{state,jdbcType=VARCHAR} 
+		)
+	</insert>
+	<update id="update" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTaskGroupMember">
+		UPDATE T_EVGL_ACTIVITY_TASK_GROUP_MEMBER 
+		<set>
+		<if test="ctId != null">
+		ct_id = #{ctId,jdbcType=VARCHAR},
+		</if>
+		<if test="activityId != null">
+		activity_id = #{activityId,jdbcType=VARCHAR},
+		</if>
+		<if test="groupId != null">
+		group_id = #{groupId,jdbcType=VARCHAR},
+		</if>
+		<if test="traineeId != null">
+		trainee_id = #{traineeId,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null">
+		content = #{content,jdbcType=LONGVARCHAR},
+		</if>
+		<if test="finalScore != null">
+		final_score = #{finalScore,jdbcType=DECIMAL},
+		</if>
+		<if test="createTime != null">
+		create_time = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="createUserId != null">
+		create_user_id = #{createUserId,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		</if>
+		<if test="state != null">
+		state = #{state,jdbcType=VARCHAR},
+		</if>
+		</set>
+		WHERE
+		member_id = #{memberId,jdbcType=VARCHAR} 
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_TASK_GROUP_MEMBER WHERE
+		member_id =
+		#{memberId,jdbcType=VARCHAR} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.lang.String">
+		DELETE FROM T_EVGL_ACTIVITY_TASK_GROUP_MEMBER WHERE
+		member_id in
+		<foreach item="memberId" collection="array" open="("
+			separator="," close=")">
+#{memberId,jdbcType=VARCHAR} 
+		</foreach>
+	</delete>
+	<select id="selectObjectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_TASK_GROUP_MEMBER WHERE
+		member_id = #{memberId,jdbcType=VARCHAR} 
+	</select>
+	<!-- 实际业务需要增加的SQL语句 -->
+    <select id="selectListByMap" resultMap="BaseResultMap"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_TASK_GROUP_MEMBER
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="groupId != null and groupId.trim() != ''">
+                and group_id =#{groupId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="finalScore != null and finalScore != ''">
+                and final_score =#{finalScore,jdbcType=DECIMAL}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by member_id  desc
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="selectListMapByMap" resultType="map"
+        parameterType="map">
+        select * from T_EVGL_ACTIVITY_TASK_GROUP_MEMBER t1
+        <where>
+                <if test="ctId != null and ctId.trim() != ''">
+                and t1.ct_id =#{ctId,jdbcType=VARCHAR}            </if>
+                <if test="activityId != null and activityId.trim() != ''">
+                and t1.activity_id =#{activityId,jdbcType=VARCHAR}            </if>
+                <if test="groupId != null and groupId.trim() != ''">
+                and t1.group_id =#{groupId,jdbcType=VARCHAR}            </if>
+                <if test="traineeId != null and traineeId.trim() != ''">
+                and t1.trainee_id =#{traineeId,jdbcType=VARCHAR}            </if>
+                <if test="content != null and content.trim() != ''">
+                and t1.content =#{content,jdbcType=LONGVARCHAR}            </if>
+                <if test="finalScore != null and finalScore != ''">
+                and t1.final_score =#{finalScore,jdbcType=DECIMAL}            </if>
+                <if test="createTime != null and createTime.trim() != ''">
+                and t1.create_time =#{createTime,jdbcType=VARCHAR}            </if>
+                <if test="createUserId != null and createUserId.trim() != ''">
+                and t1.create_user_id =#{createUserId,jdbcType=VARCHAR}            </if>
+                <if test="updateTime != null and updateTime.trim() != ''">
+                and t1.update_time =#{updateTime,jdbcType=VARCHAR}            </if>
+                <if test="state != null and state.trim() != ''">
+                and t1.state =#{state,jdbcType=VARCHAR}            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by t1.member_id  desc
+            </otherwise>
+        </choose>
+    </select>
+   	<insert id="insertBatch" parameterType="java.util.List">
+		insert into t_evgl_activity_task_group_member
+		(
+		member_id, ct_id, activity_id, group_id, trainee_id, content,
+		final_score, create_time, create_user_id, update_time, state
+		)
+		values
+		<foreach collection="list" item="obj" separator="," >
+			(
+			#{obj.memberId}, #{obj.ctId}, #{obj.activityId}, #{obj.groupId}, #{obj.traineeId}, #{obj.content},
+			#{obj.finalScore}, #{obj.createTime}, #{obj.createUserId}, #{obj.updateTime}, #{obj.state}
+			)
+		</foreach>
+	</insert>
+	<select id="findMemberIdsByGroupId" parameterType="string" resultType="string">
+		select member_id from t_evgl_activity_task_group_member where group_id = #{groupId}
+	</select>
+	<select id="selectObjectBy" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_EVGL_ACTIVITY_TASK_GROUP_MEMBER WHERE
+		ct_id = #{ctId,jdbcType=VARCHAR} and activity_id = #{activityId,jdbcType=VARCHAR} and trainee_id = #{traineeId,jdbcType=VARCHAR}
+	</select>
+	<update id="updateContent" parameterType="com.budaos.modules.evgl.activity.domain.TevglActivityTaskGroupMember">
+		UPDATE T_EVGL_ACTIVITY_TASK_GROUP_MEMBER
+		SET content = #{content,jdbcType=LONGVARCHAR}
+		WHERE
+		member_id = #{memberId,jdbcType=VARCHAR}
+	</update>
+	<select id="findTraineeAnswerList" parameterType="com.budaos.modules.evgl.activity.query.ActTaskGroupQuery" resultType="com.budaos.modules.evgl.activity.vo.ActTraineeAnswerVo">
+		SELECT t1.member_id, t1.ct_id, t1.activity_id, t1.group_id, t1.trainee_id, t1.content, t1.final_score, t1.create_time,
+		t2.name as ctName, t3.activity_title, t4.group_name, IFNULL(t5.trainee_name, t5.nick_name) as trianeeName,
+		IFNULL(t5.trainee_pic, t5.trainee_head) as traineeHead, t5.mobile, t5.job_number
+		FROM t_evgl_activity_task_group_member t1
+		LEFT JOIN t_evgl_tch_classroom t2 ON t1.ct_id = t2.ct_id
+		LEFT JOIN t_evgl_activity_task t3 ON t1.activity_id = t3.activity_id
+		LEFT JOIN t_evgl_activity_task_group t4 ON t1.group_id = t4.group_id
+		LEFT JOIN t_evgl_trainee_info t5 ON t1.trainee_id = t5.trainee_id
+		<where>
+			<if test="ctId != null and ctId.trim() != ''">
+				AND t1.ct_id = #{ctId,jdbcType=VARCHAR}
+			</if>
+			<if test="activityId != null and activityId.trim() != ''">
+				AND t1.activity_id = #{activityId,jdbcType=VARCHAR}
+			</if>
+			<if test="groupId != null and groupId.trim() != ''">
+				AND t1.group_id = #{groupId,jdbcType=VARCHAR}
+			</if>
+			<if test="traineeName != null and traineeName.trim() != ''">
+				AND (t5.trainee_name like concat('%', #{traineeName,jdbcType=VARCHAR}, '%') OR t5.nick_name like concat('%', #{traineeName,jdbcType=VARCHAR}, '%'))
+			</if>
+			<if test="mobile != null and mobile.trim() != ''">
+				AND t5.mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>
+
