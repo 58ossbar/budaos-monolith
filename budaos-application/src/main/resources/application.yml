@@ -142,26 +142,6 @@ com.budaos:
   gitUrl:
   gitTicket:
 
-# 微信支付配置
-weixin:
-  appid: wx782efe0306206d7b                         # 小程序appid
-  app_appid: xx                     # APP端appid
-  secret:                         # 小程序秘钥
-  mchid:                          # 商户号
-  partner:                        # 商户号(兼容旧版)
-  partnerkey:                     # 商户秘钥(兼容旧版)
-  key:                            # 商户秘钥
-  notifyurl:                      # 通知地址
-  pc_notifyurl:                   # PC端回调地址
-  app_notifyurl:                  # APP端回调地址
-  pc_refund_notifyurl:            # PC退款回调地址
-  order_refund_notifyurl:         # 订单退款回调地址
-  pc_bond_refund_notifyurl:       # PC保证金退款回调地址
-  certurl:  /cert/apiclient_cert.p12                        # 证书路径
-  certLocation:                   # 证书位置(兼容旧版)
-  redirect_url:                   # H5支付跳转地址
-  paymentAmount:                  # 支付金额配置
-
 # OAuth2 安全配置
 security:
   oauth2:

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.budaos.core.baseclass.domain.R;
 import com.budaos.modules.common.*;
 import com.budaos.modules.common.enums.ActivityStateEnum;
-import com.budaos.modules.evgl.activity.api.TevglActivityLiveService;
 import com.budaos.modules.evgl.activity.api.TevglActivityService;
 import com.budaos.modules.evgl.activity.domain.*;
 import com.budaos.modules.evgl.activity.persistence.*;
@@ -120,8 +119,6 @@ public class TevglActivityServiceImpl implements TevglActivityService {
 	private TevglTchRoomPereTraineeAnswerMapper tevglTchRoomPereTraineeAnswerMapper; 
 	@Autowired
 	private TevglTchClassroomRoleprivilegeMapper tevglTchClassroomRoleprivilegeMapper;
-	@Autowired
-	private TevglActivityLiveService tevglActivityLiveService;
 	@Autowired
 	private TevglEmpiricalSettingMapper tevglEmpiricalSettingMapper;
 	
@@ -1237,11 +1234,6 @@ public class TevglActivityServiceImpl implements TevglActivityService {
 			res = tevglTchRoomPereAnswerServiceImpl.startAnswerActivity(ctId, activityId, loginUserId, activityEndTime);
 			activityTypeName = "课堂表现";
 		}
-		// 轻直播
-		if (activityType.equals(GlobalActivity.ACTIVITY_7_LIGHT_LIVE)) {
-			res = tevglActivityLiveService.startActivityLive(ctId, activityId, loginUserId, activityEndTime);
-			activityTypeName = "轻直播";
-		}
 		// 签到活动
 		if (activityType.equals(GlobalActivity.ACTIVITY_8_SIGININ_INFO)) {
 			res = tevglActivitySigninInfoServiceImpl.startSigninInfo(ctId, activityId, loginUserId, activityEndTime);
@@ -1351,10 +1343,6 @@ public class TevglActivityServiceImpl implements TevglActivityService {
 		if (activityType.equals(GlobalActivity.ACTIVITY_6_CLASSROOM_PERFORMANCE)) {
 			r = tevglTchRoomPereAnswerServiceImpl.endAnswerActivity(ctId, activityId, loginUserId);
 		}
-		// 轻直播
-        if (activityType.equals(GlobalActivity.ACTIVITY_7_LIGHT_LIVE)) {
-            r = tevglActivityLiveService.endActivityLive(ctId, activityId, loginUserId);
-        }
 		// 签到活动
 		if (activityType.equals(GlobalActivity.ACTIVITY_8_SIGININ_INFO)) {
 			r =  tevglActivitySigninInfoServiceImpl.endSingninInfo(ctId, activityId, loginUserId);
@@ -1432,10 +1420,6 @@ public class TevglActivityServiceImpl implements TevglActivityService {
 		if (activityType.equals(GlobalActivity.ACTIVITY_6_CLASSROOM_PERFORMANCE)) {
 			return tevglTchRoomPereAnswerServiceImpl.deleteAnswerActivity(activityId, pkgId, loginUserId);
 		}
-		// 执行删除轻直播活动
-        if (activityType.equals(GlobalActivity.ACTIVITY_7_LIGHT_LIVE)) {
-            return tevglActivityLiveService.deleteLive(activityId, pkgId, loginUserId);
-        }
 		// 执行删除签到活动
 		if (activityType.equals(GlobalActivity.ACTIVITY_8_SIGININ_INFO)) {
 			return tevglActivitySigninInfoServiceImpl.deleteSigninInfo(activityId, pkgId, loginUserId);
@@ -1507,10 +1491,6 @@ public class TevglActivityServiceImpl implements TevglActivityService {
 		// 答疑/讨论
 		if (GlobalActivity.ACTIVITY_3_ANSWER_DISCUSS.equals(activityType)) {
 			return tevglActivityAnswerDiscussServiceImpl.viewAnswerDiscussInfo(activityId);
-		}
-		// 答疑/讨论
-		if (GlobalActivity.ACTIVITY_7_LIGHT_LIVE.equals(activityType)) {
-			return tevglActivityLiveService.viewLive(activityId);
 		}
 		return R.ok();
 	}
