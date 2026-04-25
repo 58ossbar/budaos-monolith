@@ -47,13 +47,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
         .maxAge(3600);
 	}
 
-	@Override
+    @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
+        // Swagger UI 重定向
+        registry.addRedirectViewController("/swagger-ui", "/swagger-ui/index.html");
         //registry.addViewController("/").setViewName("forward:/index");
     }
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+    	// Swagger 资源映射
+    	registry.addResourceHandler("/swagger-ui/**")
+    		.addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/");
+    	registry.addResourceHandler("/webjars/**")
+    		.addResourceLocations("classpath:/META-INF/resources/webjars/");
     	// 确保路径格式正确（Windows 路径兼容处理）
     	String uploadLocation = filePath;
     	if (!uploadLocation.endsWith("/") && !uploadLocation.endsWith("\\")) {

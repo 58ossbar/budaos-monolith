@@ -27,7 +27,7 @@ import java.util.*;
  * <p>Title: TsysDocsServiceImpl.java</p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2019</p>
- * <p>Company: 湖布道师学习通</p> 
+ * <p>Company: 布道师学习通</p> 
  * @author huj
  * @date 2019年5月9日
  */

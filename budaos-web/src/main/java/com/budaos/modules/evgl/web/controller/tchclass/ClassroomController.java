@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * <p>我的课堂 </p> 
- * <p>Company: 湖布道师学习通</p>  
+ * <p>Company: 布道师学习通</p>  
  * <p>Copyright: Copyright (c) 2019</p>
  * @author huj
  * @date 2019年8月19日

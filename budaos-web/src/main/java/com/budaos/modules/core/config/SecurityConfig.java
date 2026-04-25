@@ -64,6 +64,7 @@ public class SecurityConfig {
                 .antMatchers("/uploads/**").permitAll()
                 // 放行 Swagger 相关
                 .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/v2/api-docs/**").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 // 其他请求需要认证

@@ -11,6 +11,10 @@ server:
     max-threads: 200
 
 spring:
+  # 修复 Springfox 与 Spring Boot 2.6+ 的兼容性问题
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   profiles:
     active: dev
   application:
