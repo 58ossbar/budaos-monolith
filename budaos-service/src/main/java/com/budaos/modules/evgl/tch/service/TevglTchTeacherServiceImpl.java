@@ -251,11 +251,13 @@ public class TevglTchTeacherServiceImpl implements TevglTchTeacherService {
 			if (tevglTchTeacher.getUsername() == null || tevglTchTeacher.getUsername().isEmpty()) {
 				throw new BudaosException(-1, "教师账号不能为空");
 			}
-			// 查询数据库中是否已经存在正常的同名账号
-			user = tsysUserinfoMapper.selectObjectByUserName(tevglTchTeacher.getUsername().trim());
-			if (user != null && !"".equals(user.getUserType())) {
-				throw new BudaosException(-1, "该教师账号已经存在");
+			// 如果traineeId为空则生成新的ID，确保后续userId和teacherId一定有值
+			if (StrUtils.isEmpty(tevglTchTeacher.getTraineeId())) {
+				tevglTchTeacher.setTraineeId(Identities.uuid());
 			}
+			// 查询数据库中是否已经存在该用户名
+			user = tsysUserinfoMapper.selectObjectByUserName(tevglTchTeacher.getUsername().trim());
+			// 如果账号已存在但已禁用，会在下面重新启用，无需报错
 		}
 		TmeduApiToken token = tmeduApiTokenMapper.selectTokenByUserId(tevglTchTeacher.getTraineeId());
 		// 如果该粉丝状态不是游客 注:用户类型，1、客户，2、系统用户，3、学员，4、教师。 注: 状态:报名、在册、退学、毕业、就职

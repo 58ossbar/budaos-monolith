@@ -39,8 +39,8 @@ public class TevglTchTeacher extends BaseDomain<TevglTchTeacher>{
 
     /**
      * 布道师主键ID       db_column: teacher_id 
-     */	
- 	@NotNull(msg="布道师主键ID不能为空")
+     */
+ 	//@NotNull(msg="布道师主键ID不能为空")
  	@MaxLength(value=32, msg="字段[布道师主键ID]超出最大长度[32]")
 	private java.lang.String teacherId;
     /**
