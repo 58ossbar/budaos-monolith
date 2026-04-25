@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Order(value=Integer.MAX_VALUE)
+// @Order(value=Integer.MAX_VALUE)  // 暂时禁用启动加载定时任务
 public class ScheduleJobServiceImpl implements ScheduleJobService, CommandLineRunner{
 	@Autowired
 	private Scheduler scheduler;
