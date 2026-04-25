@@ -23,18 +23,18 @@
 深入了解 BudaOS 学习平台的完整功能与优雅界面：
 
 ### 管理后台
-![管理后台](doc/1.png)
+<img src="doc/1.png" width="800" alt="管理后台"/>
 *教务管理、用户管理、数据统计*
 
 ### 学习门户
-![学习门户](doc/2.png)
+<img src="doc/2.png" width="800" alt="学习门户"/>
 *课程学习、作业考试、社区互动*
 
 ### 移动端
-![移动端](doc/3.jpg)
+<img src="doc/3.jpg" width="240" alt="移动端"/>
 *随时随地，碎片化学习*
 
-> 💡 更多功能等你探索，立即体验：[在线演示](https://demo.budaos.com)
+> 💡 更多功能等你探索，立即体验：[在线演示](https://www.budaos.com)
 
 ---
 
@@ -223,13 +223,11 @@ java -jar budaos-application/target/budaos-monolith.jar --spring.profiles.active
 
 ---
 
-## 默认账号
+## 默认账号（体验环境搭建中）
 
 | 角色 | 账号 | 密码 |
 |------|------|------|
 | 管理员 | admin | 888888 |
-| 教师 | 15886345118 | 123456 |
-| 学生 | 18229962587 | 123456 |
 
 > ⚠️ **注意**：首次使用请及时修改默认密码
 
@@ -266,76 +264,6 @@ com.budaos:
 ```
 
 ---
-
-## 开发指南
-
-### 项目规范
-
-1. **命名规范**
-   - Service 接口：`XxxService.java`
-   - Service 实现：`XxxServiceImpl.java`
-   - Mapper 接口：`XxxMapper.java`
-   - 控制器：`XxxController.java`
-
-2. **分层结构**
-   ```
-   Controller  →  Service  →  Mapper  →  Database
-   (处理请求)    (业务逻辑)   (数据访问)   (存储数据)
-   ```
-
-3. **返回值规范**
-   - 使用统一返回类 `R`，包含 code、msg、data 字段
-   - 成功：`R.ok()` 或 `R.ok(data)`
-   - 失败：`R.error(msg)` 或 `R.error(code, msg)`
-
-### API 开发示例
-
-```java
-@RestController
-@RequestMapping("/api/example")
-public class ExampleController {
-
-    @Autowired
-    private ExampleService exampleService;
-
-    @GetMapping("/list")
-    public R list(@RequestParam(defaultValue = "1") Integer pageNum,
-                  @RequestParam(defaultValue = "10") Integer pageSize) {
-        PageInfo<Example> page = exampleService.getPage(pageNum, pageSize);
-        return R.ok().put("data", page);
-    }
-
-    @PostMapping("/save")
-    public R save(@RequestBody Example example) {
-        exampleService.save(example);
-        return R.ok("保存成功");
-    }
-}
-```
-
-### 添加新模块
-
-1. 在 `budaos-common` 中添加 Domain 实体
-2. 在 `budaos-service` 中添加 Mapper 和 Service
-3. 在 `budaos-web` 中添加 Controller
-4. 在 `database` 中添加对应的建表 SQL
-
----
-
-## 常见问题
-
-### Q: 启动报错 "Cannot connect to Redis"？
-检查 Redis 服务是否启动，配置是否正确。
-
-### Q: 文件上传失败？
-1. 检查 `file-upload-path` 配置的目录是否存在
-2. 确保目录有写入权限
-
-### Q: 微信登录不生效？
-配置微信开放平台的应用凭证（AppID 和 AppKey）
-
----
-
 ## 商业合作
 
 如果您需要更强大的企业级功能，我们提供**原生微服务架构版本**，为您的业务增长提供坚实的技术底座。
@@ -355,22 +283,24 @@ public class ExampleController {
 
 ### 技术栈对比
 
-| 技术组件 | 开源版 | 微服务版 |
-| -------- | ------ | -------- |
-| **Java** | 1.8+ | 21 (LTS，支持到2031年) |
-| **基础框架** | Spring Boot 2.7 | Spring Boot 3.5.10 |
-| **微服务框架** | — | Spring Cloud 2025.0.1 |
-| **微服务生态** | — | Spring Cloud Alibaba 2025.0.0.0 |
+| 技术组件        | 开源版 | 微服务版 |
+|-------------| ------ | -------- |
+| **Java**    | 1.8+ | 21 (LTS，支持到2031年) |
+| **基础框架**    | Spring Boot 2.7 | Spring Boot 3.5.10 |
+| **微服务框架**   | — | Spring Cloud 2025.0.1 |
+| **微服务生态**   | — | Spring Cloud Alibaba 2025.0.0.0 |
 | **服务注册/配置** | — | Nacos 2.4.3 |
-| **持久层** | MyBatis 2.3 | MyBatis Plus 3.5.7 |
-| **数据库** | MySQL 8.0 | MySQL 8.0 / PostgreSQL |
-| **缓存** | Redis | Redisson 3.50.0 |
-| **安全框架** | Spring Security | Sa-Token 1.44.0 (轻量级) |
-| **熔断降级** | — | Sentinel 1.8.8 |
-| **分布式事务** | — | Seata 2.0.0 |
-| **连接池** | Druid 1.2.25 | Druid 1.2.25 |
-| **API 文档** | Swagger 3.0 | Knife4j 4.5.0 |
-| **工具库** | Hutool | Hutool 5.8.39 |
+| **链路追踪**    | — | Micrometer Tracing 
+| **持久层**     | MyBatis 2.3 | MyBatis Plus 3.5.7 |
+| **数据库**     | MySQL 8.0 | MySQL 8.0 / PostgreSQL |
+| **缓存**      | Redis | Redisson 3.50.0 |
+| **消息队列**    | RabbitMQ | Kafka 3.0.0 | 
+| **安全框架**    | Spring Security | Sa-Token 1.44.0 (轻量级) |
+| **熔断降级**    | — | Sentinel 1.8.8 |
+| **分布式事务**   | — | Seata 2.0.0 |
+| **连接池**     | Druid 1.2.25 | Druid 1.2.25 |
+| **API 文档**  | Swagger 3.0 | Knife4j 4.5.0 |
+| **工具库**     | Hutool | Hutool 5.8.39 |
 
 > 💡 **微服务版采用 2024-2025 最新技术栈，性能更强、特性更多、生命周期更长**
 
@@ -412,10 +342,10 @@ public class ExampleController {
 
 > 📞 **有意向？请联系我们获取详细的解决方案和报价**
 > 
-> 官网：www.budaos.com | 邮箱：contact@budaos.com
+> 官网：www.budaos.com | 邮箱：contact@budaos.com 
 >
 > <div align="left">
->   <img src="img_1.png" width="160" alt="商务合作微信"/>
+>   <img src="doc/img_1.png" width="160" alt="商务合作微信"/>
 > </div>
 
 ---
@@ -430,7 +360,7 @@ public class ExampleController {
 |------|------|
 | ☕ 喝杯咖啡 | 一杯咖啡，一份鼓励 |
 | 💝 任意打赏 | 量力而行，感恩有你 |
-<img src="img_2.png" width="160" alt="微信收款码"/></br>
+<img src="doc/img_2.png" width="160" alt="微信收款码"/></br>
 > 捐赠时请备注「BudaOS 开源支持」，您的名字将出现在[致谢名单](SUPPORTERS.md)中（可选）。
 
 ### 感谢每一份支持
@@ -467,7 +397,6 @@ public class ExampleController {
 
 - **官网**：https://www.budaos.com
 - **邮箱**：contact@budaos.com
-- **社区**：https://www.ossbar.com
 
 ---
 
