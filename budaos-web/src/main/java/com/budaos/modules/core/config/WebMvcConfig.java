@@ -51,6 +51,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addViewControllers(final ViewControllerRegistry registry) {
         // Swagger UI 重定向
         registry.addRedirectViewController("/swagger-ui", "/swagger-ui/index.html");
+        // 安装向导页面
+        registry.addRedirectViewController("/install", "/install.html");
         //registry.addViewController("/").setViewName("forward:/index");
     }
 
@@ -69,6 +71,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     	registry.addResourceHandler("/uploads/**")
 		.addResourceLocations("file:" + uploadLocation);
     	registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+    	// 添加 public 目录映射（用于 install.html 等静态页面）
+    	registry.addResourceHandler("/**").addResourceLocations("classpath:/public/");
     }
     /**
 	 * 添加多个拦截器

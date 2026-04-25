@@ -62,6 +62,7 @@ public class SecurityConfig {
                 // 放行静态资源
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/uploads/**").permitAll()
+                .antMatchers("/*.html").permitAll()
                 // 放行 Swagger 相关
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()

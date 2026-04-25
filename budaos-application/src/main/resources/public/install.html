@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaOS 安装向导</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ddd;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .step.active .step-number {
+            background: #667eea;
+        }
+
+        .step.completed .step-number {
+            background: #28a745;
+        }
+
+        .step-title {
+            margin-left: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .step.active .step-title {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .form-section h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .form-label {
+            width: 120px;
+            font-size: 14px;
+            color: #555;
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .form-label .required {
+            color: #dc3545;
+        }
+
+        .form-input {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .form-input input,
+        .form-input select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input input:focus,
+        .form-input select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-input input:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .message.loading {
+            background: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+            text-align: center;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .check-item:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-size: 12px;
+        }
+
+        .check-icon.success {
+            background: #d4edda;
+            color: #28a745;
+        }
+
+        .check-icon.error {
+            background: #f8d7da;
+            color: #dc3545;
+        }
+
+        .check-icon.pending {
+            background: #e9ecef;
+            color: #999;
+        }
+
+        .summary-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #666;
+        }
+
+        .summary-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .welcome-text {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .welcome-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-features {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .welcome-feature {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .welcome-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .success-page {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .success-links {
+            margin-top: 30px;
+        }
+
+        .success-link {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .success-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-link.secondary {
+            background: #fff;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BudaOS 学习平台</h1>
+            <p>企业内训与教培管理一站式解决方案</p>
+        </div>
+
+        <!-- 进度条 -->
+        <div class="progress-bar" id="progressBar">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-title">环境检测</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-title">数据库配置</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-title">Redis配置</div>
+            </div>
+            <div class="step" id="step4">
+                <div class="step-number">4</div>
+                <div class="step-title">完成安装</div>
+            </div>
+        </div>
+
+        <!-- 欢迎页 -->
+        <div class="content" id="welcomePage">
+            <div class="welcome-text">
+                <div class="welcome-icon">🚀</div>
+                <h2>欢迎使用 BudaOS 安装向导</h2>
+                <p style="color: #666; margin-top: 10px;">本向导将帮助您完成系统的安装和配置</p>
+
+                <div class="welcome-features">
+                    <div class="welcome-feature">
+                        <div class="welcome-feature-icon">📦</div>
+                        <div>
+                            <strong>一键初始化</strong>
+                            <p style="font-size: 12px; color: #999;">自动创建数据库和表结构</p>
+                        </div>
+                    </div>
+                    <div class="welcome-feature">
+                        <div class="welcome-feature-icon">🔧</div>
+                        <div>
+                            <strong>可视化配置</strong>
+                            <p style="font-size: 12px; color: #999;">图形化界面，轻松配置</p>
+                        </div>
+                    </div>
+                    <div class="welcome-feature">
+                        <div class="welcome-feature-icon">⚡</div>
+                        <div>
+                            <strong>快速启动</strong>
+                            <p style="font-size: 12px; color: #999;">配置完成后立即使用</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 环境检测页 -->
+        <div class="content hidden" id="envPage">
+            <h3 style="margin-bottom: 20px;">🔍 环境检测</h3>
+            <div id="envMessage"></div>
+            <div id="envChecks"></div>
+        </div>
+
+        <!-- 数据库配置页 -->
+        <div class="content hidden" id="dbPage">
+            <div id="dbMessage"></div>
+
+            <div class="form-section">
+                <h3>📊 数据库配置</h3>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> MySQL 地址
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="dbHost" value="localhost">
+                        <div class="form-hint">MySQL 服务器地址，默认 localhost</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> 端口
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="dbPort" value="3306">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> 用户名
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="dbUsername" value="root">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> 密码
+                    </div>
+                    <div class="form-input">
+                        <input type="password" id="dbPassword" placeholder="请输入 MySQL 密码">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> 数据库名
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="dbName" value="budaos">
+                        <div class="form-hint">系统将自动创建此数据库（如果不存在）</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-primary" id="testDbBtn" onclick="testDatabase()">
+                    🔗 测试连接
+                </button>
+            </div>
+        </div>
+
+        <!-- Redis配置页 -->
+        <div class="content hidden" id="redisPage">
+            <div id="redisMessage"></div>
+
+            <div class="form-section">
+                <h3>⚡ Redis 配置</h3>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> Redis 地址
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="redisHost" value="localhost">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> 端口
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="redisPort" value="6379">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        密码
+                    </div>
+                    <div class="form-input">
+                        <input type="password" id="redisPassword" placeholder="若无密码请留空">
+                        <div class="form-hint">Redis 认证密码，如无密码请留空</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>📁 文件存储配置</h3>
+                <div class="form-row">
+                    <div class="form-label">
+                        <span class="required">*</span> 上传路径
+                    </div>
+                    <div class="form-input">
+                        <input type="text" id="uploadPath" value="D:/uploads/">
+                        <div class="form-hint">用于存储上传文件的目录（Windows 路径）</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-primary" id="testRedisBtn" onclick="testRedis()">
+                    🔗 测试连接
+                </button>
+            </div>
+        </div>
+
+        <!-- 完成页 -->
+        <div class="content hidden" id="completePage">
+            <div class="success-page">
+                <div class="success-icon">🎉</div>
+                <div class="success-title">安装完成！</div>
+                <p style="color: #666;">恭喜您已成功完成 BudaOS 学习平台的安装</p>
+
+                <div class="summary-card" style="text-align: left; margin-top: 30px;">
+                    <h4 style="margin-bottom: 15px;">📋 安装信息</h4>
+                    <div class="summary-item">
+                        <span class="summary-label">数据库地址</span>
+                        <span class="summary-value" id="summaryDb"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Redis 地址</span>
+                        <span class="summary-value" id="summaryRedis"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">文件上传路径</span>
+                        <span class="summary-value" id="summaryUpload"></span>
+                    </div>
+                </div>
+
+                <div class="success-links">
+                    <a href="/" class="success-link">🏠 访问首页</a>
+                    <a href="/swagger-ui/index.html" class="success-link secondary">📚 API 文档</a>
+                </div>
+
+                <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 8px; text-align: left;">
+                    <strong style="color: #856404;">⚠️ 重要提示</strong>
+                    <ul style="margin-top: 10px; color: #856404; font-size: 13px; line-height: 1.8;">
+                        <li>首次登录请使用管理员账号：<code>admin</code> / <code>88888888</code></li>
+                        <li>请及时修改默认密码，确保账户安全</li>
+                        <li>如需重启应用，请重新运行 <code>install.bat</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 按钮组 -->
+        <div class="btn-group" id="btnGroup">
+            <button class="btn btn-secondary" id="prevBtn" onclick="prevStep()">上一步</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">下一步</button>
+        </div>
+    </div>
+
+    <script>
+        // 当前步骤
+        let currentStep = 0;
+        const totalSteps = 4;
+
+        // 页面元素
+        const pages = ['welcomePage', 'envPage', 'dbPage', 'redisPage', 'completePage'];
+        const stepElements = [null, 'step1', 'step2', 'step3', 'step4'];
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep(0);
+        });
+
+        function showStep(step) {
+            currentStep = step;
+
+            // 隐藏所有页面
+            pages.forEach(pageId => {
+                document.getElementById(pageId).classList.add('hidden');
+            });
+
+            // 显示当前页面
+            document.getElementById(pages[step]).classList.remove('hidden');
+
+            // 更新步骤指示器
+            for (let i = 1; i <= 4; i++) {
+                const stepEl = document.getElementById('step' + i);
+                stepEl.classList.remove('active', 'completed');
+                if (i < step) {
+                    stepEl.classList.add('completed');
+                } else if (i === step) {
+                    stepEl.classList.add('active');
+                }
+            }
+
+            // 更新按钮
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.style.display = (step === 0 || step === 4) ? 'none' : 'inline-block';
+
+            if (step === 0) {
+                nextBtn.textContent = '开始安装';
+                nextBtn.onclick = startInstall;
+            } else if (step === 4) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.textContent = '下一步';
+                nextBtn.onclick = nextStep;
+            }
+
+            // 执行页面特定逻辑
+            if (step === 1) {
+                checkEnvironment();
+            }
+        }
+
+        function startInstall() {
+            showStep(1);
+        }
+
+        async function checkEnvironment() {
+            const messageEl = document.getElementById('envMessage');
+            const checksEl = document.getElementById('envChecks');
+
+            messageEl.innerHTML = '<div class="message loading"><span class="spinner"></span>正在检测环境，请稍候...</div>';
+
+            try {
+                const response = await fetch('/api/install/status');
+                
+                // 检查 HTTP 状态码
+                if (!response.ok) {
+                    throw new Error('HTTP 错误: ' + response.status + ' ' + response.statusText);
+                }
+                
+                const result = await response.json();
+
+                // 支持 code 为 0 或 200 都表示成功
+                if (result.code === 0 || result.code === 200) {
+                    const data = result.data;
+
+                    let html = '<div class="message success">环境检测完成</div>';
+
+                    html += '<div class="check-item">' +
+                        '<div class="check-icon ' + (data.javaAvailable ? 'success' : 'error') + '">' +
+                        (data.javaAvailable ? '✓' : '✗') + '</div>' +
+                        '<div><strong>Java 环境</strong><br><small>' +
+                        (data.javaAvailable ? '已安装' : '未检测到 Java，请先安装 JDK 1.8+') + '</small></div>' +
+                        '</div>';
+
+                    html += '<div class="check-item">' +
+                        '<div class="check-icon success">✓</div>' +
+                        '<div><strong>MySQL 数据库</strong><br><small>将通过 JDBC 连接（无需命令行工具）</small></div>' +
+                        '</div>';
+
+                    html += '<div class="check-item">' +
+                        '<div class="check-icon success">✓</div>' +
+                        '<div><strong>应用运行环境</strong><br><small>已就绪</small></div>' +
+                        '</div>';
+
+                    checksEl.innerHTML = html;
+
+                } else {
+                    messageEl.innerHTML = '<div class="message error">环境检测失败: ' + (result.msg || '未知错误') + '</div>';
+                }
+            } catch (error) {
+                console.error('环境检测错误:', error);
+                const errorMsg = error.message || error.toString() || '未知错误';
+                messageEl.innerHTML = '<div class="message error">环境检测失败: ' + errorMsg + '</div>';
+            }
+        }
+
+        async function testDatabase() {
+            const btn = document.getElementById('testDbBtn');
+            const messageEl = document.getElementById('dbMessage');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>测试中...';
+
+            const params = {
+                host: document.getElementById('dbHost').value,
+                port: document.getElementById('dbPort').value,
+                username: document.getElementById('dbUsername').value,
+                password: document.getElementById('dbPassword').value
+            };
+
+            try {
+                const response = await fetch('/api/install/check/mysql', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(params)
+                });
+                const result = await response.json();
+
+                if (result.code === 0 || result.code === 200) {
+                    messageEl.innerHTML = '<div class="message success">✓ ' + result.msg + '</div>';
+                } else {
+                    messageEl.innerHTML = '<div class="message error">✗ ' + (result.msg || '未知错误') + '</div>';
+                }
+            } catch (error) {
+                messageEl.innerHTML = '<div class="message error">✗ 测试失败: ' + error.message + '</div>';
+            }
+
+            btn.disabled = false;
+            btn.textContent = '🔗 测试连接';
+        }
+
+        async function testRedis() {
+            const btn = document.getElementById('testRedisBtn');
+            const messageEl = document.getElementById('redisMessage');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>测试中...';
+
+            const params = {
+                host: document.getElementById('redisHost').value,
+                port: document.getElementById('redisPort').value,
+                password: document.getElementById('redisPassword').value
+            };
+
+            try {
+                const response = await fetch('/api/install/check/redis', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(params)
+                });
+                const result = await response.json();
+
+                if (result.code === 0 || result.code === 200) {
+                    messageEl.innerHTML = '<div class="message success">✓ ' + result.msg + '</div>';
+                } else {
+                    messageEl.innerHTML = '<div class="message error">✗ ' + (result.msg || '未知错误') + '</div>';
+                }
+            } catch (error) {
+                messageEl.innerHTML = '<div class="message error">✗ 测试失败: ' + error.message + '</div>';
+            }
+
+            btn.disabled = false;
+            btn.textContent = '🔗 测试连接';
+        }
+
+        async function nextStep() {
+            if (currentStep === 1) {
+                // 从环境检测到数据库配置，验证必要条件
+                showStep(2);
+            } else if (currentStep === 2) {
+                // 从数据库配置到 Redis 配置，先保存数据库配置
+                await initDatabase();
+                showStep(3);
+            } else if (currentStep === 3) {
+                // 从 Redis 配置到完成，保存配置并初始化
+                await saveAllConfig();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0 && currentStep < 4) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        async function initDatabase() {
+            const messageEl = document.getElementById('dbMessage');
+
+            if (!confirm('是否初始化数据库？这将创建数据库并导入表结构。\n\n注意：如果数据库已存在数据，请先备份！')) {
+                return;
+            }
+
+            messageEl.innerHTML = '<div class="message loading"><span class="spinner"></span>正在初始化数据库，请稍候...</div>';
+
+            const params = {
+                host: document.getElementById('dbHost').value,
+                port: document.getElementById('dbPort').value,
+                username: document.getElementById('dbUsername').value,
+                password: document.getElementById('dbPassword').value,
+                database: document.getElementById('dbName').value
+            };
+
+            try {
+                const response = await fetch('/api/install/init/database', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(params)
+                });
+                const result = await response.json();
+
+                if (result.code === 0 || result.code === 200) {
+                    messageEl.innerHTML = '<div class="message success">✓ 数据库初始化成功！</div>';
+                } else {
+                    messageEl.innerHTML = '<div class="message error">✗ ' + (result.msg || '未知错误') + '</div>';
+                }
+            } catch (error) {
+                messageEl.innerHTML = '<div class="message error">✗ 初始化失败: ' + error.message + '</div>';
+            }
+        }
+
+        async function saveAllConfig() {
+            const messageEl = document.getElementById('redisMessage');
+            messageEl.innerHTML = '<div class="message loading"><span class="spinner"></span>正在保存配置，请稍候...</div>';
+
+            const params = {
+                dbHost: document.getElementById('dbHost').value,
+                dbPort: document.getElementById('dbPort').value,
+                dbUsername: document.getElementById('dbUsername').value,
+                dbPassword: document.getElementById('dbPassword').value,
+                dbName: document.getElementById('dbName').value,
+                redisHost: document.getElementById('redisHost').value,
+                redisPort: document.getElementById('redisPort').value,
+                redisPassword: document.getElementById('redisPassword').value,
+                uploadPath: document.getElementById('uploadPath').value
+            };
+
+            try {
+                // 保存配置
+                const response = await fetch('/api/install/save/config', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(params)
+                });
+                const result = await response.json();
+
+                if (result.code === 0 || result.code === 200) {
+                    // 标记安装完成
+                    await fetch('/api/install/complete', {method: 'POST'});
+
+                    // 更新摘要
+                    document.getElementById('summaryDb').textContent =
+                        params.dbHost + ':' + params.dbPort + '/' + params.dbName;
+                    document.getElementById('summaryRedis').textContent =
+                        params.redisHost + ':' + params.redisPort;
+                    document.getElementById('summaryUpload').textContent = params.uploadPath;
+
+                    messageEl.innerHTML = '<div class="message success">✓ 配置保存成功！</div>';
+                    showStep(4);
+                } else {
+                    messageEl.innerHTML = '<div class="message error">✗ ' + result.msg + '</div>';
+                }
+            } catch (error) {
+                messageEl.innerHTML = '<div class="message error">✗ 保存失败: ' + error.message + '</div>';
+            }
+        }
+    </script>
+</body>
+</html>
