@@ -17,12 +17,12 @@ import java.util.Map;
  * <p>Title: ScheduleJobController.java</p>
  * <p>Description: 已迁移至 budaos-schedule-service 模块</p>
  * <p>Copyright: Copyright (c) 2019</p>
- * <p>Company: 湖南创蓝信息科技有限公司</p> 
+ * <p>Company: 湖布道师学习通</p>
  * @author huj
  * @date 2019年5月30日
  */
-// @RestController  // 已迁移至 budaos-schedule-service
-// @RequestMapping("/api/sys/job")  // 已迁移
+@RestController
+@RequestMapping("/api/sys/job")
 public class ScheduleJobController {
 
 	@Autowired

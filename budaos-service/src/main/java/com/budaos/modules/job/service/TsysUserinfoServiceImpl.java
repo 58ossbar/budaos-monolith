@@ -30,7 +30,7 @@ import java.util.*;
  * <p>Title: TsysUserinfoServiceImpl.java</p>
  * <p>Description:</p>
  * <p>Copyright: Copyright (c) 2019</p>
- * <p>Company: 湖南创蓝信息科技有限公司</p>
+ * <p>Company: 湖布道师学习通</p>
  * @author huj
  * @date 2019年5月5日
  */

@@ -54,8 +54,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+    	// 确保路径格式正确（Windows 路径兼容处理）
+    	String uploadLocation = filePath;
+    	if (!uploadLocation.endsWith("/") && !uploadLocation.endsWith("\\")) {
+    		uploadLocation = uploadLocation + "/";
+    	}
     	registry.addResourceHandler("/uploads/**")
-		.addResourceLocations("file:" + filePath);
+		.addResourceLocations("file:" + uploadLocation);
     	registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
     /**

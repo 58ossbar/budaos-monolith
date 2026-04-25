@@ -187,7 +187,7 @@ public class TsysSettingsServiceImpl implements TsysSettingsService {
 		// 登录页面logo标题
 		LOGOTITLE("logoTitle", "logoTitle", "创蓝教育实训云平台"),
 		// 公司信息
-		COMPANYINFO("companyInfo", "companyInfo", "湖南创蓝信息科技有限公司 "),
+		COMPANYINFO("companyInfo", "companyInfo", "湖布道师学习通 "),
 		// 联系信息
 		CONTACTINFO("contactInfo", "contactInfo", "0731-89913439"),
 		// 创蓝图标

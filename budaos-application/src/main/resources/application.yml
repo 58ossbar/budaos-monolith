@@ -67,6 +67,11 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+  # 静态资源映射
+  web:
+    resources:
+      static-locations: file:D:/uploads/,classpath:/static/
+
   # jackson配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -108,9 +113,9 @@ logging:
 # 应用配置
 com.budaos:
   # 文件上传路径
-  file-upload-path: /mnt/budaos/uploads
+  file-upload-path: D:/uploads/
   # 文件访问路径
-  file-access-path: /uploads
+  file-access-path: /uploads/
   # 允许跨域
   is-cors: true
   cors-url: "*"

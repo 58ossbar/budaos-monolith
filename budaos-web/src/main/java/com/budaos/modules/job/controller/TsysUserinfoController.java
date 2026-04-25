@@ -38,7 +38,7 @@ import java.util.Set;
  * Copyright: Copyright (c) 2019
  * </p>
  * <p>
- * Company: 湖南创蓝信息科技有限公司
+ * Company: 湖布道师学习通
  * </p>
  * 
  * @author huj

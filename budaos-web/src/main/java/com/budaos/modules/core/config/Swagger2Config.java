@@ -65,7 +65,7 @@ public class Swagger2Config {
 	@SuppressWarnings("deprecation")
 	private ApiInfo innerApiInfo() {
 		return new ApiInfoBuilder().title("创蓝基础平台").description("内部API：http://www.budaos.com")
-				.termsOfServiceUrl("http://www.budaos.com").contact(new Contact("湖南创蓝信息科技有限公司", "http://www.budaos.com", ""))
+				.termsOfServiceUrl("http://www.budaos.com").contact(new Contact("湖布道师学习通", "http://www.budaos.com", ""))
 				.version("1.0").build();
 	}
 
@@ -73,7 +73,7 @@ public class Swagger2Config {
 	private ApiInfo openApiInfo() {
 		return new ApiInfoBuilder().title("创蓝基础平台")// 大标题
 				.description("创蓝提供的OpenAPI")// 详细描述
-				.termsOfServiceUrl("http://www.budaos.com").contact(new Contact("湖南创蓝信息科技有限公司", "http://www.budaos.com", ""))
+				.termsOfServiceUrl("http://www.budaos.com").contact(new Contact("湖布道师学习通", "http://www.budaos.com", ""))
 				.version("1.0").build();
 	}
 
