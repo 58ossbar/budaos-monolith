@@ -224,9 +224,9 @@ java -jar budaos-application/target/budaos-monolith.jar --spring.profiles.active
 
 ## 默认账号（体验环境搭建中）
 
-| 角色 | 账号 | 密码 |
-|------|------|------|
-| 管理员 | admin | 888888 |
+| 角色 | 账号 | 密码      |
+|------|------|---------|
+| 管理员 | admin | 88888888 |
 
 > ⚠️ **注意**：首次使用请及时修改默认密码
 
