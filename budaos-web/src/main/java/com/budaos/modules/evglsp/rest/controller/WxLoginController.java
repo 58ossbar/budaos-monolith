@@ -14,7 +14,6 @@ import com.budaos.modules.evgl.trainee.api.TevglTraineeInfoService;
 import com.budaos.modules.evgl.trainee.domain.TevglTraineeInfo;
 import com.budaos.modules.im.domain.TimUserinfo;
 import com.budaos.modules.im.service.TimUserinfoService;
-import com.budaos.sms.service.AliyunSmsService;
 import com.budaos.utils.tool.DateUtils;
 import com.budaos.utils.tool.HttpUtils;
 import com.budaos.utils.tool.StrUtils;
@@ -70,9 +69,7 @@ public class WxLoginController {
 	@Value("${com.budaos.templateCode:}")
 	private String templateCode;
 	
-	@Autowired
-	private AliyunSmsService smsService;
-	
+
 	@Autowired
 	private Producer producer;
 	@Autowired
@@ -254,10 +251,10 @@ public class WxLoginController {
 		log.debug("accessKeySecret：" + accessKeySecret);
 		log.debug("signName:" + signName);
 		*/
- 	    boolean flag = smsService.sendSms(mobile, templateCode, "{\"code\":\""+randCode+"\"}", accessKeyId, accessKeySecret, signName);
-	   	if (!flag) {
-			return R.error(-1, "发送失败");
-		}
+// 	    boolean flag = smsService.sendSms(mobile, templateCode, "{\"code\":\""+randCode+"\"}", accessKeyId, accessKeySecret, signName);
+//	   	if (!flag) {
+//			return R.error(-1, "发送失败");
+//		}
  	    te.setSmsCode(randCode);
 	   	te.setMobile(mobile);
 	   	tmeduApiTokenService.updateByOpenid(te);
@@ -405,10 +402,10 @@ public class WxLoginController {
 		// 生成6位随机码
  	    String randCode = Integer.toString(new Random().nextInt(900000) + 100000);
  	    // 需要先在阿里去上创建短信模版，再组织模版参数 
- 	    boolean flag = smsService.sendSms(mobile, templateCode, "{\"code\":\""+randCode+"\"}", accessKeyId, accessKeySecret, signName);
-	   	if (!flag) {
-			return R.error(-1, "验证码发送失败");
-		}
+// 	    boolean flag = smsService.sendSms(mobile, templateCode, "{\"code\":\""+randCode+"\"}", accessKeyId, accessKeySecret, signName);
+//	   	if (!flag) {
+//			return R.error(-1, "验证码发送失败");
+//		}
 	   	te.setSmsCode(mobile + "_" + randCode);
 	   	tmeduApiTokenService.updateByOpenid(te);
 	   	r = R.ok();
