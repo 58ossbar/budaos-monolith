@@ -11,7 +11,7 @@
  Target Server Version : 80045 (8.0.45)
  File Encoding         : 65001
 
- Date: 25/04/2026 19:03:42
+ Date: 07/05/2026 17:53:42
 */
 
 SET NAMES utf8mb4;
@@ -3184,6 +3184,7 @@ CREATE TABLE `t_evgl_tch_teacher`  (
 -- ----------------------------
 INSERT INTO `t_evgl_tch_teacher` VALUES ('2e781531b08c43f7832b9fb1214b3c35', '845786f2bfbf46398e3b495f6c7014bc', '刘老师', '', '35507a20-c3b2-40bf-820d-07ffde5f9173.jpeg', '👨‍🏫 人工智能高级讲师——刘老师\n\n8年开发经验，4年AI教学经验\n\n曾担任大型企业AI训练营主讲，擅长零基础学员快速入门\n\n主讲：Python编程、机器学习基础、数据分析、大模型提示词工程\n\n教学风格生动细致，课堂案例贴近实际工作场景\n\n累计辅导200+学员完成AI项目并顺利就业\n\n📌 刘老师寄语：\n\n“AI不需要天才，只需要正确的方法和持续的练习。”', '', '', '18229962587', '2e781531b08c43f7832b9fb1214b3c35', 'cb154a2e2aed412cad8c1ce2fe5681f4', 'N', '1', '2026-04-25 12:12:19', NULL, '2026-04-25 12:12:19', 'Y', NULL, '10865', '18229962587', '18229962587', '0');
 INSERT INTO `t_evgl_tch_teacher` VALUES ('845786f2bfbf46398e3b495f6c7014bc', '845786f2bfbf46398e3b495f6c7014bc', '张老师', '', '97eff365-1dd9-4995-b4c6-270a27451480.png', '👨‍🏫 人工智能高级讲师——张老师\n\n10年开发经验，5年AI领域实战教学\n\n曾任一线互联网公司AI研发岗，参与大模型、计算机视觉等项目落地\n\n主讲：大模型/AIGC、Python+AI、计算机视觉、模型部署\n\n擅长企业真实项目驱动，手把手带写代码、调模型\n\n已帮助多名学员成功入职AI算法与大模型开发岗位\n\n📌 张老师寄语：\n\n“学会调模型、写代码、上线项目，才能真就业。”', '', '', '18229923839', '', 'cb154a2e2aed412cad8c1ce2fe5681f4', 'N', '1', '2026-04-25 12:08:09', NULL, '2026-04-25 12:08:09', 'Y', 1, '10865', '18229923839', '18229923839', '0');
+INSERT INTO `t_evgl_tch_teacher` VALUES ('e4956a0c5e7449aeb8bb2ca5cd862c4b', '845786f2bfbf46398e3b495f6c7014bc', '朱老师', 'e1c262a5b17b4ec698ca18e16646b53f', '809c955ab0b94ffaa0e9748942fd78e9.jpeg', '丰富的行业经验、软件研发和项目管理经验，多次受邀到高校进行实操性强的授课培训。授课时注重对技术底层原理的剖析和理解；风趣幽默的讲课风格让你收获的不止是技能。深入浅出，条理清楚，层层剖析，环环相扣，用思维的逻辑力量吸引学生的注意力，用理智控制教学进程。', '<p>项目经验：16年大型软件企业软件开发和项目管理经验，先后就职于广东电信、南天股份、荣晖集团、湖南科创等多家上市公司。曾参与广东电信客户响应系统、南天大亚湾核岛施工系统、湖南省政府门户项目、金融征信等软件项目建设。</p>', NULL, '18229923839', 'e4956a0c5e7449aeb8bb2ca5cd862c4b', 'd9fbce2fba844ae6b34f69ce2278f191,1cd2c3ccaf814e04a2792da827ca91ed,80aa274044704360901836e9c7dda760,83bc5ba73b5a4df793b2a0d1e3878da3,4de2954d7e18476fbefe6d4d5f5d4903,1c5e7a77b9c94f1688b81e2f9739b6f2', 'N', 'e4956a0c5e7449aeb8bb2ca5cd862c4b', '2020-07-25 15:39:22', '1', '2022-03-11 16:50:52', 'Y', 1, 'fd5f006eacee4aafab29248649af2a92', '20033710730000013', '20200901', '1');
 
 -- ----------------------------
 -- Table structure for t_evgl_trainee_empirical_value_log
@@ -3263,6 +3264,8 @@ CREATE TABLE `t_evgl_trainee_info`  (
 -- ----------------------------
 -- Records of t_evgl_trainee_info
 -- ----------------------------
+INSERT INTO `t_evgl_trainee_info` VALUES ('275b2829a6f54ca486c1a8d1e15767ea', '黄同学', '黄同学', '0', NULL, NULL, '18229923833', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '18229923833@mail.com', 'fbfcb66251a655937b23ae9c8314adec', '0GZg13vizbDSyTLR2v7UGGxx', '3778a0d3d5ce40aa8264323da0ed9c46', NULL, NULL, NULL, NULL, NULL, '2026-05-07 17:35:54', '275b2829a6f54ca486c1a8d1e15767ea', '2026-05-07 17:36:03', '1', NULL, NULL, NULL, '122222222', NULL, NULL, NULL, NULL);
+INSERT INTO `t_evgl_trainee_info` VALUES ('e4956a0c5e7449aeb8bb2ca5cd862c4b', '朱老师', '宁静致远', '1', NULL, NULL, '18229923839', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '7731021d-8cb5-4237-a571-4e325812edcb.jpg', 'http://thirdqq.qlogo.cn/g?b=oidb&k=ZU5oIOelMdtbc80n7l2BNw&s=40&t=1483284138', NULL, NULL, '28449472@qq.com', '642ec6ba76243ee59c870e4c3fcfb801', 'SLHdY5Ofbnq8zGiG5PG3VQL0', '62827085ec114307aa256cdc0e23d0dc', 'orwce5KBVr2Ky7OzL2Ah2UE-dK0A', 'otJlJwUAR6fm26CPh1PbMe_4_gXc', '62A099430821F4A737A28519EFDF1497', NULL, NULL, '2025-08-19 09:34:19', 'e4956a0c5e7449aeb8bb2ca5cd862c4b', '2025-08-19 09:34:19', '4', 0, 28, 96, '20200901', 12, 33, '65587ccfe62246b38a88973c151edf39.png', '写代码、聊产品、懂设计、工具控。 热爱阅读和分享');
 
 -- ----------------------------
 -- Table structure for t_evgl_trainee_social
