@@ -12,8 +12,6 @@ import com.budaos.modules.evgl.trainee.domain.TevglTraineeInfo;
 import com.budaos.modules.evgl.trainee.domain.TevglTraineeSocial;
 import com.budaos.modules.im.domain.TimUserinfo;
 import com.budaos.modules.im.service.TimUserinfoService;
-import com.budaos.sms.service.AliyunSmsService;
-import com.budaos.sms.service.TencentSmsService;
 import com.budaos.utils.constants.Constant;
 import com.budaos.utils.tool.*;
 import com.google.code.kaptcha.Constants;
@@ -39,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * <p> Title: </p>
@@ -80,10 +78,6 @@ public class ThirdLoginController {
 	@Value("${com.budaos.gitTicket}")
 	public String gitTicket;
     @Autowired
-	private AliyunSmsService smsService;
-	@Autowired
-	private TencentSmsService tencentSmsService;
-	@Autowired
 	private TevglTraineeInfoService tevglTraineeInfoService;
     @Autowired
 	private TevglTraineeSocialService tevglTraineeSocialService;
@@ -94,8 +88,6 @@ public class ThirdLoginController {
     
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    @Value("${spring.profiles.active:}")
-    private String active;
     
 	@RequestMapping("login")
 	public R login(HttpServletRequest request, HttpServletResponse response, String inputAccountLogin, String inputPasswordLogin, String inputYzcodeLogin) {
@@ -226,6 +218,11 @@ public class ThirdLoginController {
 	
 	@RequestMapping("qqlogin")
 	public void qqLogin(HttpServletRequest request, HttpServletResponse response, String url) throws IOException {
+		if(StrUtils.isEmpty(qqAppId)) {
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write("<script>alert('QQ登录暂未配置，请联系管理员');window.location.href='" + url + "';</script>");
+			return;
+		}
 		String state = Identities.uuid();
 		request.getSession().setAttribute("qqlogin_state", state);
 		response.sendRedirect("https://graph.qq.com/oauth2.0/authorize?client_id="+qqAppId+"&response_type=code&scope=all&state="+state+"&redirect_uri="+loginBackUrl+"/login-api/qqloginback?url=" + URLEncoder.encode(URLEncoder.encode(url, "UTF-8"), "UTF-8"));
@@ -238,6 +235,11 @@ public class ThirdLoginController {
 	}
 	@RequestMapping("wxlogin")
 	public void wxLogin(HttpServletRequest request, HttpServletResponse response, String url) throws IOException {
+		if(StrUtils.isEmpty(wxAppId)) {
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write("<script>alert('微信登录暂未配置，请联系管理员');window.location.href='" + url + "';</script>");
+			return;
+		}
 		String state = Identities.uuid();
 		request.getSession().setAttribute("wxlogin_state", state);
 		response.sendRedirect("https://open.weixin.qq.com/connect/qrconnect?appid="+wxAppId+"&redirect_uri="+URLEncoder.encode(""+loginBackUrl+"/login-api/wxloginback?url="+URLEncoder.encode(url, "UTF-8"), "UTF-8")+"&response_type=code&scope=snsapi_login&state="+state+"#wechat_redirect");
@@ -570,149 +572,46 @@ public class ThirdLoginController {
 		return R.ok();
 	}
 	
-	@RequestMapping("sendloginsms")
-	public R sendLoginSms(HttpServletRequest request, String inputAccountBind, String inputYzcodeBind, String inputMescodeBind) {
+
+	@RequestMapping("register")
+	@Transactional
+	public R register(HttpServletRequest request, String inputAccountReg, String inputPasswordReg, String inputYzcodeReg, String inputNickName) {
 		HttpSession session = request.getSession();
-		//Object yzCode = session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		//如果验证码正确
-		//if(inputYzcodeBind != null && yzCode != null && inputYzcodeBind.equals(yzCode)) {
-		 	String randCode = Integer.toString(new Random().nextInt(900000) + 100000);
-			if(!smsService.sendSms(inputAccountBind, "SMS_126781251", "{\"code\":\""+randCode+"\"}")) {
-				return R.error(202, "短信发送失败!");
-			}
-			session.setAttribute("loginMobile_"+inputAccountBind, randCode);
-		//}else {
-		//	return R.error(201, "验证码错误!");
-		//}
-		return R.ok();
-	}
-	
-	@RequestMapping("sendbindsms")
-	public R sendBindSms(HttpServletRequest request, String inputAccountBind, String inputYzcodeBind, String inputMescodeBind) {
-		/*HttpSession session = request.getSession();
+		// 验证图形验证码
 		Object yzCode = session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		boolean flag = inputYzcodeBind != null && yzCode != null && inputYzcodeBind.equals(yzCode);
-		if (!flag) {
-			return R.error(201, "验证码错误!");
-		}*/
-		if (StrUtils.isEmpty(inputAccountBind)) {
-			return R.error("手机号码不能为空");
+		session.removeAttribute(Constants.KAPTCHA_SESSION_KEY);
+		if(inputYzcodeReg == null || yzCode == null || !inputYzcodeReg.equalsIgnoreCase(yzCode.toString())) {
+			return R.error(203, "图形验证码错误!");
 		}
-		String text = stringRedisTemplate.opsForValue().get(EvglGlobal.CODE_BIND + inputAccountBind);
-		if (StrUtils.isNotEmpty(text)) {
-			return R.error("短信验证码已发送，请注意查收！");
-		}
-		//如果验证码正确
-	 	String randCode = Integer.toString(new Random().nextInt(900000) + 100000);
-	 	boolean devTest = StrUtils.isNotEmpty(active) && (active.indexOf("dev") != -1 || active.indexOf("test") != -1);
-	 	if (!devTest) {
-			if(!smsService.sendSms(inputAccountBind, "SMS_126781251", "{\"code\":\""+randCode+"\"}")) {
-				return R.error(202, "短信发送失败!");
-			}
-	 	}
-	 	// 验证码存到redis中(5分钟失效)
-        stringRedisTemplate.opsForValue().set(EvglGlobal.CODE_BIND + inputAccountBind, randCode, 5 * 60 * 1000, TimeUnit.MILLISECONDS);
-		//session.setAttribute("bindMobile_"+inputAccountBind, randCode);
-		return R.ok();
-	}
-	@RequestMapping("sendregsms")
-	public R sendRegSms(HttpServletRequest request, String inputAccountReg, String inputPasswordReg, String inputYzcodeReg, String inputMescodeReg) {
-		/*HttpSession session = request.getSession();
-		Object yzCode = session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		boolean flag = inputYzcodeReg != null && yzCode != null && inputYzcodeReg.equals(yzCode);
-		if (!flag) {
-			return R.error(201, "验证码错误!");
-		}*/
-		if (StrUtils.isEmpty(inputAccountReg)) {
-			return R.error("手机号码不能为空");
-		}
-		//如果验证码正确
+		// 检查手机号是否已注册
 		TevglTraineeInfo user = tevglTraineeInfoService.selectByMobile(inputAccountReg);
 		if(user != null && StrUtils.isNotEmpty(user.getUserPasswd())) {
 			return R.error(202, "该手机号码已注册!");
 		}
-		// 
-		String text = stringRedisTemplate.opsForValue().get(EvglGlobal.CODE_REGISTER + inputAccountReg);
-		if (StrUtils.isNotEmpty(text)) {
-			return R.error("短信验证码已发送，请注意查收！");
-		}
-	 	String randCode = Integer.toString(new Random().nextInt(900000) + 100000);
-	 	boolean devTest = StrUtils.isNotEmpty(active) && (active.indexOf("dev") != -1 || active.indexOf("test") != -1);
-	 	if (!devTest) {
-	 		if(!smsService.sendSms(inputAccountReg, "SMS_126781251", "{\"code\":\""+randCode+"\"}")) {
-				return R.error(202, "短信发送失败!");
+		// 如果是先在小程序登录注册过了，再来网站这边注册，原来数据库就会存在两条同手机号码的记录，导致登录接口差错两个记录报错，所以额外判断下
+		if (user == null) {
+			TevglTraineeInfo info = new TevglTraineeInfo();
+			info.setMobile(inputAccountReg);
+			if(StrUtils.isNotEmpty(inputPasswordReg)) {
+				String salt = RandomStringUtils.randomAlphanumeric(24);
+				info.setUserPasswd(TicketDesUtil.encryptWithMd5(inputPasswordReg, salt));
+				info.setUserYan(salt);
 			}
-	 	}
-		// 验证码存到redis中(5分钟失效)
-		stringRedisTemplate.opsForValue().set(EvglGlobal.CODE_REGISTER + inputAccountReg, randCode, 5 * 60 * 1000, TimeUnit.MILLISECONDS);
-		//session.setAttribute("regMobile_"+inputAccountReg, randCode);
-		return R.ok(devTest ? randCode : null);
-	}
-	@RequestMapping("sendforgetsms")
-	public R sendForgetSms(HttpServletRequest request, String inputAccountForget, String inputPasswordForget, String inputYzcodeForget, String inputMescodeForget) {
-		HttpSession session = request.getSession();
-		//Object yzCode = session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		//如果验证码正确
-		//if(inputYzcodeForget != null && yzCode != null && inputYzcodeForget.equals(yzCode)) {
-			TevglTraineeInfo user = tevglTraineeInfoService.selectByMobile(inputAccountForget);
-			if(user == null) {
-				return R.error(202, "该手机号码不存在!");
+			info.setNickName(StrUtils.isEmpty(inputNickName) ? defaultName : inputNickName);
+			info.setTraineeHead(defaultHeadImg);
+			info.setTraineeType("1");
+			tevglTraineeInfoService.save(info);
+			tevglTraineeInfoService.doAfterBindMobile(info);
+		} else {
+			if(StrUtils.isNotEmpty(inputPasswordReg)) {
+				String salt = RandomStringUtils.randomAlphanumeric(24);
+				user.setUserPasswd(TicketDesUtil.encryptWithMd5(inputPasswordReg, salt));
+				user.setUserYan(salt);
 			}
-		 	String randCode = Integer.toString(new Random().nextInt(900000) + 100000);
-			if(!smsService.sendSms(inputAccountForget, "SMS_126781251", "{\"code\":\""+randCode+"\"}")) {
-				return R.error(202, "短信发送失败!");
-			}
-			session.setAttribute("forgetMobile_"+inputAccountForget, randCode);
-		//}else {
-		//	return R.error(201, "验证码错误!");
-		//}
-		return R.ok();
-	}
-	@RequestMapping("register")
-	@Transactional
-	public R register(HttpServletRequest request, String inputAccountReg, String inputPasswordReg, String inputYzcodeReg, String inputMescodeReg, String inputNickName) {
-		/*HttpSession session = request.getSession();
-		Object smsCode = session.getAttribute("regMobile_"+inputAccountReg);
-		session.removeAttribute("regMobile_"+inputAccountReg);
-		Object yzCode = session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		session.removeAttribute(Constants.KAPTCHA_SESSION_KEY);
-		if(inputYzcodeReg == null || yzCode == null || !inputYzcodeReg.equals(yzCode)) {
-			//return R.error(203, "图形验证码错误!");
-		}*/
-		String smsCode = stringRedisTemplate.opsForValue().get(EvglGlobal.CODE_REGISTER + inputAccountReg);
-		//如果短信验证码正确
-		if(inputMescodeReg != null && smsCode != null && inputMescodeReg.equals(smsCode)) {
-			TevglTraineeInfo user = tevglTraineeInfoService.selectByMobile(inputAccountReg);
-			if(user != null && StrUtils.isNotEmpty(user.getUserPasswd())) {
-				return R.error(202, "该手机号码已注册!");
-			}
-			// 如果是先在小程序登录注册过了，再来网站这边注册，原来数据库就会存在两条同手机号码的记录，导致登录接口差错两个记录报错，所以额外判断下
-			if (user == null) {
-				TevglTraineeInfo info = new TevglTraineeInfo();
-				info.setMobile(inputAccountReg);
-				if(StrUtils.isNotEmpty(inputPasswordReg)) {
-					String salt = RandomStringUtils.randomAlphanumeric(24);
-					info.setUserPasswd(TicketDesUtil.encryptWithMd5(inputPasswordReg, salt));
-					info.setUserYan(salt);
-				}
-				info.setNickName(StrUtils.isEmpty(inputNickName) ? defaultName : inputNickName);
-				info.setTraineeHead(defaultHeadImg);
-				info.setTraineeType("1");
-				tevglTraineeInfoService.save(info);
-				tevglTraineeInfoService.doAfterBindMobile(info);	
-			} else {
-				if(StrUtils.isNotEmpty(inputPasswordReg)) {
-					String salt = RandomStringUtils.randomAlphanumeric(24);
-					user.setUserPasswd(TicketDesUtil.encryptWithMd5(inputPasswordReg, salt));
-					user.setUserYan(salt);
-				}
-				user.setNickName(StrUtils.isEmpty(inputNickName) ? user.getNickName() : inputNickName);
-				user.setTraineeType("1");
-				tevglTraineeInfoService.update(user);
-				tevglTraineeInfoService.doAfterBindMobile(user);
-			}
-		}else {
-			return R.error(201, "短信验证码错误!");
+			user.setNickName(StrUtils.isEmpty(inputNickName) ? user.getNickName() : inputNickName);
+			user.setTraineeType("1");
+			tevglTraineeInfoService.update(user);
+			tevglTraineeInfoService.doAfterBindMobile(user);
 		}
 		return R.ok();
 	}
